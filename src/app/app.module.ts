@@ -4,20 +4,30 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FlexLayoutModule} from '@angular/flex-layout';
 import { JiraComponent } from './components/jira/jira.component';
+import { HeaderComponent } from './components/header/header.component';
+import { MatSidenavModule} from '@angular/material/sidenav';
+import { MatListModule} from "@angular/material/list";
+import { AlertComponent } from './components/sidenavbar/alert/alert.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
-    JiraComponent
+    JiraComponent,
+    HeaderComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FlexLayoutModule,
     MatIconModule,
-    DragDropModule
+    MatSidenavModule,
+    DragDropModule,
+    MatListModule,
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

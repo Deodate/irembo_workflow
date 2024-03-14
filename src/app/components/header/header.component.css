@@ -1,0 +1,66 @@
+nav{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    grid-column-gap: 30px;
+    grid-template-rows: 70px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.15);
+    top: 0;
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+menu{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    grid-column-gap: 30px;
+    grid-template-rows: 70px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.15);
+    top: 0;
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+menu .brand{
+    font-size: 25px;
+    font-weight: bold;
+    color: #245990;
+}
+nav .brand{
+    font-size: 28px;
+    font-weight: bold;
+    color: #98a0b0;
+}
+
+menu a{
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 10px;
+    transition: background-color 0.3s, color 0.3s;
+    color: #98a0b0;
+    font-size: 10px;
+}
+nav a{
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 10px;
+    transition: background-color 0.3s, color 0.3s;
+    color: #44556f;
+    font-size: 12px;
+}
+
+menu a:hover,
+menu a.active{
+    background: #c9cdcb;
+    color: #fff;
+    border-radius: 1px;
+}
+nav a:hover,
+nav a.active{
+    background: #d9dce1;
+    color: #44556f;
+    border-radius: 1px;
+}
