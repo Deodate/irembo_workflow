@@ -1,0 +1,9 @@
+<div class="state-machine">
+    <app-state *ngFor="let item of workflow.states"  [config]="item" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"></app-state>
+
+    <app-transition-new *ngFor="let item of workflow.transitions"  [config]="item" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"></app-transition-new>
+</div>
+
+<div>
+    <button (click)="createLineForTransitions()">Worflow draw</button> 
+</div>

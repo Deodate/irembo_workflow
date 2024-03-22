@@ -1,7 +1,16 @@
+svg line:hover, path:hover {
+  stroke: black;
+  cursor: nw-resize;
+}
+
+svg path:hover {
+  stroke: black;
+  cursor: nw-resize;
+}
 .start_state {
-    width: 46px;
-    height: 40px;
-    border: solid 1px #ccc;
+    width: 32px;
+    height: 30px;
+    border: solid 1px #44556f;
     color: rgba(0, 0, 0, 0.87);
     cursor: move;
     display: flex;
@@ -27,7 +36,7 @@
   .todo_state {
     width: 95px;
     height: 25px;
-    border: solid 1px #ccc;
+    border: solid 1px #7d8792;
     color: rgba(0, 0, 0, 0.87);
     cursor: move;
     display: flex;
@@ -53,7 +62,7 @@
   .in_progress_state {
     width: 110px;
     height: 25px;
-    border: solid 1px #ccc;
+    border: solid 1px #4c96ff;
     color: rgba(0, 0, 0, 0.87);
     cursor: move;
     display: flex;
@@ -79,7 +88,7 @@
   .done_state {
     width: 95px;
     height: 25px;
-    border: solid 1px #ccc;
+    border: solid 1px #2aba80;
     color: rgba(0, 0, 0, 0.87);
     cursor: move;
     display: flex;
@@ -95,13 +104,91 @@
                 0 2px 2px 0 rgba(0, 0, 0, 0.14),
                 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   }
+
+  .done_state #done{
+       text-decoration: none;
+  }
+
+  /* Bullet Start By here */
+.done_state #done::before{
+    content: '';
+    position: absolute;
+    cursor: move;
+    inset: 2px;
+    background-color: #dcfff1;
+}
+
+.done_state #done h6{
+  position: relative;
+  z-index: 1;
+}
+
+.done_state #done i{
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.in_progress_state #done i::before {
+  content: '';
+  position: absolute;
+  border: 2px solid #0c66e4;
+  border-radius: 50%;
+  margin-top: 8px;
+  margin-left: -52px;
+  cursor: crosshair;
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  visibility: hidden; 
+}
+
+.in_progress_state.active #done i::before {
+  visibility: visible; 
+}
+
+.done_state #done i::after {
+  content: '';
+  position: absolute;
+  border: 2px solid #e40c0c;
+  border-radius: 50%;
+  bottom: -4px;
+  cursor: crosshair;
+  left: 70%;
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  visibility: hidden; 
+  }
+
+.done_state #done i::after {
+content: '';
+position: absolute;
+border: 2px solid #0c66e4;
+border-radius: 50%;
+bottom: 8px;
+margin-left: 25px;
+cursor: crosshair;
+width: 8px;
+height: 8px;
+background-color: #fff;
+visibility: hidden; 
+}
+
+.done_state.active #done i::after {
+visibility: visible; 
+} 
+.done_state.active .done i::after {
+  visibility: visible; 
+} 
+
+/* Bullet End By here */
   
-  .done_state:active {
+.done_state:active {
     box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
                 0 8px 10px 1px rgba(0, 0, 0, 0.14),
                 0 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
-
   .create_state {
     width: 52px;
     height: 22px;
@@ -182,7 +269,7 @@
     transform: rotateZ(-45deg);
   }
 
-  arrow_top,
+  .arrow_top,
 .arrow_bottom {
   position: absolute;
   width: 30px;
@@ -252,10 +339,35 @@
 }
 
 .arrow.left {
-  left: calc(50% - 20px); /* Adjust the position as needed */
+  left: calc(50% - 20px); 
 }
 
 .arrow.right {
-  right: calc(50% - 20px); /* Adjust the position as needed */
+  right: calc(50% - 20px); 
 }
+
+#graphContainer {
+  width: 800px;
+  height: 600px;
+  background-color: rgb(242, 233, 233); 
+  position: relative; 
+}
+
+.node {
+  width: 50px; 
+  height: 50px; 
+  background-color: rgb(7, 6, 6);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif; 
+}
+
+.edge {
+  stroke: rgb(186, 59, 59); 
+  stroke-width: 2px; 
+}
+
+
 

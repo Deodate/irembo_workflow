@@ -1,49 +1,124 @@
 <app-header></app-header>
-
 <div class="container mt-5">
-
-    <div class="start_state" cdkDrag>
-        <p style="color: white; margin-top: 11px; text-transform: uppercase; font-size: 10px; font-family: 'Times New Roman', Times, serif;"><b>start</b></p>
+  <div class="drag-container" cdkDrag [cdkDragFreeDragPosition]="dragPositionStart">
+    <div class="start_state">
+      <p style="color: white; margin-top: 11px; text-transform: uppercase; font-size: 7px; font-family: 'Times New Roman', Times, serif;">
+        <b>start</b>
+      </p>
+      <svg width="150px" height="140px" viewBox="0 0 150 140" fill="none" style="position: absolute; margin-top: -4px; margin-left: 15px; top: calc(100% + 5px); left: 0;">
+        <line x1="0" y1="0" x2="0" y2="20" stroke="#BAC2CF" stroke-width="1" />
+        <line x1="0" y1="20" x2="87" y2="20" stroke="#BAC2CF" stroke-width="1" />
+      </svg>
+  
+      <div class="create_state"  style="position: absolute; top: 100%; margin-left: 70px; margin-top: 10px;">
+        <h6 style="color: #000; font-size: 11px; margin-top: 5px; font-family: 'Times New Roman', Times, serif;">
+          Create
+        </h6>
+      </div>
+  
+      <div class="background-line"></div>
+    </div>
+  
+    <div class="container" style="margin-left: 90px; margin-top: -34px;">
+      <div class="todo_state" style="margin-top: 40px;">
+        <h6 style="color: #000; font-size: 11px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">TO DO
+        </h6>
       </div>
 
-      <div class="create_state" cdkDrag>
-       <h6 style="color: #000; font-size: 11px; margin-top: 5px; font-family: 'Times New Roman', Times, serif;">Create</h6>
-      </div>
-
-      <div class="todo_state" cdkDrag>
-        <h6 style="color: #000; font-size: 11px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">TO DO</h6>
-      </div>
-
-      <div class="anyStatus_state" cdkDrag>
-        <h6 style="color: #fff; font-size: 11px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">ANY STATUS</h6>
-      </div>
-
-      <div class="container">
-        <div class="in_progress_state" cdkDrag>
-          <h6 style="color: #000; font-size: 11px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">IN PROGRESS</h6>
-        </div>
-      
-        <div class="arrow"></div>
-      
-        <div class="anyStatus_state" cdkDrag>
-          <h6 style="color: #FFF; font-size: 11px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">ANY STATUS</h6>
-        </div>
-      </div>
+      <svg width="350px" height="140px" viewBox="0 0 350 140" fill="none" style="position: absolute; margin-top: -124px; margin-left: 29px; top: calc(100% + 5px); left: 0;">
     
-      <div class="container" cdkDrag>
-        <div class="done_state">
-          <h6 style="color: #000; font-size: 11px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">DONE</h6>
-        </div>
-        
-        <div class="arrow">
-          <mat-icon style="color: black;">arrow_upward</mat-icon>
-        </div>
-        
-        <div class="anyStatus_state">
-          <h6 style="color: #fff; font-size: 11px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">ANY STATUS</h6>
-        </div>
-      </div>
+        <line x1="0" y1="20" x2="200" y2="20" stroke="#BAC2CF" stroke-width="1" />
+      
+        <line x1="200" y1="20" x2="193" y2="15" stroke="#BAC2CF" stroke-width="1" />
+        <line x1="200" y1="20" x2="193" y2="25" stroke="#BAC2CF" stroke-width="1" />
+      </svg>
 
+      <div class="create_state" style="position: absolute; top: 100%; margin-left: 120px; margin-top: -110px;">
+        <h6 style="color: #000; font-size: 9px; margin-top: 6px; font-family: 'Times New Roman', Times, serif;">
+          Workflow
+        </h6>
+      </div>
+      
+    
+      <svg width="60px" height="70px" viewBox="0 0 60 100" style="margin-left: 20px;">
+       
+        <line x1="30" y1="100" x2="30" y2="0" stroke="#BAC2CF" stroke-width="1" />
+     
+        <line x1="25" y1="10" x2="30" y2="0" stroke="#BAC2CF" stroke-width="1" />
+        <line x1="35" y1="10" x2="30" y2="0" stroke="#BAC2CF" stroke-width="1" />
+      </svg>
+  
+      <div class="anyStatus_state" style="margin-left: 5px;">
+        <h6 style="color: #fff; font-size: 10px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">ANY
+          STATUS</h6>
+      </div>
+    </div>
+  </div>
+
+  <!-- End of To Do and start In Progress-->
+
+  <div class="container" cdkDrag [cdkDragFreeDragPosition]="dragPositionInProgress">
+    <div class="in_progress_state">
+      <h6 style="color: #000; font-size: 11px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">IN PROGRESS
+      </h6>
+    </div>
+
+
+    <svg width="350px" height="140px" viewBox="0 0 350 140" fill="none" style="position: absolute; margin-top: -124px; margin-left: 55px; top: calc(100% + 5px); left: 0;">
+    
+      <line x1="0" y1="20" x2="200" y2="20" stroke="#BAC2CF" stroke-width="1" />
+    
+      <line x1="200" y1="20" x2="193" y2="15" stroke="#BAC2CF" stroke-width="1" />
+      <line x1="200" y1="20" x2="193" y2="25" stroke="#BAC2CF" stroke-width="1" />
+    </svg>
+    
+    <div class="create_state" style="position: absolute; top: 100%; margin-left: 150px; margin-top: -110px;" *ngFor="let item of data">
+        <h6 style="color: #000; font-size: 9px; margin-top: 6px; font-family: 'Times New Roman', Times, serif;">{{item.transition}}
+          
+        </h6>
+      </div>
+    <svg width="60px" height="70px" viewBox="0 0 60 100" style="margin-left: 20px;">
+   
+      <line x1="30" y1="100" x2="30" y2="0" stroke="#BAC2CF" stroke-width="1" />
+    
+      <line x1="25" y1="10" x2="30" y2="0" stroke="#BAC2CF" stroke-width="1" />
+      <line x1="35" y1="10" x2="30" y2="0" stroke="#BAC2CF" stroke-width="1" />
+    </svg>
+
+    <div class="anyStatus_state" style="margin-left: 5px;">
+      <h6 style="color: #fff; font-size: 10px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">ANY
+        STATUS</h6>
+    </div>
+  </div>
+
+  <!-- <div class="container" cdkDrag [cdkDragFreeDragPosition]="dragPositionDone" *ngFor="let item of data"> -->
+    <div class="container" cdkDrag [cdkDragFreeDragPosition]="dragPositionDone">
+    <div class="done_state" [class.active]="bulletVisible">
+      <a href="#" id="done" class="done">
+        <!-- <h6 style="color: #000; font-size: 11px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">{{item.transition}} -->
+          <h6 style="color: #000; font-size: 11px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">Done
+        </h6>
+      </a>
+    </div>
+
+    <svg width="60px" height="70px" viewBox="0 0 60 100" style="margin-left: 20px;">
+  
+      <line x1="30" y1="100" x2="30" y2="0" stroke="#BAC2CF" stroke-width="1" />
+     
+      <line x1="25" y1="10" x2="30" y2="0" stroke="#BAC2CF" stroke-width="1" />
+      <line x1="35" y1="10" x2="30" y2="0" stroke="#BAC2CF" stroke-width="1" />
+    </svg>
+    <div class="anyStatus_state" style="margin-left: 5px;">
+      <h6 style="color: #fff; font-size: 10px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">ANY
+        STATUS</h6>
+    </div>
+  </div>
 </div>
 
-<app-alert></app-alert>
+<form [formGroup]="transitionform">
+  <input type="text"  formControlName="transition" placeholder="Workflow" />
+  <button (click)="createtransition(this.transitionform.value)">ok</button>
+  <!-- <button (click)="delete(item.id)" >Delete</button> -->
+</form> <br>
+<app-alert ></app-alert>
+

@@ -1,9 +1,8 @@
 .container{
     width: 80%;
-    margin-top: -238px;
+    margin-top: -475px;
     margin-right: -11px;
     display: flex;
-    margin-bottom: 20px;
     z-index: 5;
 }
 
@@ -29,7 +28,7 @@
 }
 .sidebar img{
     width: 81%;
-    height: 30%;
+    height: 32%;
 }
 .paragraph{
     font-size: 10px;
@@ -39,6 +38,7 @@
 .paragraphs{
     font-size: 10px;
     margin-left: -42px;
+    white-space: nowrap
 }
 .title{
     margin-top: 12px;

@@ -1,0 +1,8 @@
+.state-machine {
+    height: 700px;
+    background-size: 20px 20px;
+    background-color: #fff;
+    background-image: radial-gradient(circle, #e5e5e5e5 1px, rgba(0,0,0,0) 1px);
+    box-shadow: 0px 2px 4px rgb(0,0,0,0.25);
+
+}
