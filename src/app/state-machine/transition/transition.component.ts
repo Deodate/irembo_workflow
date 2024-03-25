@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { SlotType, transitionConfig } from '../models';
 import { SlotComponent } from '../slot/slot.component';
 
@@ -15,6 +15,10 @@ export class TransitionNewComponent implements OnInit {
   SlotTypeEnum = SlotType;
 
   @ViewChildren(SlotComponent) slots!: QueryList<SlotComponent>;
+
+  @ViewChild("endStateOne") endStateOne!: ElementRef;
+
+  @ViewChild("endStateTwo") endStateTwo!: ElementRef;
 
   constructor( public el: ElementRef) { }
 

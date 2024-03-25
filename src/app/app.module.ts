@@ -24,6 +24,7 @@ import { StateMachineComponent } from './state-machine/state-machine.component';
 import { StateComponent } from './state-machine/state/state.component'; // Added MatFormFieldModule
 import { TransitionNewComponent } from './state-machine/transition/transition.component';
 import { SlotComponent } from './state-machine/slot/slot.component';
+import { StateMachineEditorComponent } from './state-machine-editor/state-machine-editor.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SlotComponent } from './state-machine/slot/slot.component';
     TransitionNewComponent,
     StateMachineComponent,
     StateComponent,
-    SlotComponent
+    SlotComponent,
+    StateMachineEditorComponent
   ],
   imports: [
     BrowserModule,

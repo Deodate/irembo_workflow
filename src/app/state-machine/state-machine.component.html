@@ -1,9 +1,18 @@
 <div class="state-machine">
-    <app-state *ngFor="let item of workflow.states"  [config]="item" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"></app-state>
+    <app-state *ngFor="let item of workflow.states | keyvalue"  [config]="item.value" cdkDrag [cdkDragFreeDragPosition]="item.value.position" (cdkDragMoved)="onDragMove($event)"></app-state>
 
     <app-transition-new *ngFor="let item of workflow.transitions"  [config]="item" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"></app-transition-new>
 </div>
 
+
+<svg height="400" width="450" xmlns="http://www.w3.org/2000/svg">
+    <g cdkDrag>
+        <rect width="200" height="100" x="10" y="10" rx="20" ry="20" fill="blue"  ></rect>
+        <text fill="red">I love SVG!</text>
+    </g>
+
+</svg>
+
 <div>
-    <button (click)="createLineForTransitions()">Worflow draw</button> 
+    <!-- <button (click)="createLineForTransitions()">Worflow draw</button>  -->
 </div>
