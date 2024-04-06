@@ -1,0 +1,302 @@
+.state-machine {
+    height: 900px;
+    flex-grow: 1;
+    background-size: 20px 20px;
+    background-image: radial-gradient(circle, #e5e5e5e5 1px, rgba(0, 0, 0, 0) 1px);
+    box-shadow: 0px 2px 4px rgba(204, 67, 67, 0.25);
+    zoom: 1;
+    background-color: #4070f4;
+
+    .myState {
+        cursor: pointer;
+    }
+
+    #header {
+        display: flex;
+        width: 100%;
+        padding: 10px 30px;
+        box-sizing: border-box;
+        justify-content: space-between;
+        background-color: #ffcb2d;
+        color: black;
+        box-shadow: 0px 4px 4px #ffffff;
+
+        .logo {
+            font-size: 17px;
+            display: flex;
+            gap: 10px;
+
+            svg {
+                cursor: pointer;
+            }
+        }
+
+        #menu {
+            display: flex;
+            gap: 20px;
+
+            a {
+                text-decoration: none;
+                font-size: 12px;
+                color: #000000;
+                font-family: 'Times New Roman', Times, serif;
+            }
+
+        }
+    }
+
+    &.sidebarActive {
+        #sidebar {
+            transform: translateX(0);
+        }
+
+        .state-machine {
+            margin-left: 0;
+        }
+    }
+}
+
+#sidebar {
+    width: 250px;
+    height: 92%;
+    background-color: #1b7fda;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+
+    .title {
+        font-size: 12px;
+    }
+
+    .contents {
+        width: 200px;
+        height: 20px;
+        margin-left: 23px;
+        margin: 5px 14px;
+    }
+}
+
+#side-bar {
+    width: 250px;
+    height: 92%;
+    margin-top: -59%;
+    background-color: rgba(0, 153, 232, 0.5);
+    /* Adjust opacity as needed */
+    box-shadow: 0px 4px 4px #ffffff;
+    background-image: url('../../assets/images/irembo.jpeg');
+    background-size: 250px 170px;
+    background-position: center top;
+    /* Adjust as needed */
+    background-repeat: no-repeat;
+    /* Adjust as needed */
+    border: 1px solid #1b7fda;
+
+    .paragraphs {
+        font-size: 17px;
+        text-align: center;
+        color: #ffffff;
+        margin: 170px 12px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .linkS a {
+        color: #000000;
+    }
+}
+
+.modal-header {
+    background-image: radial-gradient(circle, #e5e5e5e5 1px, rgba(0, 0, 0, 0) 1px);
+    box-shadow: 0px 2px 4px rgba(204, 67, 67, 0.25);
+    zoom: 1;
+    background-color: #0060d3;
+
+}
+
+#exampleModalLabel {
+    font-size: 13px;
+    color: #ffffff;
+    font-family: 'Times New Roman';
+}
+
+.tit {
+    font-size: 12px;
+    font-family: 'Times New Roman';
+    color: #000000;
+}
+
+.no-hover:hover {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.divider-container {
+    width: 465px;
+    color: #1b7fda;
+    margin: 10px auto;
+}
+
+.move-up {
+    transform: translateY(-50px);
+    font-size: 12px;
+    margin-left: 14px;
+}
+
+.prime-button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* creation of new Transition */
+.create_transition{
+    border: 1px solid #7591c9;
+}
+
+.new_transition{
+    font-size: 20px;
+    font-family: 'Times New Roman';
+    color: #6fb3e0;
+    margin: 0px 0px 0px 15px;
+}
+
+.new_transition1{
+    border: 1px solid #7591c9;
+    width: 92%;
+    margin-left: 23px;
+    margin-top: -10px;
+    box-shadow: 0px 2px 2px #ebe5e5;
+    border-radius: 5px;
+}
+
+.new_transition2{
+    border: 1px solid #7591c9;
+    width: 93%;
+    border-radius: 3px;
+    margin-left: 23px;
+    margin-top: -10px;
+    box-shadow: 0px 2px 2px #ebe5e5;
+}
+
+.create_transition .input_field{
+    margin-bottom: 10px;
+    display: flex;
+    margin: 15px;
+}
+
+.create_transition .input_field .transition_select{
+  position: relative;
+  width: 80%;
+  height: 35px;
+}
+
+.create_transition .input_field .transition_select select{
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid #0060d3;
+    width: 80%;
+    height: 100%;
+    padding: 8px 10px;
+    border-radius: 3px;
+    outline: none;
+  }
+
+  .create_transition .input_field .transition_select:before{
+content: "";
+position: absolute;
+top: 12px;
+right: 78px;
+border: 8px solid;
+border-color: #d5dbd9 transparent transparent transparent;
+pointer-events: none;
+  }
+
+  .create_transition .new_transition1 .input_field .transition_select:before{
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 70px;
+    border: 8px solid;
+    border-color: #d5dbd9 transparent transparent transparent;
+    pointer-events: none;
+      }
+
+
+  .create_transition .new_transition2 .input_field .transition_select:before{
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 65px;
+    border: 8px solid;
+    border-color: #d5dbd9 transparent transparent transparent;
+    pointer-events: none;
+      }
+
+.create_transition .create_transition1 .input_field{
+    margin-bottom: 10px;
+    display: flex;
+    margin: 23px;
+}
+
+.create_transition .new_transition1 label{
+    width: 40%;
+    color: #0a0a0a;
+    font-family: 'Times New Roman';
+    margin-right: 15px;
+    padding: 5px 0px;
+    font-size: 15px;
+}
+
+.create_transition .create_transition2 .input_field{
+    margin-bottom: 15px;
+    display: flex;
+    margin-left: 23px;
+}
+
+.new_transition2 .input{
+   width: 59%;
+   outline: none;
+   border: 1px solid #0060d3;
+   font-size: 15px;
+   padding: 5px 0px;
+   border-radius: 3px;
+   transition: all 0.3s ease;
+}
+
+.create_transition .new_transition2 .input_field label{
+    width: 50%;
+    color: #0a0a0a;
+    font-family: 'Times New Roman';
+    margin-right: 15px;
+    padding: 5px 0px;
+    font-size: 15px;
+ }
+
+.create_transition2 .input_field{
+    margin-bottom: 10px;
+    display: flex;
+    margin: 23px;
+}
+
+.create_transition1 .input_field .input{
+    margin-left: 19px;
+    outline: none;
+}
+.create_transition .input_field label{
+    width: 100px;
+    color: #000000;
+    margin-right: 15px;
+    font-size: 14px;
+ }
+
+.create_transition .input_field label{
+   width: 100px;
+   color: #000000;
+   margin-right: 15px;
+   font-size: 14px;
+}
+
+.form-container .add {
+    float: right;
+   
+}

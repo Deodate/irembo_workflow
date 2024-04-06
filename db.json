@@ -1,0 +1,119 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "transition": "Deodate",
+      "id": 2
+    },
+    {
+      "transition": "Transport",
+      "id": 3
+    },
+    {
+      "transition": "Transport",
+      "id": 4
+    },
+    {
+      "transition": "Gov",
+      "id": 5
+    },
+    {
+      "transition": "done",
+      "id": 6
+    },
+    {
+      "transition": "done",
+      "id": 7
+    },
+    {
+      "transition": "Thanks",
+      "id": 8
+    },
+    {
+      "transition": "Deodate",
+      "id": 9
+    },
+    {
+      "transition": "K",
+      "id": 10
+    },
+    {
+      "transition": "Rwanda",
+      "id": 11
+    },
+    {
+      "transition": "Kampala",
+      "id": 12
+    },
+    {
+      "transition": "Dad",
+      "id": 13
+    },
+    {
+      "transition": "",
+      "id": 14
+    },
+    {
+      "transition": "Search",
+      "id": 15
+    },
+    {
+      "transition": "Workflow",
+      "id": 16
+    },
+    {
+      "transition": "Deodate",
+      "id": 17
+    },
+    {
+      "transition": "Deodate",
+      "id": 18
+    },
+    {
+      "transition": "Mugenzi",
+      "id": 19
+    },
+    {
+      "transition": "Kenyan",
+      "id": 20
+    },
+    {
+      "transition": "Services",
+      "id": 21
+    },
+    {
+      "transition": "Work",
+      "id": 22
+    },
+    {
+      "transition": "irembo",
+      "id": 23
+    },
+    {
+      "transition": "Skills",
+      "id": 24
+    },
+    {
+      "transition": "Kigali",
+      "id": 25
+    },
+    {
+      "transition": "Rwanda",
+      "id": 26
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
