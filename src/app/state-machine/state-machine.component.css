@@ -78,7 +78,7 @@
 #side-bar {
     width: 250px;
     height: 92%;
-    margin-top: -59%;
+    margin-top: -65%;
     background-color: rgba(0, 153, 232, 0.5);
     /* Adjust opacity as needed */
     box-shadow: 0px 4px 4px #ffffff;
@@ -149,27 +149,27 @@
 }
 
 /* creation of new Transition */
-.create_transition{
+.create_transition {
     border: 1px solid #7591c9;
 }
 
-.new_transition{
-    font-size: 20px;
+.new_transition {
+    font-size: 16px;
     font-family: 'Times New Roman';
-    color: #6fb3e0;
+    color: #070707;
     margin: 0px 0px 0px 15px;
 }
 
-.new_transition1{
+.new_transition1 {
     border: 1px solid #7591c9;
-    width: 92%;
+    width: 95%;
     margin-left: 23px;
     margin-top: -10px;
     box-shadow: 0px 2px 2px #ebe5e5;
     border-radius: 5px;
 }
 
-.new_transition2{
+.new_transition2 {
     border: 1px solid #7591c9;
     width: 93%;
     border-radius: 3px;
@@ -178,19 +178,19 @@
     box-shadow: 0px 2px 2px #ebe5e5;
 }
 
-.create_transition .input_field{
+.create_transition .input_field {
     margin-bottom: 10px;
     display: flex;
     margin: 15px;
 }
 
-.create_transition .input_field .transition_select{
-  position: relative;
-  width: 80%;
-  height: 35px;
+.create_transition .input_field .transition_select {
+    position: relative;
+    width: 80%;
+    height: 35px;
 }
 
-.create_transition .input_field .transition_select select{
+.create_transition .input_field .transition_select select {
     -webkit-appearance: none;
     appearance: none;
     border: 1px solid #0060d3;
@@ -199,19 +199,19 @@
     padding: 8px 10px;
     border-radius: 3px;
     outline: none;
-  }
+}
 
-  .create_transition .input_field .transition_select:before{
-content: "";
-position: absolute;
-top: 12px;
-right: 78px;
-border: 8px solid;
-border-color: #d5dbd9 transparent transparent transparent;
-pointer-events: none;
-  }
+.create_transition .input_field .transition_select:before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 78px;
+    border: 8px solid;
+    border-color: #d5dbd9 transparent transparent transparent;
+    pointer-events: none;
+}
 
-  .create_transition .new_transition1 .input_field .transition_select:before{
+.create_transition .new_transition1 .input_field .transition_select:before {
     content: "";
     position: absolute;
     top: 12px;
@@ -219,10 +219,10 @@ pointer-events: none;
     border: 8px solid;
     border-color: #d5dbd9 transparent transparent transparent;
     pointer-events: none;
-      }
+}
 
 
-  .create_transition .new_transition2 .input_field .transition_select:before{
+.create_transition .new_transition2 .input_field .transition_select:before {
     content: "";
     position: absolute;
     top: 12px;
@@ -230,15 +230,15 @@ pointer-events: none;
     border: 8px solid;
     border-color: #d5dbd9 transparent transparent transparent;
     pointer-events: none;
-      }
+}
 
-.create_transition .create_transition1 .input_field{
+.create_transition .create_transition1 .input_field {
     margin-bottom: 10px;
     display: flex;
     margin: 23px;
 }
 
-.create_transition .new_transition1 label{
+.create_transition .new_transition1 label {
     width: 40%;
     color: #0a0a0a;
     font-family: 'Times New Roman';
@@ -247,56 +247,63 @@ pointer-events: none;
     font-size: 15px;
 }
 
-.create_transition .create_transition2 .input_field{
+.create_transition .create_transition2 .input_field {
     margin-bottom: 15px;
     display: flex;
     margin-left: 23px;
 }
 
-.new_transition2 .input{
-   width: 59%;
-   outline: none;
-   border: 1px solid #0060d3;
-   font-size: 15px;
-   padding: 5px 0px;
-   border-radius: 3px;
-   transition: all 0.3s ease;
+.new_transition2 .input {
+    width: 59%;
+    outline: none;
+    border: 1px solid #0060d3;
+    font-size: 15px;
+    padding: 5px 0px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
 }
 
-.create_transition .new_transition2 .input_field label{
+.create_transition .new_transition2 .input_field label {
     width: 50%;
     color: #0a0a0a;
     font-family: 'Times New Roman';
     margin-right: 15px;
     padding: 5px 0px;
     font-size: 15px;
- }
+}
 
-.create_transition2 .input_field{
+.create_transition2 .input_field {
     margin-bottom: 10px;
     display: flex;
     margin: 23px;
 }
 
-.create_transition1 .input_field .input{
+.create_transition1 .input_field .input {
     margin-left: 19px;
     outline: none;
 }
-.create_transition .input_field label{
+
+.create_transition .input_field label {
     width: 100px;
     color: #000000;
     margin-right: 15px;
     font-size: 14px;
- }
+}
 
-.create_transition .input_field label{
-   width: 100px;
-   color: #000000;
-   margin-right: 15px;
-   font-size: 14px;
+.create_transition .input_field label {
+    width: 100px;
+    color: #000000;
+    margin-right: 15px;
+    font-size: 14px;
 }
 
 .form-container .add {
     float: right;
-   
+}
+
+.transition_select select,
+option {
+    font-size: 13px;
+    color: #000;
+    font-family: 'Times New Roman';
 }

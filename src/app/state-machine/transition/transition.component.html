@@ -27,7 +27,7 @@
     </div>
 </div> -->
 
-<div class="transition" data-bs-toggle="modal" data-bs-target="#exampleModal" (showModal)="openModal()">
+<div class="transition" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)='handleClick()' (showModal)="openModal()">
     <div class="card">
         <div class="card-header">
             {{config.name}}

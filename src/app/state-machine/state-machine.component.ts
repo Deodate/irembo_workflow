@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { StateComponent } from './state/state.component';
 import { TransitionNewComponent } from './transition/transition.component';
 import { CdkDragMove } from '@angular/cdk/drag-drop';
@@ -33,27 +33,36 @@ interface Transition {
   styleUrls: ['./state-machine.component.css']
 })
 export class StateMachineComponent implements OnInit, AfterViewInit {
+  @Input() config: transitionConfig | undefined = {
+    name: '',
+    startState: '',
+    endStateOne: undefined,
+    endStateTwo: undefined,
+    position: { x: 0, y: 0 }
+  };
 
-
+  @Output() displayData: EventEmitter<transitionConfig> = new EventEmitter<transitionConfig>();
+  selectedCreateEvent: any;
   startStateSelected: boolean = false;
   eventSelected: boolean = false;
   endStateSelected: boolean = false;
   breakingActionSelected: boolean = false;
   nonBreakingActionSelected: boolean = false;
   transition: any;
+  showData: boolean = false;
 
   updateTransition(transition: any) {
-   
-    this.saveUpdates();
- 
-}
 
-onCloseModel(){
-  const notNull = document.getElementById('transitionModel');
-  if(notNull != null){
-    notNull.style.display = 'none';
+    this.saveUpdates();
   }
-}
+  
+
+  onCloseModel() {
+    const notNull = document.getElementById('transitionModel');
+    if (notNull != null) {
+      notNull.style.display = 'none';
+    }
+  }
 
   getStateMachineComponentUniqueStartStates(): string[] {
     return StateMachineComponent.getUniqueStartStates();
@@ -120,6 +129,7 @@ onCloseModel(){
   selectedBreakingAction: string = '';
   selectedNonBreakingAction: string = '';
   selectedTransitions: any[] = [];
+  transitionToEdit: transitionConfig = {name: '', startState: '', endStateOne: undefined, breakingAction : undefined , endStateTwo: undefined, position: {x: 0, y: 0}};
 
   onStartStateSelected(event: any): void {
     const value = event.target?.value;
@@ -147,6 +157,7 @@ onCloseModel(){
 
 
   onEventSelected(event: any): void {
+    console.log('onEventSelected')
     const value = event.target?.value;
     if (value) {
       this.selectedEvent = value;
@@ -161,14 +172,14 @@ onCloseModel(){
       this.breakingActionSelected = value !== 'Choose...';
     }
   }
+  selectedOption: string = ''; // Variable to store the selected option from the dropdown
 
-  onNonBreakingAction(NonBreakingAction: any): void {
-    const value = NonBreakingAction.target?.value;
-    if (value) {
-      this.selectedNonBreakingAction = value;
-      this.nonBreakingActionSelected = value !== 'Choose...';
-    }
+
+  onNonBreakingAction(selectedValue: string): void {
+   
+    this.selectedOption = selectedValue;
   }
+
 
   onendState(onendState: any): void {
     const value = onendState.target?.value;
@@ -179,6 +190,7 @@ onCloseModel(){
   }
 
   private clearSelectedValues(): void {
+    console.log('clearSelectedValues')
     this.selectedStartState = '';
     this.selectedEvent = '';
     this.selectedEndState = '';
@@ -194,22 +206,32 @@ onCloseModel(){
     this.updateSuccessMessage = 'Update successful!';
   }
 
-  // getUniqueEndStates(): { stateName: string, stateCode: string, nextEvent: string | null }[] {
-  //   const uniqueStates: { stateName: string, stateCode: string, nextEvent: string | null }[] = [];
+  getUniqueEndStates(): { stateName: string, stateCode: string, nextEvent: string | null }[] {
+    const uniqueStates: { stateName: string, stateCode: string, nextEvent: string | null }[] = [];
 
-  //   // Loop through sample1 and sample2 arrays to gather unique end states
-  //   [...WorflowSample.sample1, ...WorflowSample.sample2].forEach(item => {
-  //       if (item.endStateOne) {
-  //           uniqueStates.push({
-  //               stateName: item.endStateOne.stateName,
-  //               stateCode: item.endStateOne.stateCode,
-  //               nextEvent: item.endStateOne.nextEvent // Adjue
-  //           });
-  //       }     
-  //   });
+    // Loop through sample1 and sample2 arrays to gather unique end states
+    [...WorflowSample.sample1].forEach(item => {
+        if (item.endStateOne) {
+            uniqueStates.push({
+                stateName: item.endStateOne.stateName,
+                stateCode: item.endStateOne.stateCode,
+                nextEvent: item.endStateOne.nextEvent
+            });
+        }     
+    });
 
-  //   return uniqueStates;
-  // }
+    return uniqueStates;
+  }
+  tableData: string[] = [];
+  addToTable(): void {
+    // Add the selected option to the table input only if an option is selected
+    if (this.selectedOption) {
+      // Push the selected option to the selectedTransitions array
+      this.selectedTransitions.push({ ActionName: this.selectedOption });
+      // Clear the selected option
+      this.selectedOption = '';
+    }
+  }
 
   showForm = true;
 
@@ -261,7 +283,7 @@ onCloseModel(){
       this.workflowData[0].startState = 'UPDATED_STATE';
       this.updatedMessage = "Workflow updated successfully!";
       this.selectedTransitions = [];
-      
+
     }
   }
 
@@ -281,9 +303,21 @@ onCloseModel(){
   WorflowSample: any;
   JSON: any;
 
-  constructor(private apiService: ApiService, private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { 
-    this.workflowData = WorflowSample.sample2; 
+  constructor(
+    private apiService: ApiService,
+    private formBuilder: FormBuilder,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.workflowData = WorflowSample.sample2;
+
   }
+  formData: any = {};
+
+  handleClick() {
+
+    this.showData = true;
+  }
+
 
   ngOnInit(): void {
     this.workflowData = this.apiService.getWorkflowData();
@@ -314,8 +348,6 @@ onCloseModel(){
     transitions: []
   };
 
-
-
   ngAfterViewInit(): void {
 
     // build workflow from iremboWorkflow
@@ -324,7 +356,6 @@ onCloseModel(){
     // draw the Diagram
     setTimeout(() => this.drawWorkflowDiagram());
   }
-
 
   onDragMove(move: CdkDragMove<string>) {
     this._drawedLink.forEach(element => {
@@ -512,6 +543,10 @@ onCloseModel(){
     console.log("drawedLink", this._drawedLink);
 
   }
+
+  handleTransitionSelect(selected: transitionConfig) {
+    this.transitionToEdit = selected
+  }
 }
 
 
@@ -522,29 +557,29 @@ onCloseModel(){
   //         name : "START",
   //         position : {
   //           x : 100,
-  //           y : 100 
-  //         }        
+  //           y : 100
+  //         }
   //       },
   //       {
   //         name : "TODO",
   //         position : {
   //           x : 100,
-  //           y : 200 
-  //         } 
+  //           y : 200
+  //         }
   //       },
   //       {
   //         name : "IN_PROGRESS",
   //         position : {
   //           x : 100,
-  //           y : 300 
-  //         } 
+  //           y : 300
+  //         }
   //       },
   //       {
   //         name : "DONE",
   //         position : {
   //           x : 100,
-  //           y : 400 
-  //         } 
+  //           y : 400
+  //         }
   //       }
   //     ],
   //     transitions : [
@@ -554,8 +589,8 @@ onCloseModel(){
   //         endState : "TODO",
   //         position : {
   //           x : 500,
-  //           y : 100 
-  //         }  
+  //           y : 100
+  //         }
   //       },
   //       {
   //         name : "In Development",
@@ -563,8 +598,8 @@ onCloseModel(){
   //         endState : "IN_PROGRESS",
   //         position : {
   //           x : 500,
-  //           y : 200 
-  //         } 
+  //           y : 200
+  //         }
   //       },
   //       {
   //         name : "Finish",
@@ -572,8 +607,8 @@ onCloseModel(){
   //         endState : "DONE",
   //         position : {
   //           x : 500,
-  //           y : 400 
-  //         } 
+  //           y : 400
+  //         }
   //       }
   //       // ,
   //       // {
@@ -582,8 +617,8 @@ onCloseModel(){
   //       //   endState : "DONE",
   //       //   position : {
   //       //     x : 500,
-  //       //     y : 400 
-  //       //   } 
+  //       //     y : 400
+  //       //   }
   //       // }
   //     ]
   //   }
@@ -613,7 +648,7 @@ onCloseModel(){
   //         currentX = currentX;
   //         currentY = currentY + pasY;
   //         currentNode.set(element.startState,node)
-  //       }        
+  //       }
   //     } else {
   //       let node = this.workflow.states.find(elt => elt.name === element.startState);
   //       if(node) {
@@ -632,8 +667,8 @@ onCloseModel(){
   //         node!.position.y = currentY;
   //         currentX = currentX + pasX;
   //         currentNode.set(element.endState,node)
-  //       }        
-  //     }      
+  //       }
+  //     }
   //   });
 
   //   console.log("reorderDiagram, after", this.workflow);

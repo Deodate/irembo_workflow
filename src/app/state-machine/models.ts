@@ -8,6 +8,8 @@ export interface transitionConfig {
     startState : string,
     endStateOne : IremboEndState | undefined,
     endStateTwo : IremboEndState | undefined,
+    breakingAction? : IremboAction | undefined,
+    nonBreakingActionList? : IremboAction[] | undefined,
     position : point
 }
 

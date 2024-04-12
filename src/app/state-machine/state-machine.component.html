@@ -163,7 +163,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Exit</div>
-                    <button class="btn btn-outline-success btn-sm me-1" (click)="showForm= true">Create</button>
+                    <button class="btn btn-outline-success btn-sm me-1" >Create</button>
                 </div>
             </div>
         </div>
@@ -173,7 +173,8 @@
     <!-- <app-state *ngFor="let item of workflow.states | keyvalue"  [config]="item.value" cdkDrag [cdkDragFreeDragPosition]="item.value.position" (cdkDragMoved)="onDragMove($event)"></app-state> -->
 
     <app-transition-new *ngFor="let item of workflow.transitions" [config]="item" cdkDrag
-        [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"></app-transition-new>
+        [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)" 
+        (selectedTransition)="handleTransitionSelect($event)"></app-transition-new>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -187,7 +188,7 @@
                 <div class="modal-body form-container">
             
                     <div class="modal-body">
-                        <ng-container *ngIf="showForm">
+                        <ng-container>
                             <form *ngIf="showForm" class="create_transition">
                                 <div><b class="new_transition">Edit Transition</b>   <mat-divider></mat-divider></div>
                              
@@ -196,11 +197,7 @@
                                     :&nbsp;
                                     <div class="transition_select">
                                         <select (change)="onStartStateSelected($event)">
-                                            <option>Choose...</option>
-                                            <ng-container
-                                                *ngFor="let state of getStateMachineComponentUniqueStartStates()">
-                                                <option> {{ state }}</option>
-                                            </ng-container>
+                                            <option> {{transitionToEdit.startState }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -209,7 +206,7 @@
                                     :&nbsp;
                                     <div class="transition_select">
                                         <select (change)="onEventSelected($event)">
-                                            <option>Choose...</option>
+                                            <option> {{transitionToEdit.name }}</option>
                                             <ng-container *ngFor="let event of getUniqueEvents()">
                                                 <option>{{ event }}</option>
                                             </ng-container>
@@ -223,35 +220,20 @@
                                     <div class="input_field">
                                         <label>State </label>
                                         :&nbsp;
-                                        <!-- <div class="transition_select">
-                                        <select>
-                                            <option>Choose...</option>
-                                            <ng-container *ngFor="let state of getUniqueEndStates()">
-                                                <option>{{ state.stateName }}</option>
-                                            </ng-container>
-                                        </select>
-                                    </div> -->
                                         <div class="transition_select">
-                                            <select (change)="onendState($event)">
-                                                <option>Choose..</option>
-                                                <option>Paid</option>
-                                                <option>Submitted</option>
-                                                <option>Rejected</option>
-                                                <option>Approved</option>
-                                                <option>Payment Pending</option>
-                                                <option>Payment Pending</option>
-                                                <option>Pending Resubmission</option>
-                                            </select>
-                                        </div>
+                                        <select>
+                                           
+                                            <option> {{transitionToEdit.startState }}</option>
+                                        
+                                        </select>
+                                    </div>
+                                       
                                     </div>
                                     <div class="input_field">
                                         <label>BreakingAction </label>
                                         :&nbsp; <div class="transition_select">
                                             <select (change)="onBreakingAction($event)">
-                                                <option>Choose...</option>
-                                                <ng-container *ngFor="let action of getUniqueBreakingActions()">
-                                                    <option>{{ action }}</option>
-                                                </ng-container>
+                                                <option> {{transitionToEdit.breakingAction }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -261,26 +243,54 @@
                                     <div class="input_field">
                                         <label>Non-BreakingAction </label>
                                         :&nbsp; <div class="transition_select">
-                                            <select (change)="onNonBreakingAction($event)" >
-                                                <option>Choose...</option>
-                                                <ng-container *ngFor="let actionType of getUniqueNonBreakingActions()">
-                                                    <option>{{ actionType }}</option>
-                                                </ng-container>
+                                            <select #selectedOption (change)="onNonBreakingAction(selectedOption.value)">
+                                                <option> NOTIFICATION</option>
+                                                <option> NOTIFICATION</option>
+                                                <option> NOTIFICATION</option>
+                                                <option> {{transitionToEdit.nonBreakingActionList }}</option>
                                             </select> 
                                         </div><br>
                                     </div>
-                                   
-                                </div><br>
-                                <div class="row justify-content-end">
-                                    <div class="col-auto"> 
-                                        <button class="btn btn-success btn-sm me-1" 
-                                        (click)="onAddButtonClick()" 
-                                        *ngIf="startStateSelected && eventSelected && endStateSelected && breakingActionSelected && nonBreakingActionSelected">Add</button>
-                                
+                                    <div class="row justify-content-end">
+                                        <div class="col-auto"> 
+                                            <button class="btn btn-success btn-sm me-1" (click)="addToTable()">Add</button>
+                                        </div>
+                                        
+                                        <table class="table table-bordered" style="font-size: 10px; width: 92%; margin: 5px 20px 3px 0px; color: rgb(6, 6, 6);">
+                                            <thead>
+                                                <tr>
+                                                    <th style="color: rgb(44, 41, 214); text-align: left;">Action Name</th>
+                                                 
+                                                </tr>
+                                            </thead>
+                                            <tbody style="color: black;">
+                                                <tr *ngFor="let transition of selectedTransitions; let i = index">
+                                                    <td style="text-align: left;">
+                                                        <input type="text" [(ngModel)]="transition.ActionName" placeholder="--------- - ------- - - ---- - ---" name="actionName{{i}}" style="width: 80%; margin: 10px 15px 13px 22px;border: none;">
+                                                    </td>
+                                                    <td style="text-align: right;">
+                                                        <button 
+                                                        type="button"
+                                                        class="btn btn-outline-primary btn-sm me-1" >Edit</button>                                                      
+                                                    </td>
+                                                </tr>
+                                               
+                                            </tbody>
+                                        </table>            
                                     </div>
-                                </div>
+                                </div><br>
+                               
                             </form>
                         </ng-container>
+                                       
+                        </div>
+                    </div><br>
+                    <div class="modal-footer"> 
+                        <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Exit</div>
+                        <button class="btn btn-outline-primary btn-sm me-1" (click)="updateWorkflow()">Update</button>
+                    
+                    </div>
+                </div>
                     </div>
                   
                     <div class="new_transition3">
@@ -309,56 +319,8 @@
                                     </ng-container>
                                 </tbody>
                             </table> -->
-                            <div *ngIf="updateSuccessMessage" style="color: green;">{{ updateSuccessMessage }}</div>
-
-                            <p style="font-size: 14px; font-family: 'Times New Roman'; color: green;">{{ updatedMessage }}</p>
-                            <span style="font-size: 9px;">Action Name</span>
-                            <table class="table table-bordered" style="font-size: 10px; color: rgb(6, 6, 6);">
-                                <thead>
-                                    <tr>
-                                        <th style="color: rgb(44, 41, 214); text-align: left;">Start State</th>
-                                        <th style="color: rgb(44, 41, 214); text-align: left;">Event</th>
-                                        <th style="color: rgb(44, 41, 214); text-align: left;">End State</th>
-                                        <th style="color: rgb(44, 41, 214); text-align: left;">Breaking Action</th>
-                                        <th style="color: rgb(44, 41, 214); text-align: left;">Non-Breaking Action</th>
-                                        <th style="color: rgb(245, 15, 15); text-align: left;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody style="color: black;">
-                                    <ng-container *ngFor="let transition of selectedTransitions; let i = index">
-                                        <tr>
-                                            <td style="text-align: right;">
-                                                <input type="text" [(ngModel)]="transition.startState" name="startState" style="width: 60px;">
-                                            </td>
-                                            <td style="text-align: right;">
-                                                <input type="text" [(ngModel)]="transition.event" name="event" style="width: 30px;">
-                                            </td>
-                                            <td style="text-align: right;">
-                                                <input type="text" [(ngModel)]="transition.endState" name="endState" style="width: 60px;">
-                                            </td>
-                                            <td style="text-align: right;">
-                                                <input type="text" [(ngModel)]="transition.breakingAction" name="breakingAction" style="width: 90px;">
-                                            </td>
-                                            <td style="text-align: right;">
-                                                <input type="text" [(ngModel)]="transition.nonBreakingAction" name="nonBreakingAction" style="width: 97px;">
-                                            </td>
-                                            <td style="text-align: left;">
-                                                <button *ngIf="transition.startState || transition.event || transition.endState || transition.breakingAction || transition.nonBreakingAction"
-                                                type="button"
-                                                class="btn btn-primary btn-sm me-1"
-                                                (click)="onUpdateClick(transition, i)">Edit</button>
-                                            </td>
-                                        </tr>
-                                    </ng-container>
-                                </tbody>
-                            </table>                            
-                        </div>
-                    </div><br>
-                    <div class="modal-footer"> 
-                        <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Exit</div>
-                        <button class="btn btn-outline-primary btn-sm me-1" (click)="updateWorkflow()">Update</button>
-                    </div>
-                </div>
+                         
+                            
                 <!-- <div class="divider-container">
                     <mat-divider></mat-divider>
                 </div>

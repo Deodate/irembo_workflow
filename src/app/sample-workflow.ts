@@ -13,7 +13,7 @@ export class WorflowSample {
           "args": null
         },
         "nonBreakingActionList": [
-          {
+          { 
             "actionType": "NOTIFICATION",
             "args": {
               "frenchNotificationTemplate": {

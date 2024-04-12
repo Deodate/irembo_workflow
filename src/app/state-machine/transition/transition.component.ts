@@ -12,9 +12,15 @@ import { FormComponent } from 'src/app/form/form.component';
 export class TransitionNewComponent implements OnInit {
   @Input() item: any;
   showModal: any;
+  transition: any;
+  showData: boolean | undefined;
+  displayData: any;
 
   constructor(private dialogRef: MatDialog, public el: ElementRef) {
   } 
+
+  @Output() selectedTransition: EventEmitter<transitionConfig> = new EventEmitter<transitionConfig>();
+  selectedCreateEvent: any;
 
   @Input()
   config!: transitionConfig;
@@ -36,10 +42,16 @@ export class TransitionNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   openModal() {
     this.showModal.emit();
+  }
+
+  handleClick() {
+    this.showData = true;
+    this.selectedTransition.emit(this.config)
   }
 
 }
