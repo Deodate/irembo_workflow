@@ -8,8 +8,7 @@ import { SlotComponent } from '../slot/slot.component';
   styleUrls: ['./state.component.css']
 })
 export class StateComponent implements OnInit {
-  @Input()
-  config!: stateConfig;
+  @Input() config!: stateConfig;
 
   SlotTypeEnum = SlotType;
 

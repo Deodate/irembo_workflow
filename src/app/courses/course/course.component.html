@@ -1,0 +1,35 @@
+
+
+<div class="col-lg-12 offset-1">
+   
+<h2>Data transifer through Components</h2>
+<br>
+
+<span>My names are always <b>{{objdata.name}}</b> and my money total is: {{objdata.money}}</span>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Names</th>
+            <th>Money</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let item of listarray">
+        <ng-container *ngIf="!item.editMode; else editRow">
+            <td>{{item.name}}</td>
+            <td>{{item.money}}</td>
+            <td><button (click)="toggleEditMode(item)">Edit</button></td>
+        </ng-container>
+        <ng-template #editRow>
+            <td><input type="text" [(ngModel)]="item.name" /></td>
+            <td><input type="text" [(ngModel)]="item.money" /></td>
+            <td><button (click)="updateData(item)">Update</button></td>
+        </ng-template>
+    </tbody>
+</table>
+<br>
+<h5>Welcome at Irembo {{campus}}</h5>
+
+
+

@@ -4,7 +4,7 @@ import { TransitionNewComponent } from './transition/transition.component';
 import { CdkDragMove } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api.service';
 import { IremboTransition, Workflow, stateConfig, transitionConfig } from './models';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { WorflowSample } from '../sample-workflow';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -50,6 +50,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   nonBreakingActionSelected: boolean = false;
   transition: any;
   showData: boolean = false;
+  creationForm: FormGroup = new FormGroup({});
 
   updateTransition(transition: any) {
 
@@ -110,6 +111,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       }
     });
 
+    localStorage.setItem("key", JSON.stringify(WorflowSample.sample2));
     WorflowSample.sample2.forEach((item) => {
       if (item.endStateOne && item.endStateOne.nonBreakingActionList) {
         item.endStateOne.nonBreakingActionList.forEach((action) => {
@@ -321,6 +323,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.workflowData = this.apiService.getWorkflowData();
+    this.initialiseCreationFormGroup();
 
   }
 
@@ -343,7 +346,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   _drawedLink: any[] = [];
 
   // local representation of the workflow
-  workflow: Workflow = {
+    workflow: Workflow = {
     states: new Map(),
     transitions: []
   };
@@ -376,7 +379,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     const patY = 120;
 
     let currentX = 270;
-    let currentY = -540;
+    let currentY = -600;
 
     let i = 1;
 
@@ -547,8 +550,33 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   handleTransitionSelect(selected: transitionConfig) {
     this.transitionToEdit = selected
   }
-}
 
+  initialiseCreationFormGroup() {
+    this.creationForm.addControl('startState', new FormControl('', Validators.required));
+    this.creationForm.addControl('event', new FormControl('', Validators.required))
+  }
+
+  createNewTransition() {
+    console.log(this.creationForm.get('startState')?.value);
+    const newTransition = {
+      startState: 'New Transition',
+      event: 'Event',
+      endState: undefined,
+      breakingAction: undefined,
+      nonBreakingAction: undefined
+    };
+    const newTransition2 = {
+      name: 'Name',
+      startState: 'New Transition',
+      event: 'Event',
+      endStateOne: undefined,
+      endStateTwo: undefined,
+      nonBreakingAction: undefined,
+      position: {x: 50, y: 50}
+    }
+
+  }
+}
 
  // changeWorkflow() {
   //   this.workflow = {

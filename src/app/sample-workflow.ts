@@ -194,8 +194,8 @@ export class WorflowSample {
       "endStateTwo": null
     },
     {
-      "startState": "PENDING_APPROVAL",
       "event": "REQUEST_FOR_ACTION",
+      "startState": "PENDING_APPROVAL",
       "endStateOne": {
         "stateName": "Pending resubmission",
         "stateCode": "PENDING_RESUBMISSION_OTP",

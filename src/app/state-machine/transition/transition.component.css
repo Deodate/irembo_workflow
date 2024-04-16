@@ -46,6 +46,11 @@
     padding: 2px;
 }
 
+.card-header{
+ /* color: rgb(255, 254, 254); */
+ font-size: 9px;
+}
+
 /* 
 
     color: rgba(0, 0, 0, 0.87);

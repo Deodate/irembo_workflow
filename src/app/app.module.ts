@@ -27,12 +27,14 @@ import { SlotComponent } from './state-machine/slot/slot.component';
 import { StateMachineEditorComponent } from './state-machine-editor/state-machine-editor.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormComponent } from './form/form.component';
+import { CourseComponent } from './courses/course/course.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     JiraComponent,
     HeaderComponent,
+    CourseComponent,
     
     AlertComponent,
     TransitionComponent,

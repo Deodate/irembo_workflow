@@ -13,8 +13,10 @@ export class TransitionNewComponent implements OnInit {
   @Input() item: any;
   showModal: any;
   transition: any;
-  showData: boolean | undefined;
+  showData: boolean | undefined;   
   displayData: any;
+  transitionConfigs: any;
+  sample2: any;
 
   constructor(private dialogRef: MatDialog, public el: ElementRef) {
   } 
@@ -22,8 +24,7 @@ export class TransitionNewComponent implements OnInit {
   @Output() selectedTransition: EventEmitter<transitionConfig> = new EventEmitter<transitionConfig>();
   selectedCreateEvent: any;
 
-  @Input()
-  config!: transitionConfig;
+  @Input() config!: transitionConfig;
 
   SlotTypeEnum = SlotType;
 
