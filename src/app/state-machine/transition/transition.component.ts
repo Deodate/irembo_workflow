@@ -3,6 +3,7 @@ import { SlotType, transitionConfig } from '../models';
 import { SlotComponent } from '../slot/slot.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormComponent } from 'src/app/form/form.component';
+import { createNewTransitions } from '../state-machine.component';
 
 @Component({
   selector: 'app-transition-new',
@@ -10,6 +11,9 @@ import { FormComponent } from 'src/app/form/form.component';
   styleUrls: ['./transition.component.css']
 })
 export class TransitionNewComponent implements OnInit {
+
+  @Input() newTransitionsList: createNewTransitions[] = [];
+  
   @Input() item: any;
   showModal: any;
   transition: any;
@@ -17,6 +21,7 @@ export class TransitionNewComponent implements OnInit {
   displayData: any;
   transitionConfigs: any;
   sample2: any;
+
 
   constructor(private dialogRef: MatDialog, public el: ElementRef) {
   } 

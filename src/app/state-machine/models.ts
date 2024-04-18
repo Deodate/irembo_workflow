@@ -13,6 +13,14 @@ export interface transitionConfig {
     position : point
 }
 
+export interface createNewTransitions {
+    startState: string;
+    event: string;
+    state: string;
+    breakingAction: string;
+    nonBreakingActionList: string[];
+}
+
 export interface point {
     x : number,
     y : number,

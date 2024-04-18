@@ -10,29 +10,17 @@ import { ChangeDetectorRef } from '@angular/core';
 
 declare var LeaderLine: any;
 
-interface Transition {
-  event: string;
-  startState: string;
-  breakingAction?: {
-    args: null;
-    actionType: string;
-  };
-  nonBreakingAction: {
-    args: {
-      frenchNotificationTemplate: any;
-      englishNotificationTemplate: any;
-      kinyarwandaNotificationTemplate: any;
-    };
-    actionType: string;
-  };
-}
-
 @Component({
   selector: 'app-state-machine',
   templateUrl: './state-machine.component.html',
   styleUrls: ['./state-machine.component.css']
 })
+
 export class StateMachineComponent implements OnInit, AfterViewInit {
+
+  newTransitionsObj: createNewTransitions = new createNewTransitions();
+  newTransitionsList: createNewTransitions[] = [];
+
   @Input() config: transitionConfig | undefined = {
     name: '',
     startState: '',
@@ -55,14 +43,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   updateTransition(transition: any) {
 
     this.saveUpdates();
-  }
-  
-
-  onCloseModel() {
-    const notNull = document.getElementById('transitionModel');
-    if (notNull != null) {
-      notNull.style.display = 'none';
-    }
   }
 
   getStateMachineComponentUniqueStartStates(): string[] {
@@ -235,6 +215,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     }
   }
 
+
   showForm = true;
 
   transitionsData = WorflowSample.sample1;
@@ -322,6 +303,13 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+
+    const localData = localStorage.getItem("iremboWorkflow");
+    if(localData != null){
+      this.newTransitionsList = JSON.parse(localData)
+    }
+
+
     this.workflowData = this.apiService.getWorkflowData();
     this.initialiseCreationFormGroup();
 
@@ -556,26 +544,37 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.creationForm.addControl('event', new FormControl('', Validators.required))
   }
 
-  createNewTransition() {
-    console.log(this.creationForm.get('startState')?.value);
-    const newTransition = {
-      startState: 'New Transition',
-      event: 'Event',
-      endState: undefined,
-      breakingAction: undefined,
-      nonBreakingAction: undefined
-    };
-    const newTransition2 = {
-      name: 'Name',
-      startState: 'New Transition',
-      event: 'Event',
-      endStateOne: undefined,
-      endStateTwo: undefined,
-      nonBreakingAction: undefined,
-      position: {x: 50, y: 50}
+  onCloseModel() {
+    const formElement = document.getElementById('transitionModel');
+    if (formElement) {
+      formElement.style.display = 'none'; // or formElement.style.visibility = 'hidden';
     }
+}
+
+
+  createNewTransition() {
+   const isLocalPresent = localStorage.getItem("iremboWorkflow");
+   if(isLocalPresent != null){
+    const oldArray = JSON.parse(isLocalPresent);
+    oldArray.push(this.newTransitionsObj);
+    localStorage.setItem('iremboWorkflow',JSON.stringify(oldArray));
+   } else{
+    const newArr = [];
+    newArr.push(this.newTransitionsObj);
+    localStorage.setItem('iremboWorkflow',JSON.stringify(newArr));
+   }
 
   }
+}
+
+export class createNewTransitions{
+  startState: string;
+  event: string;
+  state: string;
+  breakingAction: string;
+  nonBreakingAction: string;
+
+  constructor(){this.startState = ''; this.event = ''; this.state = ''; this.breakingAction = ''; this.nonBreakingAction = ''}
 }
 
  // changeWorkflow() {
