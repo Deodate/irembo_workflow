@@ -10,7 +10,8 @@ export interface transitionConfig {
     endStateTwo : IremboEndState | undefined,
     breakingAction? : IremboAction | undefined,
     nonBreakingActionList? : IremboAction[] | undefined,
-    position : point
+    position : point,
+    samuel?:string
 }
 
 export interface createNewTransitions {

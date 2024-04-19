@@ -28,6 +28,7 @@ import { StateMachineEditorComponent } from './state-machine-editor/state-machin
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormComponent } from './form/form.component';
 import { CourseComponent } from './courses/course/course.component';
+import { TodolistComponent } from './course/todolist/todolist.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { CourseComponent } from './courses/course/course.component';
     SlotComponent,
     StateMachineEditorComponent,
     NavbarComponent,
-    FormComponent
+    FormComponent,
+    TodolistComponent
   ],
   imports: [
     BrowserModule,

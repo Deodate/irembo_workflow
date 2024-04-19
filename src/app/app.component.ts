@@ -49,14 +49,14 @@ export class AppComponent implements OnInit{
   constructor(private service:MasterService, private renderer: Renderer2) {
     sessionStorage.setItem("name", "Deodate Mugenzi");
     this.initSample()
-    console.log("sampleflow", this.sampleWorkflow)
+    console.log("samplesflow", this.sampleWorkflow)
+
   }
 
 
   initSample() {
-    this.sampleWorkflow = WorflowSample.sample2;
-    // this.sampleWorkflow = WorflowSample.sample1;
-    
+    localStorage.setItem("iremboWorkflow", JSON.stringify(WorflowSample.sample2));
+    this.sampleWorkflow = JSON.parse(localStorage.getItem("iremboWorkflow") || '{}');    
   }
 
   openModel(){

@@ -23,8 +23,7 @@ export class TransitionNewComponent implements OnInit {
   sample2: any;
 
 
-  constructor(private dialogRef: MatDialog, public el: ElementRef) {
-  } 
+  constructor(private dialogRef: MatDialog, public el: ElementRef) { } 
 
   @Output() selectedTransition: EventEmitter<transitionConfig> = new EventEmitter<transitionConfig>();
   selectedCreateEvent: any;

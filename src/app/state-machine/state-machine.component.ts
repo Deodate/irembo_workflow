@@ -42,7 +42,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   updateTransition(transition: any) {
 
-    this.saveUpdates();
   }
 
   getStateMachineComponentUniqueStartStates(): string[] {
@@ -224,64 +223,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     transitions: JSON.stringify(WorflowSample.sample1),
   });
 
-  saveUpdates(): void {
-    // Loop through selectedTransitions and update sample1 and sample2
-    this.selectedTransitions.forEach((transition, index) => {
-      // Update properties that exist in sample1 and sample2
-      const sample1EndState = WorflowSample.sample1[index]?.endStateOne;
-      if (sample1EndState) {
-        WorflowSample.sample1[index].startState = transition.startState;
-        WorflowSample.sample1[index].event = transition.event;
-        if ('breakingAction' in sample1EndState) {
-          sample1EndState.breakingAction = transition.breakingAction;
-        }
-        if (transition.nonBreakingActionList) {
-          sample1EndState.nonBreakingActionList = transition.nonBreakingActionList;
-        }
-        console.log('Updated sample1:', WorflowSample.sample1[index]);
-      }
-
-      const sample2EndState = WorflowSample.sample2[index]?.endStateOne;
-      if (sample2EndState) {
-        WorflowSample.sample2[index].startState = transition.startState;
-        WorflowSample.sample2[index].event = transition.event;
-        if ('breakingAction' in sample2EndState) {
-          sample2EndState.breakingAction = transition.breakingAction;
-        }
-        if (transition.nonBreakingActionList) {
-          sample2EndState.nonBreakingActionList = transition.nonBreakingActionList;
-        }
-        console.log('Updated sample2:', WorflowSample.sample2[index]);
-      }
-    });
-
-    this.updateSuccessMessage = 'Changes saved successfully!';
-    console.log('Changes saved successfully!');
-  }
-
-  updatedMessage: string = '';
-
-  updateWorkflow() {
-    if (this.workflowData.length > 0) {
-      this.workflowData[0].startState = 'UPDATED_STATE';
-      this.updatedMessage = "Workflow updated successfully!";
-      this.selectedTransitions = [];
-
-    }
-  }
-
-  //  form:FormGroup = this.fb.group({
-
-  //   s_name: ['', Validators.required],
-  //   s_category: ['', Validators.required],
-
-  //  });
-  // constructor( private fb: FormBuilder) {}
-
-  // login(){
-
-  // }
-
   workflowData: any;
   WorflowSample: any;
   JSON: any;
@@ -308,9 +249,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     if(localData != null){
       this.newTransitionsList = JSON.parse(localData)
     }
-
-
-    this.workflowData = this.apiService.getWorkflowData();
     this.initialiseCreationFormGroup();
 
   }
@@ -444,8 +382,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
           startState: element.startState.toString(),
           endStateOne: element.endStateOne,
           endStateTwo: element.endStateTwo,
-          position: element.position
-
+          position: element.position,
+          samuel: element.event.toString()
         }
         this.workflow.transitions.push(transition);
       }
@@ -568,6 +506,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 }
 
 export class createNewTransitions{
+  id = crypto.randomUUID();
   startState: string;
   event: string;
   state: string;
