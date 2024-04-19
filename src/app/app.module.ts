@@ -29,6 +29,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormComponent } from './form/form.component';
 import { CourseComponent } from './courses/course/course.component';
 import { TodolistComponent } from './course/todolist/todolist.component';
+import { NavabarComponent } from './components/navabar/navabar.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { TodolistComponent } from './course/todolist/todolist.component';
     StateMachineEditorComponent,
     NavbarComponent,
     FormComponent,
-    TodolistComponent
+    TodolistComponent,
+    NavabarComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,7 @@ import { TodolistComponent } from './course/todolist/todolist.component';
     MatButtonModule,
     NgxDomarrowModule,
     MatDialogModule,
-    MatFormFieldModule 
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
