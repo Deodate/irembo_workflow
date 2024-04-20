@@ -4,6 +4,13 @@
 }
 body{
     margin: 0px;
+    height: 900px;
+    flex-grow: 1;
+    background-size: 20px 20px;
+    background-image: radial-gradient(circle, #e5e5e5e5 1px, rgba(0, 0, 0, 0) 1px);
+    box-shadow: 0px 2px 4px rgba(204, 67, 67, 0.25);
+    zoom: 1;
+    background-color: #4070f4;
 }
 
 svg{

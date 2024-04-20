@@ -30,6 +30,9 @@ import { FormComponent } from './form/form.component';
 import { CourseComponent } from './courses/course/course.component';
 import { TodolistComponent } from './course/todolist/todolist.component';
 import { NavabarComponent } from './components/navabar/navabar.component';
+import { NavbarsComponent } from './course/navbars/navbars.component';
+import { MatCardModule} from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -48,17 +51,23 @@ import { NavabarComponent } from './components/navabar/navabar.component';
     NavbarComponent,
     FormComponent,
     TodolistComponent,
-    NavabarComponent
+    NavabarComponent,
+    NavbarsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatInputModule,
     MatDividerModule,
+    MatFormFieldModule,
+    DragDropModule,
     FormsModule,
     MatIconModule,
+    MatIconModule,
     MatSidenavModule,
+    MatInputModule,
     DragDropModule,
+    MatButtonModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatListModule,
@@ -66,7 +75,8 @@ import { NavabarComponent } from './components/navabar/navabar.component';
     MatButtonModule,
     NgxDomarrowModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
