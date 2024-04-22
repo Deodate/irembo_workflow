@@ -1,17 +1,22 @@
 export interface stateConfig {
     name : string,
+    names : string,
     position : point
 }
 
 export interface transitionConfig {
     name : string,
+    names : string,
     startState : string,
     endStateOne : IremboEndState | undefined,
     endStateTwo : IremboEndState | undefined,
     breakingAction? : IremboAction | undefined,
     nonBreakingActionList? : IremboAction[] | undefined,
-    position : point,
-    samuel?:string
+    position : point
+}
+
+export interface irembo{
+    description: string,
 }
 
 export interface createNewTransitions {

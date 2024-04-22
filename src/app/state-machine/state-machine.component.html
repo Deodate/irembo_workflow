@@ -84,8 +84,9 @@
                                 <label>Start State </label>
                                 :&nbsp;
                                 <div class="transition_select">
-                                    <select formControlName="startState" [(ngModel)]="newTransitionsObj.startState">
-                                        <option>-----------Select-------------</option>
+                                    <!-- <select formControlName="startState" [(ngModel)]="newTransitionsObj.startState"> -->
+                                        <select formControlName="item" [(ngModel)]="newTransitionsObj.startState">
+                                        <option>-----------Select------------</option>
                                         <ng-container
                                             *ngFor="let startState  of  getStateMachineComponentUniqueStartStates()">
                                             <option>{{ startState }}</option>
@@ -97,8 +98,9 @@
                                 <label>Event </label>
                                 :&nbsp;
                                 <div class="transition_select">
-                                    <select formControlName="event" [(ngModel)]="newTransitionsObj.event">
-                                        <option>---Select---</option>
+                                    <!-- <select formControlName="event" [(ngModel)]="newTransitionsObj.event"> -->
+                                        <select formControlName="item" [(ngModel)]="newTransitionsObj.event">
+                                            <option>-----------Select------------</option>
                                         <ng-container *ngFor="let event of getUniqueEvents()">
                                             <option>{{ event }}</option>
                                         </ng-container>
@@ -168,7 +170,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Exit</div>
-                    <button class="btn btn-outline-success btn-sm me-1" data-bs-dismiss="modal" (click)="createNewTransition()">Create</button>
+                    <button class="btn btn-outline-success btn-sm me-1"  data-bs-dismiss="modal" (click)="createNew()">Create</button>
+                    <!-- <button class="btn btn-outline-success btn-sm me-1"  data-bs-dismiss="modal" (click)="createNewTransition()">Create</button> -->
                 </div>
             </div>
         </div>
@@ -179,7 +182,7 @@
 
     <app-transition-new *ngFor="let item of workflow.transitions" [config]="item" cdkDrag
         [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"
-        (selectedTransition)="handleTransitionSelect($event)"></app-transition-new>
+        (selectedTransition)="handleTransitionSelect($event)" [data]="data"></app-transition-new>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

@@ -1,7 +1,10 @@
-<div class="transition" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)='handleClick()' (showModal)="openModal()">
+
+<div class="transition" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)='handleClick()' (showModal)="openModal()" >
     <div class="card">
         <div class="card-header">
-            {{config.name}}
+             <!-- {{item}} -->
+            <!-- {{config.name}} -->
+          {{ data }}
         </div> 
         <div class="card-body">
             <div class="endStateOne" *ngIf="config.endStateOne" #endStateOne>    

@@ -13,6 +13,7 @@ import { createNewTransitions } from '../state-machine.component';
 export class TransitionNewComponent implements OnInit {
 
   @Input() newTransitionsList: createNewTransitions[] = [];
+  @Input() data: string = '';  
   
   @Input() item: any;
   showModal: any;
@@ -21,7 +22,9 @@ export class TransitionNewComponent implements OnInit {
   displayData: any;
   transitionConfigs: any;
   sample2: any;
-
+  iremboTask: any;
+  names: any;
+  text: string = '';
 
   constructor(private dialogRef: MatDialog, public el: ElementRef) { } 
 
@@ -57,6 +60,11 @@ export class TransitionNewComponent implements OnInit {
   handleClick() {
     this.showData = true;
     this.selectedTransition.emit(this.config)
+  }
+
+  handleCreate(event: any) {
+    this.text = event;
+    console.log("handle create")
   }
 
 }

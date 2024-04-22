@@ -3,7 +3,7 @@ import { StateComponent } from './state/state.component';
 import { TransitionNewComponent } from './transition/transition.component';
 import { CdkDragMove } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api.service';
-import { IremboTransition, Workflow, stateConfig, transitionConfig } from './models';
+import { IremboTransition, Workflow, irembo, stateConfig, transitionConfig } from './models';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { WorflowSample } from '../sample-workflow';
 import { ChangeDetectorRef } from '@angular/core';
@@ -18,10 +18,24 @@ declare var LeaderLine: any;
 
 export class StateMachineComponent implements OnInit, AfterViewInit {
 
+  @Output() crateEmitter: EventEmitter<string> = new EventEmitter<string>();
+
   newTransitionsObj: createNewTransitions = new createNewTransitions();
   newTransitionsList: createNewTransitions[] = [];
+  creationForm !: FormGroup;
+  iremboTask : irembo [] = [];
+  description: any;
+  data: string = ''
+
+  createNew(){
+    // this.data = 'Deodate',
+    this.iremboTask.push({
+      description: this.creationForm.value.data
+    })
+  }
 
   @Input() config: transitionConfig | undefined = {
+    names: '',
     name: '',
     startState: '',
     endStateOne: undefined,
@@ -38,7 +52,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   nonBreakingActionSelected: boolean = false;
   transition: any;
   showData: boolean = false;
-  creationForm: FormGroup = new FormGroup({});
+  // creationForm: FormGroup = new FormGroup({});
 
   updateTransition(transition: any) {
 
@@ -110,7 +124,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   selectedBreakingAction: string = '';
   selectedNonBreakingAction: string = '';
   selectedTransitions: any[] = [];
-  transitionToEdit: transitionConfig = {name: '', startState: '', endStateOne: undefined, breakingAction : undefined , endStateTwo: undefined, position: {x: 0, y: 0}};
+  transitionToEdit: transitionConfig = {names: '', name: '', startState: '', endStateOne: undefined, breakingAction : undefined , endStateTwo: undefined, position: {x: 0, y: 0}};
 
   onStartStateSelected(event: any): void {
     const value = event.target?.value;
@@ -230,7 +244,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   constructor(
     private apiService: ApiService,
     private formBuilder: FormBuilder,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private fb : FormBuilder
   ) {
     this.workflowData = WorflowSample.sample2;
 
@@ -245,6 +260,9 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
+    this.creationForm = this.fb.group({
+      item : ['', Validators.required]
+    })
     const localData = localStorage.getItem("iremboWorkflow");
     if(localData != null){
       this.newTransitionsList = JSON.parse(localData)
@@ -328,6 +346,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       if (!this.workflow.states.has(element.startState.toString())) {
         let state: stateConfig = {
           name: element.startState.toString(),
+          names: element.startState.toString(),
           position: {
             x: element.position.x,
             y: element.position.y - patY
@@ -349,6 +368,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
         let state: stateConfig = {
           name: element.endStateOne.stateCode.toString(),
+          names: element.endStateOne.stateCode.toString(),
           position: stateposition
         }
 
@@ -368,6 +388,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
         let state: stateConfig = {
           name: element.endStateTwo.stateCode.toString(),
+          names: element.endStateTwo.stateCode.toString(),
           position: stateposition
 
         }
@@ -379,13 +400,16 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       if (element.endStateOne) {
         let transition: transitionConfig = {
           name: element.event.toString(),
+          names: element.event.toString(),
           startState: element.startState.toString(),
           endStateOne: element.endStateOne,
           endStateTwo: element.endStateTwo,
-          position: element.position,
-          samuel: element.event.toString()
+          position: element.position
         }
         this.workflow.transitions.push(transition);
+        // createNewTransitions(){
+          
+        // }
       }
 
       currentX = element.position.x + 2 * patX;
@@ -488,6 +512,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       formElement.style.display = 'none'; // or formElement.style.visibility = 'hidden';
     }
 }
+
 
 
   createNewTransition() {
