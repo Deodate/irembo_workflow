@@ -26,7 +26,7 @@ mat-hint{
   }
   
   .example-box {
-   height: 40px;
+    height: 40px;
     padding-left: 110px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
@@ -71,14 +71,38 @@ mat-hint{
   }
 
   .head-title{
-    margin: 2xp;
-    padding: 3px;
+    margin: 1px;
+    padding: 1px;
     padding-left: 130px;
-    background-color: #a10e0e;
+    background-color: #babac1;
     border-radius: 4px;
     font-family: 'Times New Roman';
-    font-size: 20px;
-    color: #eae4e4;
+    font-size: 15px;
+    color: #040404;
+    align-items: center;
+  }
+
+  .head-title1{
+    margin: 1px;
+    padding: 1px;
+    padding-left: 130px;
+    background-color: #93a5d2;
+    border-radius: 4px;
+    font-family: 'Times New Roman';
+    font-size: 15px;
+    color: #040404;
+    align-items: center;
+  }
+
+  .head-title2{
+    margin: 1px;
+    padding: 1px;
+    padding-left: 130px;
+    background-color: #88f892;
+    border-radius: 4px;
+    font-family: 'Times New Roman';
+    font-size: 15px;
+    color: #040404;
     align-items: center;
   }
   
