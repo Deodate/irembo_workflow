@@ -67,6 +67,15 @@
         </app-state>
     </div>
 
+    <mat-card class="mt-3">
+        <form [formGroup]="newTransForm">
+            <mat-form-field appearance="outline">
+               <input formControlName="item" matInput placeholder="" />
+            </mat-form-field>
+        </form>
+        <button mat-raised-button [disabled]="newTransForm.invalid" color="primary">Add</button>
+    </mat-card>
+
 
     <div class="modal fade" id="exampleModalss" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

@@ -17,6 +17,7 @@ declare var LeaderLine: any;
 })
 
 export class StateMachineComponent implements OnInit, AfterViewInit {
+
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
   }
@@ -273,17 +274,25 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.showData = true;
   }
 
+  newTransForm !: FormGroup;
+  tasks : any [] = [];
+  
 
   ngOnInit(): void {
 
-    this.creationForm = this.fb.group({
-      item: ['', Validators.required]
+    this.newTransForm = this.fb.group({
+      item : ['', Validators.required]
+
     })
-    const localData = localStorage.getItem("iremboWorkflow");
-    if (localData != null) {
-      this.newTransitionsList = JSON.parse(localData)
-    }
-    this.initialiseCreationFormGroup();
+     // Saving in Local Machine 
+    // this.creationForm = this.fb.group({
+    //   item: ['', Validators.required]
+    // })
+    // const localData = localStorage.getItem("iremboWorkflow");
+    // if (localData != null) {
+    //   this.newTransitionsList = JSON.parse(localData)
+    // }
+    // this.initialiseCreationFormGroup();
 
   }
 
