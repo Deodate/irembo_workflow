@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { StateComponent } from './state/state.component';
 import { TransitionNewComponent } from './transition/transition.component';
-import { CdkDragMove } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragMove } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api.service';
 import { IremboTransition, Workflow, irembo, stateConfig, transitionConfig } from './models';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -17,24 +17,44 @@ declare var LeaderLine: any;
 })
 
 export class StateMachineComponent implements OnInit, AfterViewInit {
+  drop($event: CdkDragDrop<Workflow, any, any>) {
+    throw new Error('Method not implemented.');
+  }
 
   @Output() crateEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   newTransitionsObj: createNewTransitions = new createNewTransitions();
   newTransitionsList: createNewTransitions[] = [];
   creationForm !: FormGroup;
-  iremboTask : irembo [] = [];
+  iremboTask: irembo[] = [];
   description: any;
-  data: string = ''
+  data: string = '';
+  updateId: any;
+  isEditEnabled: boolean = false;
 
-  createNew(){
-    // this.data = 'Deodate',
-    this.iremboTask.push({
+  // createNew(){
+  //   this.data = 'Deodate',
+  //   this.iremboTask.push({
+  //     description: this.creationForm.value.data
+  //   })
+  // }
+
+  createNew() {
+    this.selectedTransitions.push({
       description: this.creationForm.value.data
-    })
+    });
+    // this.creationForm.reset();
   }
 
+  onUpdate(item: any, i: number) {
+    this.creationForm.controls['item'].setValue(item.event);
+    this.updateId = i;
+    this.isEditEnabled = true;
+  }
+
+
   @Input() config: transitionConfig | undefined = {
+    description: '',
     names: '',
     name: '',
     startState: '',
@@ -124,7 +144,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   selectedBreakingAction: string = '';
   selectedNonBreakingAction: string = '';
   selectedTransitions: any[] = [];
-  transitionToEdit: transitionConfig = {names: '', name: '', startState: '', endStateOne: undefined, breakingAction : undefined , endStateTwo: undefined, position: {x: 0, y: 0}};
+  transitionToEdit: transitionConfig = { description: '', names: '', name: '', startState: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, position: { x: 0, y: 0 } };
 
   onStartStateSelected(event: any): void {
     const value = event.target?.value;
@@ -150,7 +170,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     console.log('Selected Transitions:', this.selectedTransitions);
   }
 
-
   onEventSelected(event: any): void {
     console.log('onEventSelected')
     const value = event.target?.value;
@@ -169,9 +188,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   }
   selectedOption: string = ''; // Variable to store the selected option from the dropdown
 
-
   onNonBreakingAction(selectedValue: string): void {
-   
+
     this.selectedOption = selectedValue;
   }
 
@@ -206,13 +224,13 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
     // Loop through sample1 and sample2 arrays to gather unique end states
     [...WorflowSample.sample1].forEach(item => {
-        if (item.endStateOne) {
-            uniqueStates.push({
-                stateName: item.endStateOne.stateName,
-                stateCode: item.endStateOne.stateCode,
-                nextEvent: item.endStateOne.nextEvent
-            });
-        }     
+      if (item.endStateOne) {
+        uniqueStates.push({
+          stateName: item.endStateOne.stateName,
+          stateCode: item.endStateOne.stateCode,
+          nextEvent: item.endStateOne.nextEvent
+        });
+      }
     });
 
     return uniqueStates;
@@ -227,7 +245,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       this.selectedOption = '';
     }
   }
-
 
   showForm = true;
 
@@ -245,7 +262,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     private apiService: ApiService,
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private fb : FormBuilder
+    private fb: FormBuilder
   ) {
     this.workflowData = WorflowSample.sample2;
 
@@ -253,7 +270,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   formData: any = {};
 
   handleClick() {
-
     this.showData = true;
   }
 
@@ -261,10 +277,10 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this.creationForm = this.fb.group({
-      item : ['', Validators.required]
+      item: ['', Validators.required]
     })
     const localData = localStorage.getItem("iremboWorkflow");
-    if(localData != null){
+    if (localData != null) {
       this.newTransitionsList = JSON.parse(localData)
     }
     this.initialiseCreationFormGroup();
@@ -290,7 +306,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   _drawedLink: any[] = [];
 
   // local representation of the workflow
-    workflow: Workflow = {
+  workflow: Workflow = {
     states: new Map(),
     transitions: []
   };
@@ -401,6 +417,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         let transition: transitionConfig = {
           name: element.event.toString(),
           names: element.event.toString(),
+          description: element.event.toString(),
           startState: element.startState.toString(),
           endStateOne: element.endStateOne,
           endStateTwo: element.endStateTwo,
@@ -408,7 +425,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         }
         this.workflow.transitions.push(transition);
         // createNewTransitions(){
-          
+
         // }
       }
 
@@ -511,26 +528,24 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     if (formElement) {
       formElement.style.display = 'none'; // or formElement.style.visibility = 'hidden';
     }
-}
-
-
+  }
 
   createNewTransition() {
-   const isLocalPresent = localStorage.getItem("iremboWorkflow");
-   if(isLocalPresent != null){
-    const oldArray = JSON.parse(isLocalPresent);
-    oldArray.push(this.newTransitionsObj);
-    localStorage.setItem('iremboWorkflow',JSON.stringify(oldArray));
-   } else{
-    const newArr = [];
-    newArr.push(this.newTransitionsObj);
-    localStorage.setItem('iremboWorkflow',JSON.stringify(newArr));
-   }
+    const isLocalPresent = localStorage.getItem("iremboWorkflow");
+    if (isLocalPresent != null) {
+      const oldArray = JSON.parse(isLocalPresent);
+      oldArray.push(this.newTransitionsObj);
+      localStorage.setItem('iremboWorkflow', JSON.stringify(oldArray));
+    } else {
+      const newArr = [];
+      newArr.push(this.newTransitionsObj);
+      localStorage.setItem('iremboWorkflow', JSON.stringify(newArr));
+    }
 
   }
 }
 
-export class createNewTransitions{
+export class createNewTransitions {
   id = crypto.randomUUID();
   startState: string;
   event: string;
@@ -538,7 +553,7 @@ export class createNewTransitions{
   breakingAction: string;
   nonBreakingAction: string;
 
-  constructor(){this.startState = ''; this.event = ''; this.state = ''; this.breakingAction = ''; this.nonBreakingAction = ''}
+  constructor() { this.startState = ''; this.event = ''; this.state = ''; this.breakingAction = ''; this.nonBreakingAction = '' }
 }
 
  // changeWorkflow() {

@@ -34,6 +34,7 @@ import { NavbarsComponent } from './course/navbars/navbars.component';
 import { MatCardModule} from '@angular/material/card';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

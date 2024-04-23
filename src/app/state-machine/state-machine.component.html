@@ -99,10 +99,10 @@
                                 :&nbsp;
                                 <div class="transition_select">
                                     <!-- <select formControlName="event" [(ngModel)]="newTransitionsObj.event"> -->
-                                        <select formControlName="item" [(ngModel)]="newTransitionsObj.event">
+                                        <select formControlName="event" [(ngModel)]="data">
                                             <option>-----------Select------------</option>
                                         <ng-container *ngFor="let event of getUniqueEvents()">
-                                            <option>{{ event }}</option>
+                                            <option>{{event}}</option>
                                         </ng-container>
                                     </select>
                                 </div>
@@ -174,16 +174,21 @@
                     <!-- <button class="btn btn-outline-success btn-sm me-1"  data-bs-dismiss="modal" (click)="createNewTransition()">Create</button> -->
                 </div>
             </div>
-        </div>
+        </div>  
     </div>
 
+    <!-- <div cdkDropList [cdkDropListData]="data" class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let item of tasks; let i = index" class="example-box" cdkDrag>
+        {{ item.description }}
+    </div>
+</div> -->
 
     <!-- <app-state *ngFor="let item of workflow.states | keyvalue"  [config]="item.value" cdkDrag [cdkDragFreeDragPosition]="item.value.position" (cdkDragMoved)="onDragMove($event)"></app-state> -->
-
-    <app-transition-new *ngFor="let item of workflow.transitions" [config]="item" cdkDrag
+    <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item" [data]="item.description" cdkDrag
         [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"
         (selectedTransition)="handleTransitionSelect($event)" [data]="data"></app-transition-new>
-
+   
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -11,6 +11,10 @@ import { createNewTransitions } from '../state-machine.component';
   styleUrls: ['./transition.component.css']
 })
 export class TransitionNewComponent implements OnInit {
+i: any;
+onUpdate(arg0: any,arg1: any) {
+throw new Error('Method not implemented.');
+}
 
   @Input() newTransitionsList: createNewTransitions[] = [];
   @Input() data: string = '';  

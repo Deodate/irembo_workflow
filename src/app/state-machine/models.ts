@@ -5,6 +5,7 @@ export interface stateConfig {
 }
 
 export interface transitionConfig {
+description: string;
     name : string,
     names : string,
     startState : string,
