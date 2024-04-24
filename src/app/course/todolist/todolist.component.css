@@ -27,8 +27,8 @@ mat-hint{
   
   .example-box {
     height: 40px;
-    padding-left: 110px;
-    border-bottom: solid 1px #ccc;
+    padding-left: 30px;
+    border-bottom: solid 1px #b74b4b;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
     flex-direction: row;
@@ -36,7 +36,7 @@ mat-hint{
     justify-content: space-between;
     box-sizing: border-box;
     cursor: move;
-    background: white;
+    background: rgb(73, 66, 66);
     font-size: 13px;
   }
   
@@ -68,13 +68,14 @@ mat-hint{
     display: grid;
     grid-auto-flow: column;
     grid-column: 10px;
+    
   }
 
   .head-title{
-    margin: 1px;
-    padding: 1px;
-    padding-left: 130px;
-    background-color: #babac1;
+    margin: 23px;
+    padding: 30px;
+    padding-left: 30px;
+    background-color: #268a18;
     border-radius: 4px;
     font-family: 'Times New Roman';
     font-size: 15px;
@@ -85,8 +86,8 @@ mat-hint{
   .head-title1{
     margin: 1px;
     padding: 1px;
-    padding-left: 130px;
-    background-color: #93a5d2;
+    padding-left: 30px;
+    background-color: #268a18;
     border-radius: 4px;
     font-family: 'Times New Roman';
     font-size: 15px;
@@ -97,8 +98,8 @@ mat-hint{
   .head-title2{
     margin: 1px;
     padding: 1px;
-    padding-left: 130px;
-    background-color: #88f892;
+    padding-left: 30px;
+    background-color: #268a18;
     border-radius: 4px;
     font-family: 'Times New Roman';
     font-size: 15px;
