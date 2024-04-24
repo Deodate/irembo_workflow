@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDrag, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { iremboTask } from '../tasks';
@@ -6,7 +6,7 @@ import { iremboTask } from '../tasks';
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
-  styleUrls: ['./todolist.component.css']
+  styleUrls: ['./todolist.component.css'],
 })
 export class TodolistComponent implements OnInit {
 
@@ -73,3 +73,5 @@ export class TodolistComponent implements OnInit {
     }
   }
 }
+
+

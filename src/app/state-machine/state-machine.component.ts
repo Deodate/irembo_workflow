@@ -18,6 +18,8 @@ declare var LeaderLine: any;
 
 export class StateMachineComponent implements OnInit, AfterViewInit {
 
+addForm !: FormGroup;
+
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
   }
@@ -30,8 +32,33 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   iremboTask: irembo[] = [];
   description: any;
   data: string = '';
-  updateId: any;
+  workflows: stateConfig[] = [];
+  updateIndex: any;
   isEditEnabled: boolean = false;
+
+  addData() {
+    this.workflows.push({
+      tasks: this.addForm.value.items,
+      position: { x: 0, y: 0 },
+      name: '',
+      names: ''
+    });
+    this.addForm.reset();
+  }
+
+  updateWorkFlow(){
+    this.workflows[this.updateIndex].tasks = this.addForm.value.item;
+    this.addForm.reset();
+    this.updateIndex = undefined;
+    this.isEditEnabled = false;
+  }
+
+  onUpdated(items: stateConfig, i : number){
+   this.addForm.controls['items'].setValue(items.tasks);
+   this.updateIndex = i;
+   this.isEditEnabled = true;
+  }
+
 
   // createNew(){
   //   this.data = 'Deodate',
@@ -39,6 +66,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //     description: this.creationForm.value.data
   //   })
   // }
+
+ 
 
   createNew() {
     this.selectedTransitions.push({
@@ -49,9 +78,11 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   onUpdate(item: any, i: number) {
     this.creationForm.controls['item'].setValue(item.event);
-    this.updateId = i;
+    this.updateIndex = i;
     this.isEditEnabled = true;
   }
+
+  
 
 
   @Input() config: transitionConfig | undefined = {
@@ -275,24 +306,26 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   }
 
   newTransForm !: FormGroup;
-  tasks : any [] = [];
-  
 
   ngOnInit(): void {
 
+    this.addForm = this.formBuilder.group({
+      items: ['', Validators.required]
+    });
+
     this.newTransForm = this.fb.group({
-      item : ['', Validators.required]
+      item : ['', Validators.required],
 
     })
-     // Saving in Local Machine 
-    // this.creationForm = this.fb.group({
-    //   item: ['', Validators.required]
-    // })
-    // const localData = localStorage.getItem("iremboWorkflow");
-    // if (localData != null) {
-    //   this.newTransitionsList = JSON.parse(localData)
-    // }
-    // this.initialiseCreationFormGroup();
+
+    this.creationForm = this.fb.group({
+      item: ['', Validators.required]
+    })
+    const localData = localStorage.getItem("iremboWorkflow");
+    if (localData != null) {
+      this.newTransitionsList = JSON.parse(localData)
+    }
+    this.initialiseCreationFormGroup();
 
   }
 
@@ -371,6 +404,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       if (!this.workflow.states.has(element.startState.toString())) {
         let state: stateConfig = {
           name: element.startState.toString(),
+          tasks: element.startState.toString(),
           names: element.startState.toString(),
           position: {
             x: element.position.x,
@@ -393,6 +427,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
         let state: stateConfig = {
           name: element.endStateOne.stateCode.toString(),
+          tasks: element.endStateOne.stateCode.toString(),
           names: element.endStateOne.stateCode.toString(),
           position: stateposition
         }
@@ -413,6 +448,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
         let state: stateConfig = {
           name: element.endStateTwo.stateCode.toString(),
+          tasks: element.endStateTwo.stateCode.toString(),
           names: element.endStateTwo.stateCode.toString(),
           position: stateposition
 

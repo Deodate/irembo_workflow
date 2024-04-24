@@ -1,6 +1,7 @@
 export interface stateConfig {
     name : string,
     names : string,
+    tasks : string;
     position : point
 }
 

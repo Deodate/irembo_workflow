@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { SlotType, transitionConfig } from '../models';
+import { SlotType, stateConfig, transitionConfig } from '../models';
 import { SlotComponent } from '../slot/slot.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormComponent } from 'src/app/form/form.component';
@@ -18,6 +18,7 @@ throw new Error('Method not implemented.');
 
   @Input() newTransitionsList: createNewTransitions[] = [];
   @Input() data: string = '';  
+  @Input() workflows: stateConfig[] | undefined;
   
   @Input() item: any;
   showModal: any;
