@@ -14,9 +14,9 @@
                         <div style="display: flex; justify-content: center; margin: 25px;">
                             <button *ngIf="!isEditEnabled" (click)="addTask()" [disabled]="todoForm.invalid"
                                 mat-raised-button
-                                style="background-color: blue; color: aliceblue; height: 30%; width: 18%;">Add</button>
+                                style="background-color: blue; color: aliceblue; height: 20%;">Create</button>
 
-                            <button *ngIf="isEditEnabled" (click)="updateTask()" [disabled]="todoForm.invalid"
+                            <button *ngIf="isEditEnabled" (click)="updatePayment(); updateTask()"  [disabled]="todoForm.invalid"
                                 mat-raised-button
                                 style="background-color: rgb(240, 214, 85); color: rgb(4, 4, 4); height: 27%; width: 24%; font-size: 12px;">Update</button>
 
@@ -31,7 +31,7 @@
                     <div class="col-md-2">
                         <div class="example-container">
                             <!-- To Do -->
-                            <h4 class="head-title">New<span *ngIf="tasks.length > 0"> - {{tasks.length}}</span></h4>
+                            <h4 class="head-title">New<span *ngIf="tasks.length > 0"> + {{tasks.length}}</span></h4>
                             <div cdkDropList [cdkDropListData]="tasks" class="example-list"
                                 (cdkDropListDropped)="drop($event)">
                                 <div *ngFor="let item of tasks; let i = index" class="example-box" cdkDrag>{{
@@ -42,7 +42,8 @@
                                                 style="color: red;">delete</mat-icon></button> -->
                                         <button mat-icon-button color="warn" (click)="onEdit(item,i)"
                                             style="height: 10px; width: 20px; background-color: #ccc"><mat-icon
-                                                style="color: rgb(61, 4, 251); margin-top: -31px; " [style.fontSize.px]="10">edit</mat-icon></button>
+                                                style="color: rgb(61, 4, 251); margin-top: -31px; "
+                                                [style.fontSize.px]="10">edit</mat-icon></button>
                                     </div>
                                 </div>
                             </div>
@@ -52,15 +53,18 @@
                     <div class="col-md-2">
                         <div class="example-container">
                             <!-- Inprogress -->
-                            <h4 class="head-title1">Payment Pending <span *ngIf="inprogress.length > 0"> -
+                            <h4 class="head-title1">Payment Pending <span *ngIf="inprogress.length > 0"> +
                                     {{inprogress.length}}</span></h4>
                             <div cdkDropList [cdkDropListData]="inprogress" class="example-list"
                                 (cdkDropListDropped)="drop($event)">
-                                <div *ngFor="let item of inprogress; let i = index" class="example-box" cdkDrag>{{
-                                    item.description }}
-                                   <button mat-icon-button color="warn" (click)="onEdit(item,i)"
-                                   style="height: 10px; width: 20px; background-color: #ccc"><mat-icon
-                                       style="color: rgb(61, 4, 251); margin-top: -31px; " [style.fontSize.px]="10">edit</mat-icon></button>
+                                <div *ngFor="let item of inprogress; let i = index" class="example-box" cdkDrag>
+                                    {{ item.description }}
+                                    <div class="box">
+                                        <button mat-icon-button color="warn" (click)="onEdit(item,i)"
+                                            style="height: 10px; width: 20px; background-color: #ccc"><mat-icon
+                                                style="color: rgb(61, 4, 251); margin-top: -31px; "
+                                                [style.fontSize.px]="10">edit</mat-icon></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -69,15 +73,12 @@
                     <div class="col-md-2">
                         <div class="example-container">
                             <!-- Done -->
-                            <h4 class="head-title2">PAID <span *ngIf="done.length > 0"> - {{done.length}}</span></h4>
-                            <div cdkDropList [cdkDropListData]="done" class="example-list"
+                            <h4 class="head-title2">PAID <span *ngIf="paid.length > 0"> + {{paid.length}}</span></h4>
+                            <div cdkDropList [cdkDropListData]="paid" class="example-list"
                                 (cdkDropListDropped)="drop($event)">
-                                <div *ngFor="let item of done; let i = index" class="example-box" cdkDrag>{{
+                                <div *ngFor="let item of paid; let i = index" class="example-box" cdkDrag>{{
                                     item.description }}
                                     <div class="box">
-                                        <button mat-icon-button color="warn" (click)="deleteDoneTask(i)"
-                                            style="background-color: #fff"><mat-icon
-                                                style="color: red;">delete</mat-icon></button>
                                         <button mat-icon-button color="warn" (click)="onEdit(item,i)"
                                             style="background-color: #fff"><mat-icon
                                                 style="color: rgb(61, 4, 251);">edit</mat-icon></button>
@@ -90,16 +91,13 @@
                     <div class="col-md-2">
                         <div class="example-container">
                             <!-- Done -->
-                            <h4 class="head-title2">PENDING APPROVAL <span *ngIf="pending.length > 0"> -
+                            <h4 class="head-title2">PENDING APPROVAL <span *ngIf="pending.length > 0"> +
                                     {{pending.length}}</span></h4>
                             <div cdkDropList [cdkDropListData]="pending" class="example-list"
                                 (cdkDropListDropped)="drop($event)">
                                 <div *ngFor="let item of pending; let i = index" class="example-box" cdkDrag>{{
                                     item.description }}
                                     <div class="box">
-                                        <button mat-icon-button color="warn" (click)="deleteDoneTask(i)"
-                                            style="background-color: #fff"><mat-icon
-                                                style="color: red;">delete</mat-icon></button>
                                         <button mat-icon-button color="warn" (click)="onEdit(item,i)"
                                             style="background-color: #fff"><mat-icon
                                                 style="color: rgb(61, 4, 251);">edit</mat-icon></button>
@@ -112,16 +110,16 @@
                     <div class="col-md-2">
                         <div class="example-container">
                             <!-- Done -->
-                            <h4 class="head-title2">PENDING_RESUBMISSION OTP <span *ngIf="resubmission.length > 0"> -
+                            <h4 class="head-title2">PENDING_RESUBMISSION OTP <span *ngIf="resubmission.length > 0"> +
                                     {{resubmission.length}}</span></h4>
                             <div cdkDropList [cdkDropListData]="resubmission" class="example-list"
                                 (cdkDropListDropped)="drop($event)">
                                 <div *ngFor="let item of resubmission; let i = index" class="example-box" cdkDrag>{{
                                     item.description }}
                                     <div class="box">
-                                        <button mat-icon-button color="warn" (click)="deleteDoneTask(i)"
+                                        <!-- <button mat-icon-button color="warn" (click)="deleteDoneTask(i)"
                                             style="background-color: #fff"><mat-icon
-                                                style="color: red;">delete</mat-icon></button>
+                                                style="color: red;">delete</mat-icon></button> -->
                                         <button mat-icon-button color="warn" (click)="onEdit(item,i)"
                                             style="background-color: #fff"><mat-icon
                                                 style="color: rgb(61, 4, 251);">edit</mat-icon></button>
@@ -134,16 +132,16 @@
                     <div class="col-md-2">
                         <div class="example-container">
                             <!-- Done -->
-                            <h4 class="head-title2">CLOSED WITH APPROVAL <span *ngIf="close.length > 0"> -
+                            <h4 class="head-title2">CLOSED WITH APPROVAL <span *ngIf="close.length > 0"> +
                                     {{close.length}}</span></h4>
                             <div cdkDropList [cdkDropListData]="close" class="example-list"
                                 (cdkDropListDropped)="drop($event)">
                                 <div *ngFor="let item of close; let i = index" class="example-box" cdkDrag>{{
                                     item.description }}
                                     <div class="box">
-                                        <button mat-icon-button color="warn" (click)="deleteDoneTask(i)"
+                                        <!-- <button mat-icon-button color="warn" (click)="deleteDoneTask(i)"
                                             style="background-color: #fff"><mat-icon
-                                                style="color: red;">delete</mat-icon></button>
+                                                style="color: red;">delete</mat-icon></button> -->
                                         <button mat-icon-button color="warn" (click)="onEdit(item,i)"
                                             style="background-color: #fff"><mat-icon
                                                 style="color: rgb(61, 4, 251);">edit</mat-icon></button>
@@ -156,14 +154,14 @@
                     <div class="col-md-2">
                         <div class="example-container">
                             <!-- Done -->
-                            <h4 class="head-title2">CLOSED_WITH REJECTED <span *ngIf="rejected.length > 0"> -
+                            <h4 class="head-title2">CLOSED_WITH REJECTED <span *ngIf="rejected.length > 0"> +
                                     {{rejected.length}}</span></h4>
                             <div cdkDropList [cdkDropListData]="rejected" class="example-list"
                                 (cdkDropListDropped)="drop($event)">
                                 <div *ngFor="let item of rejected; let i = index" class="example-box" cdkDrag>{{
                                     item.description }}
                                     <div class="box">
-                                        <button mat-icon-button color="warn" (click)="deleteDoneTask(i)"
+                                        <button mat-icon-button color="warn"
                                             style="background-color: #fff"><mat-icon
                                                 style="color: rgb(62, 146, 51);">check_circle</mat-icon></button>
                                     </div>

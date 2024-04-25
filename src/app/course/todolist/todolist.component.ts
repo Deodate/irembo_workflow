@@ -13,7 +13,7 @@ export class TodolistComponent implements OnInit {
   todoForm !: FormGroup;
   tasks : iremboTask [] = [];
   inprogress : iremboTask [] = [];
-  done: iremboTask [] = [];
+  paid: iremboTask [] = [];
   pending: iremboTask [] = [];
   resubmission: iremboTask [] = [];
   close: iremboTask [] = [];
@@ -52,7 +52,25 @@ export class TodolistComponent implements OnInit {
     this.isEditEnabled = false;
   }
 
+  updatePayment() {
+    if (this.updateIndex !== undefined && this.updateIndex >= 0 && this.updateIndex < this.inprogress.length) {
+      this.inprogress[this.updateIndex].description = this.todoForm.value.item;
+      this.todoForm.reset();
+      this.updateIndex = undefined;
+      this.isEditEnabled = false;
+    }
+  }
 
+  updatePaid() {
+    if (this.updateIndex !== undefined && this.updateIndex >= 0 && this.updateIndex < this.paid.length) {
+      this.paid[this.updateIndex].description = this.todoForm.value.items;
+      this.todoForm.reset();
+      this.updateIndex = undefined;
+      this.isEditEnabled = false;
+    }
+}
+  
+  
   deleteTask(i: number){
     this.tasks.splice(i,1)
   }
@@ -61,9 +79,6 @@ export class TodolistComponent implements OnInit {
     this.inprogress.splice(i,1)
   }
 
-  deleteDoneTask(i: number){
-    this.done.splice(i,1)
-  }
 
   drop(event: CdkDragDrop<iremboTask[]>) {
     if (event.previousContainer === event.container) {

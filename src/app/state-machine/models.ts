@@ -1,23 +1,23 @@
 export interface stateConfig {
-    name : string,
-    names : string,
-    tasks : string;
-    position : point
+    name: string,
+    names: string,
+    tasks: string;
+    position: point
 }
 
 export interface transitionConfig {
-description: string;
-    name : string,
-    names : string,
-    startState : string,
-    endStateOne : IremboEndState | undefined,
-    endStateTwo : IremboEndState | undefined,
-    breakingAction? : IremboAction | undefined,
-    nonBreakingActionList? : IremboAction[] | undefined,
-    position : point
+    description: string;
+    name: string,
+    names: string,
+    startState: string,
+    endStateOne: IremboEndState | undefined,
+    endStateTwo: IremboEndState | undefined,
+    breakingAction?: IremboAction | undefined,
+    nonBreakingActionList?: IremboAction[] | undefined,
+    position: point
 }
 
-export interface irembo{
+export interface irembo {
     description: string,
 }
 
@@ -30,8 +30,8 @@ export interface createNewTransitions {
 }
 
 export interface point {
-    x : number,
-    y : number,
+    x: number,
+    y: number,
 }
 
 export enum SlotType {
@@ -39,32 +39,32 @@ export enum SlotType {
 }
 
 export interface Workflow {
-    states : Map<string,stateConfig>,
-    transitions : transitionConfig [],
+    states: Map<string, stateConfig>,
+    transitions: transitionConfig[],
 }
 
 
 export interface IremboTransition {
-    event : string,
-    startState : string,
-    endStateOne? : IremboEndState | undefined,
-    endStateTwo? : IremboEndState | undefined,
-    position? : point
+    event: string,
+    startState: string,
+    endStateOne?: IremboEndState | undefined,
+    endStateTwo?: IremboEndState | undefined,
+    position?: point
 }
 
 
 export interface IremboEndState {
-    nextEvent : string | undefined,
+    nextEvent: string | undefined,
     stateCode: string,
     stateName: string,
-    breakingAction? : IremboAction | undefined,
-    nonBreakingActionList? : IremboAction[] | undefined,
-    position? : point | undefined
+    breakingAction?: IremboAction | undefined,
+    nonBreakingActionList?: IremboAction[] | undefined,
+    position?: point | undefined
 }
 
 export interface IremboAction {
-    args : any
-    actionType : string
+    args: any
+    actionType: string
 }
 
 export enum IremboEvent {

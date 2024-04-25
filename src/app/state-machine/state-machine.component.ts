@@ -18,7 +18,7 @@ declare var LeaderLine: any;
 
 export class StateMachineComponent implements OnInit, AfterViewInit {
 
-addForm !: FormGroup;
+  addForm !: FormGroup;
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
@@ -46,17 +46,17 @@ addForm !: FormGroup;
     this.addForm.reset();
   }
 
-  updateWorkFlow(){
+  updateWorkFlow() {
     this.workflows[this.updateIndex].tasks = this.addForm.value.item;
     this.addForm.reset();
     this.updateIndex = undefined;
     this.isEditEnabled = false;
   }
 
-  onUpdated(items: stateConfig, i : number){
-   this.addForm.controls['items'].setValue(items.tasks);
-   this.updateIndex = i;
-   this.isEditEnabled = true;
+  onUpdated(items: stateConfig, i: number) {
+    this.addForm.controls['items'].setValue(items.tasks);
+    this.updateIndex = i;
+    this.isEditEnabled = true;
   }
 
 
@@ -67,7 +67,7 @@ addForm !: FormGroup;
   //   })
   // }
 
- 
+
 
   createNew() {
     this.selectedTransitions.push({
@@ -82,7 +82,7 @@ addForm !: FormGroup;
     this.isEditEnabled = true;
   }
 
-  
+
 
 
   @Input() config: transitionConfig | undefined = {
@@ -314,7 +314,7 @@ addForm !: FormGroup;
     });
 
     this.newTransForm = this.fb.group({
-      item : ['', Validators.required],
+      item: ['', Validators.required],
 
     })
 
