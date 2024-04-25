@@ -14,6 +14,10 @@ export class TodolistComponent implements OnInit {
   tasks : iremboTask [] = [];
   inprogress : iremboTask [] = [];
   done: iremboTask [] = [];
+  pending: iremboTask [] = [];
+  resubmission: iremboTask [] = [];
+  close: iremboTask [] = [];
+  rejected: iremboTask [] = [];
   updateIndex!: any;
   isEditEnabled: boolean = false;
 
@@ -47,6 +51,7 @@ export class TodolistComponent implements OnInit {
     this.updateIndex = undefined;
     this.isEditEnabled = false;
   }
+
 
   deleteTask(i: number){
     this.tasks.splice(i,1)
