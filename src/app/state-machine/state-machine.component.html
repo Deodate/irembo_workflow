@@ -134,7 +134,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 :&nbsp;
                                 <div class="transition_select">
                                     <!-- <select formControlName="startState" [(ngModel)]="newTransitionsObj.startState"> -->
-                                    <select formControlName="item" [(ngModel)]="newTransitionsObj.startState">
+                                    <select formControlName="item">
                                         <option>-----------Select------------</option>
                                         <ng-container
                                             *ngFor="let startState  of  getStateMachineComponentUniqueStartStates()">
@@ -172,7 +172,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                   </select>
                                 </div> -->
                                     <div class="transition_select">
-                                        <select formControlName="event" [(ngModel)]="newTransitionsObj.state">
+                                        <select formControlName="event">
                                             <option>------------Select---------</option>
                                             <option>Paid</option>
                                             <option>Submitted</option>
@@ -187,7 +187,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 <div class="input_field">
                                     <label>BreakingAction </label>
                                     :&nbsp; <div class="transition_select">
-                                        <select formControlName="event" [(ngModel)]="newTransitionsObj.breakingAction">
+                                        <select formControlName="event">
                                             <option>---Select---</option>
                                             <option>BILL_ID_GENERATION</option>
                                             <option>INTEGRATION</option>
@@ -205,7 +205,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     <label>Non-BreakingAction </label>
                                     :&nbsp; <div class="transition_select">
                                         <select formControlName="event"
-                                            [(ngModel)]="newTransitionsObj.nonBreakingAction">
+                                           >
                                             <option>---Select---</option>
                                             <option>French</option>
                                             <option>English</option>

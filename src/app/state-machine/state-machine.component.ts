@@ -375,6 +375,24 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   }
 
+  createTra() {
+    const isLocalPresent = localStorage.getItem("server");
+    if (isLocalPresent != null) {
+      // Add the new transition to the existing transitions array
+      this.workflow.transitions.push(this.transition);
+      localStorage.setItem("server", JSON.stringify(this.workflow));
+    } else {
+      // If local storage is empty, create a new array with the new transition
+      const newWorkflow = {
+        states: this.workflow.states,
+        transitions: [this.transition] // Add the new transition to the new workflow
+      };
+      localStorage.setItem("server", JSON.stringify(newWorkflow));
+    }
+  }
+  
+  
+
   buildWorkflow() {
 
     const patX = 120;
@@ -579,12 +597,12 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     const isLocalPresent = localStorage.getItem("iremboWorkflow");
     if (isLocalPresent != null) {
       const oldArray = JSON.parse(isLocalPresent);
-      oldArray.push(this.newTransitionsObj);
+      // oldArray.push(this.newTransitionsObj);
       localStorage.setItem('iremboWorkflow', JSON.stringify(oldArray));
     } else {
       const newArr = [];
-      newArr.push(this.newTransitionsObj);
-      localStorage.setItem('iremboWorkflow', JSON.stringify(newArr));
+      // newArr.push(this.newTransitionsObj);
+      // localStorage.setItem('iremboWorkflow', JSON.stringify(newArr));
     }
 
   }
