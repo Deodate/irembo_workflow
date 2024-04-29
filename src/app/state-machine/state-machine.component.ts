@@ -57,7 +57,13 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.newTransitionsObj.breakingAction = target.value;
   }
 
-  
+  onNonBreakingActionChange(event: any) {
+    const value = (event.target as HTMLSelectElement)?.value || '';
+    this.newTransitionsObj.nonBreakingAction = value;
+}
+
+
+
   addData() {
     this.workflows.push({
       tasks: this.addForm.value.items,
@@ -92,10 +98,22 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
 
   createNew() {
-    this.selectedTransitions.push({
-      description: this.creationForm.value.data
-    });
+    // this.selectedTransitions.push({
+    //   description: this.creationForm.value.data
+    // });
     // this.creationForm.reset();
+    debugger;
+    const isLocalPresent = localStorage.getItem("iremboWorkflow");
+    if(isLocalPresent != null){
+      const oldArray = JSON.parse(isLocalPresent);
+      oldArray.push(this.newTransitionsObj);
+      localStorage.setItem("iremboWorkflow",JSON.stringify(oldArray));
+
+    } else {
+      const newArray = [];
+      newArray.push(this.newTransitionsObj);
+      localStorage.setItem("iremboWorkflow",JSON.stringify(newArray));
+    }
   }
 
   onUpdate(item: any, i: number) {
