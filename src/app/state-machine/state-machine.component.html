@@ -237,9 +237,17 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
     <!-- <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item"
         [data]="item.description" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"
         (selectedTransition)="handleTransitionSelect($event)" [data]="data"></app-transition-new> -->
-    <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item"
-        [data]="item.description" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"
-        (selectedTransition)="handleTransitionSelect($event)" [workflows]="workflows"></app-transition-new>
+        <app-transition-new *ngFor="let item of workflow.transitions; let i = index"
+        [config]="item"
+        [data]="item.description"
+        cdkDrag
+        [cdkDragFreeDragPosition]="item.position"
+        (cdkDragMoved)="onDragMove($event)"
+      
+        [workflows]="workflows">
+      </app-transition-new>
+      
+      
 
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

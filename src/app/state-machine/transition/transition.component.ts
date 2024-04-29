@@ -33,8 +33,9 @@ throw new Error('Method not implemented.');
 
   constructor(private dialogRef: MatDialog, public el: ElementRef) { } 
 
-  @Output() selectedTransition: EventEmitter<transitionConfig> = new EventEmitter<transitionConfig>();
-  selectedCreateEvent: any;
+  // @Output() selectedTransition: EventEmitter<transitionConfig> = new EventEmitter<transitionConfig>();
+  // selectedCreateEvent: any;
+  @Output() selectedTransition: EventEmitter<createNewTransitions> = new EventEmitter<createNewTransitions>();
 
   @Input() config!: transitionConfig;
 
@@ -62,10 +63,10 @@ throw new Error('Method not implemented.');
     this.showModal.emit();
   }
 
-  handleClick() {
-    this.showData = true;
-    this.selectedTransition.emit(this.config)
-  }
+  // handleClick() {
+  //   this.showData = true;
+  //   this.selectedTransition.emit(this.config)
+  // }
 
   handleCreate(event: any) {
     this.text = event;

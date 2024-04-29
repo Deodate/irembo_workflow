@@ -60,9 +60,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   onNonBreakingActionChange(event: any) {
     const value = (event.target as HTMLSelectElement)?.value || '';
     this.newTransitionsObj.nonBreakingAction = value;
-}
-
-
+  }
 
   addData() {
     this.workflows.push({
@@ -95,8 +93,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //   })
   // }
 
-
-
   createNew() {
     // this.selectedTransitions.push({
     //   description: this.creationForm.value.data
@@ -104,15 +100,15 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     // this.creationForm.reset();
     debugger;
     const isLocalPresent = localStorage.getItem("iremboWorkflow");
-    if(isLocalPresent != null){
+    if (isLocalPresent != null) {
       const oldArray = JSON.parse(isLocalPresent);
       oldArray.push(this.newTransitionsObj);
-      localStorage.setItem("iremboWorkflow",JSON.stringify(oldArray));
+      localStorage.setItem("iremboWorkflow", JSON.stringify(oldArray));
 
     } else {
       const newArray = [];
       newArray.push(this.newTransitionsObj);
-      localStorage.setItem("iremboWorkflow",JSON.stringify(newArray));
+      localStorage.setItem("iremboWorkflow", JSON.stringify(newArray));
     }
   }
 
@@ -122,13 +118,11 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.isEditEnabled = true;
   }
 
-
-
-
   @Input() config: transitionConfig | undefined = {
     description: '',
     names: '',
     name: '',
+    event: '',
     startState: '',
     endStateOne: undefined,
     endStateTwo: undefined,
@@ -216,7 +210,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   selectedBreakingAction: string = '';
   selectedNonBreakingAction: string = '';
   selectedTransitions: any[] = [];
-  transitionToEdit: transitionConfig = { description: '', names: '', name: '', startState: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, position: { x: 0, y: 0 } };
+  transitionToEdit: transitionConfig = { description: '', names: '', name: '', startState: '', event: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, position: { x: 0, y: 0 } };
 
   onStartStateSelected(event: any): void {
     const value = event.target?.value;
@@ -365,6 +359,10 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     if (localData != null) {
       this.newTransitionsList = JSON.parse(localData)
     }
+    const event = localStorage.getItem("event");
+    if (event != null) {
+      this.newTransitionsObj.event = event;
+    }
     this.initialiseCreationFormGroup();
 
   }
@@ -430,8 +428,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       localStorage.setItem("server", JSON.stringify(newWorkflow));
     }
   }
-  
-  
+
 
   buildWorkflow() {
 
@@ -520,6 +517,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         let transition: transitionConfig = {
           name: element.event.toString(),
           names: element.event.toString(),
+          event: element.event.toString(),
           description: element.event.toString(),
           startState: element.startState.toString(),
           endStateOne: element.endStateOne,
@@ -647,7 +645,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   }
 }
-
 export class createNewTransitions {
   startState: string;
   event: string;
