@@ -55,7 +55,7 @@ color: #d9dedb;
 border-radius: 20px;
 box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
 5px 2px 12px -1px rgba(255, 255, 255, 0.70);
-"     [disabled]="addForm.invalid" *ngIf="isEditEnabled">Update</button>
+" [disabled]="addForm.invalid" *ngIf="isEditEnabled">Update</button>
                         </form>
                     </div>
                 </div>
@@ -134,12 +134,13 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 :&nbsp;
                                 <div class="transition_select">
                                     <!-- <select formControlName="startState" [(ngModel)]="newTransitionsObj.startState"> -->
-                                    <select formControlName="item">
-                                        <option>-----------Select------------</option>
-                                        <ng-container
-                                            *ngFor="let startState  of  getStateMachineComponentUniqueStartStates()">
-                                            <option>{{ startState }}</option>
-                                        </ng-container>
+                                    <!-- <select formControlName="item"> -->
+                                    <select (change)="onStartStateChange($event)">
+                                        <option value="">-----------Select------------</option>
+                                        <option *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
+                                            [value]="startState">
+                                            {{ startState }}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -148,11 +149,11 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 :&nbsp;
                                 <div class="transition_select">
                                     <!-- <select formControlName="event" [(ngModel)]="newTransitionsObj.event"> -->
-                                    <select formControlName="event" [(ngModel)]="data">
+                                    <!-- <select formControlName="event" [(ngModel)]="data"> -->
+                                    <select (change)="onEventChange($event)">
                                         <option>-----------Select------------</option>
-                                        <ng-container *ngFor="let event of getUniqueEvents()">
-                                            <option>{{event}}</option>
-                                        </ng-container>
+                                        <option *ngFor="let event of getUniqueEvents()" [value]="event">
+                                            {{ event }}
                                     </select>
                                 </div>
                             </div>
@@ -172,26 +173,25 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                   </select>
                                 </div> -->
                                     <div class="transition_select">
-                                        <select formControlName="event">
-                                            <option>------------Select---------</option>
-                                            <option>Paid</option>
-                                            <option>Submitted</option>
-                                            <option>Rejected</option>
-                                            <option>Approved</option>
-                                            <option>Payment Pending</option>
-                                            <option>Payment Pending</option>
-                                            <option>Pending Resubmission</option>
+                                        <select (change)="onStateChange($event)">
+                                            <option value="">------------Select---------</option>
+                                            <option value="Paid">Paid</option>
+                                            <option value="Submitted">Submitted</option>
+                                            <option value="Rejected">Rejected</option>
+                                            <option value="Approved">Approved</option>
+                                            <option value="Payment Pending">Payment Pending</option>
+                                            <option value="Pending Resubmission">Pending Resubmission</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="input_field">
                                     <label>BreakingAction </label>
                                     :&nbsp; <div class="transition_select">
-                                        <select formControlName="event">
-                                            <option>---Select---</option>
-                                            <option>BILL_ID_GENERATION</option>
-                                            <option>INTEGRATION</option>
-                                            <option>ID_FOR_PRISONER_PAYMENT</option>
+                                        <select (change)="onBreakingActionChange($event)">
+                                            <option value="">---Select---</option>
+                                            <option value="BILL_ID_GENERATION">BILL_ID_GENERATION</option>
+                                            <option value="INTEGRATION">INTEGRATION</option>
+                                            <option value="ID_FOR_PRISONER_PAYMENT">ID_FOR_PRISONER_PAYMENT</option>
                                             <!-- <ng-container *ngFor="let action of getUniqueBreakingActions()">
                                                 <option>{{ action }}</option>
                                             </ng-container> -->
@@ -204,12 +204,11 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 <div class="input_field">
                                     <label>Non-BreakingAction </label>
                                     :&nbsp; <div class="transition_select">
-                                        <select formControlName="event"
-                                           >
-                                            <option>---Select---</option>
-                                            <option>French</option>
-                                            <option>English</option>
-                                            <option>Kinyarwanda</option>
+                                        <select (change)="onBreakingActionChange($event)">
+                                            <option value="">---Select---</option>
+                                            <option value="French">French</option>
+                                            <option value="English">English</option>
+                                            <option value="Kinyarwanda">Kinyarwanda</option>
                                         </select>
                                     </div>
                                 </div>

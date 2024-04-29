@@ -31,11 +31,33 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   creationForm !: FormGroup;
   iremboTask: irembo[] = [];
   description: any;
+  state: string = '';
   data: string = '';
   workflows: stateConfig[] = [];
   updateIndex: any;
   isEditEnabled: boolean = false;
 
+  onStartStateChange(event: any) {
+    const value = (event.target as HTMLSelectElement)?.value || '';
+    this.newTransitionsObj.startState = value;
+  }
+
+  onEventChange(event: any) {
+    const value = (event.target as HTMLSelectElement)?.value || '';
+    this.newTransitionsObj.event = value;
+  }
+
+  onStateChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    this.newTransitionsObj.state = target.value;
+  }
+
+  onBreakingActionChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    this.newTransitionsObj.breakingAction = target.value;
+  }
+
+  
   addData() {
     this.workflows.push({
       tasks: this.addForm.value.items,
@@ -609,7 +631,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 }
 
 export class createNewTransitions {
-  id = crypto.randomUUID();
   startState: string;
   event: string;
   state: string;
