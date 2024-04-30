@@ -210,10 +210,12 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             <option value="">------------Select---------</option>
                                             <option value="NOTIFICATION">NOTIFICATION</option>
                                             <!-- Add other options dynamically -->
-                                            <option *ngFor="let action of newTransitionsObj?.endStateOne?.nonBreakingActionList" [value]="action.actionType">
-                                              {{ action.actionType }}
+                                            <option
+                                                *ngFor="let action of newTransitionsObj?.endStateOne?.nonBreakingActionList"
+                                                [value]="action.actionType">
+                                                {{ action.actionType }}
                                             </option>
-                                          </select>
+                                        </select>
                                     </div>
                                 </div>
                             </div><br>

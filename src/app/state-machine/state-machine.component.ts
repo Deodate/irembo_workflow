@@ -145,41 +145,110 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //     localStorage.setItem("iremboWorkflow", JSON.stringify(newArray));
   //   }
   // }
-  
-
   createNew() {
     // Prepare the new transition object
-    const newTransition = {
-      id: 0, // Initialize the id property
-      event: this.creationForm.get('event')?.value || "",
-      startState: this.creationForm.get('startState')?.value || "",
+    const newTransition: createNewTransitions = {
+      id: 0,
+      startState: "NEW",
+      event: "CREATE",
+      state: "PAYMENT_PENDING",
       endStateOne: {
-        stateCode: this.creationForm.get('endStateOne.stateCode')?.value || "",
-        breakingAction: this.creationForm.get('endStateOne.breakingAction')?.value || null,
-        nonBreakingActionList: this.creationForm.get('endStateOne.nonBreakingActionList')?.value || [],
-        frenchNotificationTemplate: {},
-        englishNotificationTemplate: {},
-        kinyarwandaNotificationTemplate: {}
+        stateName: "Payment Pending",
+        stateCode: "PAYMENT_PENDING",
+        nextEvent: null,
+        breakingAction: {
+          actionType: "BILL_ID_GENERATION",
+          args: null
+        },
+        nonBreakingActionList: [
+          {
+            actionType: "NOTIFICATION",
+            args: {
+              frenchNotificationTemplate: {
+                smsTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation  ${billId}  a été renvoyée avec succès! \n Vous pouvez suivre votre demande avec les détails suivants: \n Numéro de demande:: ${applicationNumber}",
+                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
+                notificationTitle: "Demande renvoyée"
+              },
+              englishNotificationTemplate: {
+                smsTemplate: "Dear ${APPLICANT_LAST_NAME},Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully resubmitted! \n You can track your application with the following details: \n Application number: ${applicationNumber}",
+                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
+                notificationTitle: "Application resubmitted"
+              },
+              kinyarwandaNotificationTemplate: {
+                smsTemplate: "Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw’u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yongeye koherezwa! \n Kurikirana dosiye yawe ukoresheje aya makuru: \n Nomero ya dosiye: ${applicationNumber}",
+                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
+                notificationTitle: "Dosiye yongeye koherezwa"
+              }
+            }
+          }
+        ]
       },
-      endStateTwo: null
+      endStateTwo: null,
+      breakingAction: '',
+      nonBreakingAction: ''
     };
 
-    // Get the transitions from local storage
+    const newTransition1: createNewTransitions = {
+      id: 0,
+      startState: "PAYMENT_PENDING",
+      event: "PAY",
+      state: "PAYMENT_PENDING",
+      endStateOne: {
+        stateName: "Paid",
+        stateCode: "PAID",
+        nextEvent:  "PUSH",
+        breakingAction: null,
+        nonBreakingActionList: [
+          {
+            actionType: "NOTIFICATION",
+            args: {
+              frenchNotificationTemplate: {
+                smsTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation  ${billId}  a été renvoyée avec succès! \n Vous pouvez suivre votre demande avec les détails suivants: \n Numéro de demande:: ${applicationNumber}",
+                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
+                notificationTitle: "Demande renvoyée"
+              },
+              englishNotificationTemplate: {
+                smsTemplate: "Dear ${APPLICANT_LAST_NAME},Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully resubmitted! \n You can track your application with the following details: \n Application number: ${applicationNumber}",
+                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
+                notificationTitle: "Application resubmitted"
+              },
+              kinyarwandaNotificationTemplate: {
+                smsTemplate: "Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw’u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yongeye koherezwa! \n Kurikirana dosiye yawe ukoresheje aya makuru: \n Nomero ya dosiye: ${applicationNumber}",
+                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
+                notificationTitle: "Dosiye yongeye koherezwa"
+              }
+            }
+          }
+        ]
+      },
+      endStateTwo: null,
+      breakingAction: '',
+      nonBreakingAction: ''
+    };
+  
     const isLocalPresent = localStorage.getItem("iremboWorkflow");
-    let transitions = isLocalPresent ? JSON.parse(isLocalPresent) : [];
-    
-    // Set the ID for the new transition
-    newTransition.id = transitions.length + 1;
-
-    // Add the new transition to the transitions list
-    transitions.push(newTransition);
-
-    // Save the updated transitions list to local storage
-    localStorage.setItem("iremboWorkflow", JSON.stringify(transitions));
-
+    let newArray: createNewTransitions[] = [];
+  
+    if (isLocalPresent != null) {
+      const oldArray = JSON.parse(isLocalPresent) as createNewTransitions[];
+      newTransition.id = oldArray.length + 1;
+      newTransition1.id = oldArray.length + 2;
+      newArray = [...oldArray, newTransition, newTransition1];
+      newTransition.id = newArray.length;
+    } else {
+      newTransition.id = 1;
+      newTransition1.id = 2;
+      newArray = [newTransition, newTransition1];
+    }
+  
+    this.newTransitionsList = newArray;
+    localStorage.setItem("iremboWorkflow", JSON.stringify(newArray));
+  
     // Clear the form
     this.creationForm.reset();
   }
+  
+
 
   onUpdate(item: any, i: number) {
     this.creationForm.controls['item'].setValue(item.event);
@@ -762,8 +831,9 @@ export class createNewTransitions {
   breakingAction: string;
   nonBreakingAction: string;
   endStateOne: any;
+  endStateTwo: any;
 
-  constructor() { this.id = 0; this.startState = ''; this.event = ''; this.state = ''; this.breakingAction = ''; this.nonBreakingAction = '' }
+  constructor() { this.id = 0; this.startState = ''; this.endStateTwo = ''; this.event = ''; this.state = ''; this.breakingAction = ''; this.nonBreakingAction = '' }
 }
 
  // changeWorkflow() {

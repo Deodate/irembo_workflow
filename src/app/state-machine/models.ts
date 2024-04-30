@@ -23,6 +23,7 @@ export interface irembo {
 }
 
 export interface createNewTransitions {
+    id: number;
     event: string;
     startState: string;
     endStateOne: {
@@ -31,9 +32,25 @@ export interface createNewTransitions {
       breakingAction: {
         actionType: string;
         args: null;
+      } | null;
+      nonBreakingActionList: { actionType: string; args: any; }[];
+      frenchNotificationTemplate?: {
+        smsTemplate: string;
+        emailTemplate: string;
+        notificationTitle: string;
       };
-      nonBreakingActionList: { actionType: string; args: any; }[]; // Initialize nonBreakingActionList as an empty array
+      englishNotificationTemplate?: {
+        smsTemplate: string;
+        emailTemplate: string;
+        notificationTitle: string;
+      };
+      kinyarwandaNotificationTemplate?: {
+        smsTemplate: string;
+        emailTemplate: string;
+        notificationTitle: string;
+      };
     };
+    endStateTwo: null | any;
   }
   
 

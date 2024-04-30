@@ -52,7 +52,8 @@ export class WorflowSample {
                 "notificationTitle": "Dosiye yoherejwe"
               }
             }
-          },{
+          },
+          {
             "actionType": "NOTIFICATION",
             "args": {
               "frenchNotificationTemplate": {
