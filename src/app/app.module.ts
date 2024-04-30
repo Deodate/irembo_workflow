@@ -32,6 +32,7 @@ import { TodolistComponent } from './course/todolist/todolist.component';
 import { NavabarComponent } from './components/navabar/navabar.component';
 import { NavbarsComponent } from './course/navbars/navbars.component';
 import { MatCardModule} from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -58,6 +59,7 @@ import { MatCardModule} from '@angular/material/card';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatCheckboxModule,
     MatInputModule,
     MatDividerModule,
     MatFormFieldModule,

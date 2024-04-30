@@ -1,32 +1,37 @@
 <!-- (click)='handleClick()' -->
 <!-- <div class="transition" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onUpdate(item,i)" (showModal)="openModal()" > -->
-    <div class="transition" (click)="onUpdate(item, i)">
+<div class="transition" data-bs-toggle="modal" data-bs-target="#exampleModalss" (showModal)="openModal()"
+(click)="onUpdated.emit({ item: item, index: i })">
     <div class="card">
         <div class="card-header">
-             <!-- {{item}} -->
-             {{ config.event}}
-             <!-- {{data}} -->
-             <!-- <div *ngFor="let workflow of workflows; let i = index">
+            <!-- {{item}} -->
+              <!-- {{ config.name}} -->
+            {{ config.event}}
+            <!-- {{data}} -->
+            <!-- <div *ngFor="let workflow of workflows; let i = index">
                 {{ workflow.tasks }}
               </div> -->
-               
-        </div> 
+        </div>
         <div class="card-body">
-            <div class="endStateOne" *ngIf="config.endStateOne" #endStateOne>    
-                <span>Path 1 : </span>            
-                <span class="badge bg-danger" *ngIf="config.endStateOne?.breakingAction">{{config.endStateOne.breakingAction?.actionType}}</span>
-                <span class="badge bg-info" *ngFor="let item of config?.endStateOne?.nonBreakingActionList">{{item.actionType}}</span>                
+            <div class="endStateOne" *ngIf="config.endStateOne" #endStateOne>
+                <span>Path 1 : </span>
+                <span class="badge bg-danger"
+                    *ngIf="config.endStateOne?.breakingAction">{{config.endStateOne.breakingAction?.actionType}}</span>
+                <span class="badge bg-info"
+                    *ngFor="let item of config?.endStateOne?.nonBreakingActionList">{{item.actionType}}</span>
             </div>
-            <div class="endStateTwo" *ngIf="config.endStateTwo" #endStateTwo>      
-                <span>Path 2 : </span>                
-                <span class="badge bg-danger" *ngIf="config.endStateTwo?.breakingAction">{{config.endStateTwo.breakingAction?.actionType}}</span>
-                <span class="badge bg-info" *ngFor="let item of config?.endStateTwo?.nonBreakingActionList">{{item.actionType}}</span>                
+            <div class="endStateTwo" *ngIf="config.endStateTwo" #endStateTwo>
+                <span>Path 2 : </span>
+                <span class="badge bg-danger"
+                    *ngIf="config.endStateTwo?.breakingAction">{{config.endStateTwo.breakingAction?.actionType}}</span>
+                <span class="badge bg-info"
+                    *ngFor="let item of config?.endStateTwo?.nonBreakingActionList">{{item.actionType}}</span>
             </div>
             <app-slot [slotType]="SlotTypeEnum.Input"></app-slot>
             <app-slot [slotType]="SlotTypeEnum.Output"></app-slot>
         </div>
     </div>
-</div> 
+</div>
 
 <!-- <div class="transition">
     <app-slot [slotType]="SlotTypeEnum.Input"></app-slot>
@@ -34,7 +39,7 @@
     <app-slot [slotType]="SlotTypeEnum.Output"></app-slot>
 </div> -->
 
-  <!-- <div class="transition" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<!-- <div class="transition" data-bs-toggle="modal" data-bs-target="#exampleModal">
     <div class="card">
         <div class="card-header">
             {{config.name}}
@@ -55,9 +60,3 @@
         </div>
     </div>
 </div> -->
-
-
-
-
-  
-

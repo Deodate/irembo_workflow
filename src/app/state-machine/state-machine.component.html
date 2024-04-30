@@ -106,6 +106,10 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
             [cdkDragFreeDragPosition]="item.value.position" (cdkDragMoved)="onDragMove($event)">
         </app-state>
     </div>
+    <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item"
+        [data]="item.description" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"
+        [workflows]="workflows">
+    </app-transition-new>
 
     <!-- <mat-card class="mt-3">
         <form [formGroup]="newTransForm">
@@ -173,14 +177,11 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                   </select>
                                 </div> -->
                                     <div class="transition_select">
-                                        <select (change)="onStateChange($event)">
+                                        <select (change)="onStateCodeChange($event)">
                                             <option value="">------------Select---------</option>
-                                            <option value="Paid">Paid</option>
-                                            <option value="Submitted">Submitted</option>
-                                            <option value="Rejected">Rejected</option>
-                                            <option value="Approved">Approved</option>
-                                            <option value="Payment Pending">Payment Pending</option>
-                                            <option value="Pending Resubmission">Pending Resubmission</option>
+                                            <option *ngFor="let stateCode of getUniqueStateCodes()" [value]="stateCode">
+                                                {{ stateCode }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -188,28 +189,31 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     <label>BreakingAction </label>
                                     :&nbsp; <div class="transition_select">
                                         <select (change)="onBreakingActionChange($event)">
-                                            <option value="">---Select---</option>
-                                            <option value="BILL_ID_GENERATION">BILL_ID_GENERATION</option>
-                                            <option value="INTEGRATION">INTEGRATION</option>
-                                            <option value="ID_FOR_PRISONER_PAYMENT">ID_FOR_PRISONER_PAYMENT</option>
-                                            <!-- <ng-container *ngFor="let action of getUniqueBreakingActions()">
+                                            <option value="">------------Select---------</option>
+                                            <option *ngFor="let breakingAction of getBreakingActions()"
+                                                [value]="breakingAction">
+                                                {{ breakingAction }}
+                                            </option>
+                                        </select>
+                                        <!-- <ng-container *ngFor="let action of getUniqueBreakingActions()">
                                                 <option>{{ action }}</option>
                                             </ng-container> -->
-                                        </select>
                                     </div>
                                 </div>
                             </div><br>
 
                             <div class="new_transition2">
                                 <div class="input_field">
-                                    <label>Non-BreakingAction </label>
+                                    <label>Non-BreakingActionsgg </label>
                                     :&nbsp; <div class="transition_select">
-                                        <select (change)="onNonBreakingActionChange($event)">
-                                            <option value="">---Select---</option>
-                                            <option value="French">French</option>
-                                            <option value="English">English</option>
-                                            <option value="Kinyarwanda">Kinyarwanda</option>
-                                        </select>
+                                        <select #selectedOption (change)="onNonBreakingAction(selectedOption.value)">
+                                            <option value="">------------Select---------</option>
+                                            <option value="NOTIFICATION">NOTIFICATION</option>
+                                            <!-- Add other options dynamically -->
+                                            <option *ngFor="let action of newTransitionsObj?.endStateOne?.nonBreakingActionList" [value]="action.actionType">
+                                              {{ action.actionType }}
+                                            </option>
+                                          </select>
                                     </div>
                                 </div>
                             </div><br>
@@ -237,17 +241,12 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
     <!-- <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item"
         [data]="item.description" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"
         (selectedTransition)="handleTransitionSelect($event)" [data]="data"></app-transition-new> -->
-        <app-transition-new *ngFor="let item of workflow.transitions; let i = index"
-        [config]="item"
-        [data]="item.description"
-        cdkDrag
-        [cdkDragFreeDragPosition]="item.position"
-        (cdkDragMoved)="onDragMove($event)"
-      
+    <!-- <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item"
+        [data]="item.description" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"
         [workflows]="workflows">
-      </app-transition-new>
-      
-      
+    </app-transition-new> -->
+
+
 
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

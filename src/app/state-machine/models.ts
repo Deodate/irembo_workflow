@@ -6,7 +6,7 @@ export interface stateConfig {
 }
 
 export interface transitionConfig {
-event: any;
+    event: any;
     description: string;
     name: string,
     names: string,
@@ -23,12 +23,19 @@ export interface irembo {
 }
 
 export interface createNewTransitions {
-    startState: string;
     event: string;
-    state: string;
-    breakingAction: string;
-    nonBreakingActionList: string[];
-}
+    startState: string;
+    endStateOne: {
+      stateName: string;
+      stateCode: string;
+      breakingAction: {
+        actionType: string;
+        args: null;
+      };
+      nonBreakingActionList: { actionType: string; args: any; }[]; // Initialize nonBreakingActionList as an empty array
+    };
+  }
+  
 
 export interface point {
     x: number,

@@ -37,6 +37,10 @@ throw new Error('Method not implemented.');
   // selectedCreateEvent: any;
   @Output() selectedTransition: EventEmitter<createNewTransitions> = new EventEmitter<createNewTransitions>();
 
+  @Output() onUpdated: EventEmitter<{ item: stateConfig, index: number }> = new EventEmitter<{ item: stateConfig, index: number }>();
+
+
+
   @Input() config!: transitionConfig;
 
   SlotTypeEnum = SlotType;

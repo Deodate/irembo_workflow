@@ -1,5 +1,5 @@
 import { Component, ViewChild, Renderer2, ElementRef, OnInit  } from '@angular/core';
-// import { WorflowSample } from './sample-workflow';
+import { WorflowSample } from './sample-workflow';
 import { CourseComponent } from './courses/course/course.component';
 import { MasterService } from './courses/service/master.service';
 import { FormsModule } from '@angular/forms';
@@ -66,6 +66,7 @@ export class AppComponent implements OnInit{
       model.style.display = 'block'
     }
   }
+  
 
   onEdit(item: developer){
  this.developerObj = item;
