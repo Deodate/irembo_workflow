@@ -251,6 +251,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   createNew() {
     
     const newTransition: createNewTransitions = {
+      
       id: 0,
       startState: "NEW",
       event: "CREATE",
@@ -395,15 +396,24 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       const newId = oldArray.length + 1;
       newTransition.id = newId;
       newTransition1.id = newId + 1;
-      newTransition2.id = newId + 2;
-      newTransition3.id = newId + 3;
-      newArray = [...oldArray, newTransition, newTransition1, newTransition2];
+      // newTransition2.id = newId + 2;
+      // newTransition3.id = newId + 3;
+      newArray = [...oldArray, newTransition, 
+        newTransition1,
+        //  newTransition2, 
+        //  newTransition3
+        ];
     } else {
       newTransition.id = 1;
       newTransition1.id = 2;
-      newTransition2.id = 3;
-      newTransition3.id = 4;
-      newArray = [newTransition, newTransition1, newTransition2, newTransition3];
+      // newTransition2.id = 3;
+      // newTransition3.id = 4;
+      newArray = [
+        newTransition,
+         newTransition1,
+          // newTransition2, 
+          // newTransition3
+        ];
     }
 
     this.newTransitionsList = newArray;
@@ -411,6 +421,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
     // Clear the form
     this.creationForm.reset();
+    // Reload the page
+    window.location.reload();
   }
 
  

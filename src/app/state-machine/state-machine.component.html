@@ -140,7 +140,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     <!-- <select formControlName="startState" [(ngModel)]="newTransitionsObj.startState"> -->
                                     <!-- <select formControlName="item"> -->
                                     <select (change)="onStartStateChange($event)">
-                                        <option value="">-----------Select------------</option>
+                                        <option value="">-----------Select-----------</option>
                                         <option *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
                                             [value]="startState">
                                             {{ startState }}
