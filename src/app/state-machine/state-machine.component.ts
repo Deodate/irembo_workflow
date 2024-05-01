@@ -5,7 +5,7 @@ import { CdkDragDrop, CdkDragMove } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api.service';
 import { IremboTransition, Workflow, irembo, stateConfig, transitionConfig } from './models';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { WorflowSample } from '../sample-workflow';
+import { WorflowSample } from '../sample-workflowy';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
@@ -396,23 +396,23 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       const newId = oldArray.length + 1;
       newTransition.id = newId;
       newTransition1.id = newId + 1;
-      // newTransition2.id = newId + 2;
-      // newTransition3.id = newId + 3;
+      newTransition2.id = newId + 2;
+      newTransition3.id = newId + 3;
       newArray = [...oldArray, newTransition, 
         newTransition1,
-        //  newTransition2, 
-        //  newTransition3
+         newTransition2, 
+         newTransition3
         ];
     } else {
       newTransition.id = 1;
       newTransition1.id = 2;
-      // newTransition2.id = 3;
-      // newTransition3.id = 4;
+      newTransition2.id = 3;
+      newTransition3.id = 4;
       newArray = [
         newTransition,
          newTransition1,
-          // newTransition2, 
-          // newTransition3
+          newTransition2, 
+          newTransition3
         ];
     }
 

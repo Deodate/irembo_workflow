@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { datamodel } from './components/jira/model';
-import { WorflowSample } from './sample-workflow';
+import { WorflowSample } from './sample-workflowy';
 
 @Injectable({
   providedIn: 'root'
