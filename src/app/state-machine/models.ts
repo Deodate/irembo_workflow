@@ -6,6 +6,7 @@ export interface stateConfig {
 }
 
 export interface transitionConfig {
+    id: number;
     event: any;
     description: string;
     name: string,

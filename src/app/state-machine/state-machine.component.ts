@@ -256,163 +256,29 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   createNew() {
     // console.log(this.creationForm.value, "+==========================")
 
-    const transitionTemplate : any = {
+    const transitionTemplate: any = {
       id: 0,
       startState: this.creationForm.value.startState,
       event: this.creationForm.value.event,
       state: "PAYMENT_PENDING",
       endStateOne: {
-        stateName: "Payment Pending",
+        stateName: "Payment_Pending",
         stateCode: this.creationForm.value.stateCode,
         nextEvent: null,
         breakingAction: {
           actionType: this.creationForm.value.breakingAction,
           args: null
         },
-        nonBreakingActionList: [
-          {
+        nonBreakingActionList: this.creationForm.value.actionType
+          ? [{
             actionType: this.creationForm.value.actionType,
-            args: {}
-          }
-        ]
-      },
-      endStateTwo: null,
-      breakingAction: '',
-      nonBreakingAction: ''
-    }
-  
-    const newTransition: createNewTransitions = {
-      
-      id: 0,
-      startState: "NEW",
-      event: "CREATE",
-      state: "PAYMENT_PENDING",
-      endStateOne: {
-        stateName: "Payment Pending",
-        stateCode: "PAYMENT_PENDING",
-        nextEvent: null,
-        breakingAction: {
-          actionType: "BILL_ID_GENERATION",
-          args: null
-        },
-        nonBreakingActionList: [
-          {
-            actionType: "NOTIFICATION",
             args: {
-              frenchNotificationTemplate: {
-                smsTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation  ${billId}  a été renvoyée avec succès! \n Vous pouvez suivre votre demande avec les détails suivants: \n Numéro de demande:: ${applicationNumber}",
-                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
-                notificationTitle: "Demande renvoyée"
-              },
-              englishNotificationTemplate: {
-                smsTemplate: "Dear ${APPLICANT_LAST_NAME},Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully resubmitted! \n You can track your application with the following details: \n Application number: ${applicationNumber}",
-                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
-                notificationTitle: "Application resubmitted"
-              },
-              kinyarwandaNotificationTemplate: {
-                smsTemplate: "Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw’u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yongeye koherezwa! \n Kurikirana dosiye yawe ukoresheje aya makuru: \n Nomero ya dosiye: ${applicationNumber}",
-                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
-                notificationTitle: "Dosiye yongeye koherezwa"
-              }
+              frenchNotificationTemplate: {},
+              englishNotificationTemplate: {},
+              kinyarwandaNotificationTemplate: {}
             }
-          }
-        ]
-      },
-      endStateTwo: null,
-      breakingAction: '',
-      nonBreakingAction: ''
-    };
-
-    const newTransition1: createNewTransitions = {
-      id: 0,
-      startState: "PAYMENT_PENDING",
-      event: "PAY",
-      state: "PAID",
-      endStateOne: {
-        stateName: "Paid",
-        stateCode: "PAID",
-        nextEvent: "PUSH",
-        breakingAction: null,
-        nonBreakingActionList: [
-          {
-            actionType: "NOTIFICATION",
-            args: {
-              frenchNotificationTemplate: {
-                smsTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation  ${billId}  a été renvoyée avec succès! \n Vous pouvez suivre votre demande avec les détails suivants: \n Numéro de demande:: ${applicationNumber}",
-                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
-                notificationTitle: "Demande renvoyée"
-              },
-              englishNotificationTemplate: {
-                smsTemplate: "Dear ${APPLICANT_LAST_NAME},Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully resubmitted! \n You can track your application with the following details: \n Application number: ${applicationNumber}",
-                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
-                notificationTitle: "Application resubmitted"
-              },
-              kinyarwandaNotificationTemplate: {
-                smsTemplate: "Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw’u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yongeye koherezwa! \n Kurikirana dosiye yawe ukoresheje aya makuru: \n Nomero ya dosiye: ${applicationNumber}",
-                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
-                notificationTitle: "Dosiye yongeye koherezwa"
-              }
-            }
-          }
-        ]
-      },
-      endStateTwo: null,
-      breakingAction: '',
-      nonBreakingAction: ''
-    };
-
-    const newTransition3: createNewTransitions = {
-      id: 0,
-      startState: "PENDING_APPROVAL",
-      event: "FINAL_APPROVE",
-      state: "Approved",
-      endStateOne: {
-        stateName: "Approved",
-        stateCode: "CLOSED_WITH_APPROVAL",
-        nextEvent: null,
-        breakingAction: null,
-        nonBreakingActionList: [
-          {
-            actionType: "NOTIFICATION",
-            args: {
-              frenchNotificationTemplate: {
-                smsTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation  ${billId}  a été renvoyée avec succès! \n Vous pouvez suivre votre demande avec les détails suivants: \n Numéro de demande:: ${applicationNumber}",
-                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
-                notificationTitle: "Demande renvoyée"
-              },
-              englishNotificationTemplate: {
-                smsTemplate: "Dear ${APPLICANT_LAST_NAME},Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully resubmitted! \n You can track your application with the following details: \n Application number: ${applicationNumber}",
-                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
-                notificationTitle: "Application resubmitted"
-              },
-              kinyarwandaNotificationTemplate: {
-                smsTemplate: "Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw’u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yongeye koherezwa! \n Kurikirana dosiye yawe ukoresheje aya makuru: \n Nomero ya dosiye: ${applicationNumber}",
-                emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption aavec le numéro de demande ${applicationNumber} a été approuvée!\n Veuillez vous adresser à la DGIE pour votre prestation de serment et le retrait de votre attestation de nationalité le ${paymentExpiryDate}.",
-                notificationTitle: "Dosiye yongeye koherezwa"
-              }
-            }
-          }
-        ]
-      },
-      endStateTwo: null,
-      breakingAction: '',
-      nonBreakingAction: ''
-    };
-
-    const newTransition2: createNewTransitions = {
-      id: 0,
-      startState: "PAID",
-      event: "PUSH",
-      state: "PAID",
-      endStateOne: {
-        stateName: "Pending approval",
-        stateCode: "PENDING_APPROVAL",
-        nextEvent: null,
-        breakingAction: {
-          actionType: "INTEGRATION",
-          args: null
-        },
-        nonBreakingActionList: null
+          }]
+          : null
       },
       endStateTwo: null,
       breakingAction: '',
@@ -427,12 +293,12 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       const newId = oldArray.length + 1;
       transitionTemplate.id = newId;
       newArray = [...oldArray, transitionTemplate
-        ];
+      ];
     } else {
       transitionTemplate.id = 1;
       newArray = [
         transitionTemplate
-        ];
+      ];
     }
 
     this.newTransitionsList = newArray;
@@ -444,7 +310,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     window.location.reload();
   }
 
- 
+
   onUpdate(item: any, i: number) {
     this.creationForm.controls['item'].setValue(item.event);
     this.updateIndex = i;
@@ -452,6 +318,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   }
 
   @Input() config: transitionConfig | undefined = {
+    id: 0,
     description: '',
     names: '',
     name: '',
@@ -573,7 +440,10 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   selectedBreakingAction: string = '';
   selectedNonBreakingAction: string = '';
   selectedTransitions: any[] = [];
-  transitionToEdit: transitionConfig = { description: '', names: '', name: '', startState: '', event: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, position: { x: 0, y: 0 } };
+  transitionToEdit: transitionConfig = {
+    description: '', names: '', name: '', startState: '', event: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, position: { x: 0, y: 0 },
+    id: 0
+  };
 
   onStartStateSelected(event: any): void {
     const value = event.target?.value;
@@ -697,6 +567,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   formData: any = {};
 
   handleClick() {
+    console.log('Show Data:', this.showData);
     this.showData = true;
   }
 
@@ -891,7 +762,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
           startState: element.startState.toString(),
           endStateOne: element.endStateOne,
           endStateTwo: element.endStateTwo,
-          position: element.position
+          position: element.position,
+          id: 0
         }
         this.workflow.transitions.push(transition);
         // createNewTransitions(){
