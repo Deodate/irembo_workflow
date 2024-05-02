@@ -101,10 +101,15 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.isEditEnabled = false;
   }
 
-  onUpdated(item: createNewTransitions) {
-    this.newTransitionsObj = item;
+  // onUpdated(item: createNewTransitions) {
+  //   this.newTransitionsObj = item;
 
+  // }
+
+  onUpdated(transition: createNewTransitions) {
+    // Handle the updated transition here
   }
+
 
   // createNew(){
   //   this.data = 'Deodate',
@@ -113,21 +118,21 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //   })
   // }
 
-  createForm() {
-    this.creationForm = this.formBuilder.group({
-      event: ['', Validators.required],
-      startState: ['', Validators.required],
-      endStateOne: this.formBuilder.group({
-        stateName: ['', Validators.required],
-        stateCode: ['', Validators.required],
-        breakingAction: this.formBuilder.group({
-          actionType: ['', Validators.required],
-          args: null // Assuming args is always null
-        }),
-        nonBreakingActionList: [[]] // Initialize as an empty array
-      })
-    });
-  }
+  // createForm() {
+  //   this.creationForm = this.formBuilder.group({
+  //     event: ['', Validators.required],
+  //     startState: ['', Validators.required],
+  //     endStateOne: this.formBuilder.group({
+  //       stateName: ['', Validators.required],
+  //       stateCode: ['', Validators.required],
+  //       breakingAction: this.formBuilder.group({
+  //         actionType: ['', Validators.required],
+  //         args: null // Assuming args is always null
+  //       }),
+  //       nonBreakingActionList: [[]] // Initialize as an empty array
+  //     })
+  //   });
+  // }
 
   // After form submission
   // createNew() {
@@ -249,7 +254,33 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   // }
 
   createNew() {
-    
+    // console.log(this.creationForm.value, "+==========================")
+
+    const transitionTemplate : any = {
+      id: 0,
+      startState: this.creationForm.value.startState,
+      event: this.creationForm.value.event,
+      state: "PAYMENT_PENDING",
+      endStateOne: {
+        stateName: "Payment Pending",
+        stateCode: this.creationForm.value.stateCode,
+        nextEvent: null,
+        breakingAction: {
+          actionType: this.creationForm.value.breakingAction,
+          args: null
+        },
+        nonBreakingActionList: [
+          {
+            actionType: this.creationForm.value.actionType,
+            args: {}
+          }
+        ]
+      },
+      endStateTwo: null,
+      breakingAction: '',
+      nonBreakingAction: ''
+    }
+  
     const newTransition: createNewTransitions = {
       
       id: 0,
@@ -394,25 +425,13 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     if (isLocalPresent != null) {
       const oldArray = JSON.parse(isLocalPresent) as createNewTransitions[];
       const newId = oldArray.length + 1;
-      newTransition.id = newId;
-      newTransition1.id = newId + 1;
-      newTransition2.id = newId + 2;
-      newTransition3.id = newId + 3;
-      newArray = [...oldArray, newTransition, 
-        newTransition1,
-         newTransition2, 
-         newTransition3
+      transitionTemplate.id = newId;
+      newArray = [...oldArray, transitionTemplate
         ];
     } else {
-      newTransition.id = 1;
-      newTransition1.id = 2;
-      newTransition2.id = 3;
-      newTransition3.id = 4;
+      transitionTemplate.id = 1;
       newArray = [
-        newTransition,
-         newTransition1,
-          newTransition2, 
-          newTransition3
+        transitionTemplate
         ];
     }
 
@@ -674,7 +693,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder
   ) {
     this.workflowData = WorflowSample.sample2;
-
   }
   formData: any = {};
 
@@ -972,6 +990,9 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   initialiseCreationFormGroup() {
     this.creationForm.addControl('startState', new FormControl('', Validators.required));
     this.creationForm.addControl('event', new FormControl('', Validators.required))
+    this.creationForm.addControl('stateCode', new FormControl('', Validators.required))
+    this.creationForm.addControl('breakingAction', new FormControl('', Validators.required))
+    this.creationForm.addControl('actionType', new FormControl('', Validators.required))
   }
 
   onCloseModel() {

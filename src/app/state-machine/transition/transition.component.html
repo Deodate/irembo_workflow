@@ -1,11 +1,11 @@
 <!-- (click)='handleClick()' -->
 <!-- <div class="transition" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onUpdate(item,i)" (showModal)="openModal()" > -->
 <div class="transition" data-bs-toggle="modal" data-bs-target="#exampleModalss" (showModal)="openModal()"
-(click)="onUpdated.emit({ item: item, index: i })">
+    (click)="onCardClick(config, i)" (click)="onUpdated.emit(config)">
     <div class="card">
         <div class="card-header">
             <!-- {{item}} -->
-              <!-- {{ config.name}} -->
+            <!-- {{ config.name}} -->
             {{ config.event}}
             <!-- {{data}} -->
             <!-- <div *ngFor="let workflow of workflows; let i = index">

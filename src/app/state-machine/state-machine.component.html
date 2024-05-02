@@ -106,9 +106,10 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
             [cdkDragFreeDragPosition]="item.value.position" (cdkDragMoved)="onDragMove($event)">
         </app-state>
     </div>
+
     <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item"
         [data]="item.description" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"
-        [workflows]="workflows">
+        [workflows]="workflows" (selectedTransition)="onUpdated($event)">
     </app-transition-new>
 
     <!-- <mat-card class="mt-3">
@@ -129,20 +130,18 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <ng-container *ngIf="showForm">
-                        <form *ngIf="showForm" class="create_transition" [formGroup]="creationForm">
+                    <ng-container>
+                        <form class="create_transition" [formGroup]="creationForm" (ngSubmit)="createNew()">
                             <div><b class="new_transition">New Transition</b></div>
                             <mat-divider></mat-divider>
                             <div class="input_field">
                                 <label>Start State </label>
                                 :&nbsp;
                                 <div class="transition_select">
-                                    <!-- <select formControlName="startState" [(ngModel)]="newTransitionsObj.startState"> -->
-                                    <!-- <select formControlName="item"> -->
-                                    <select (change)="onStartStateChange($event)">
+                                   
+                                    <select formControlName="startState">
                                         <option value="">-----------Select-----------</option>
-                                        <option *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
-                                            [value]="startState">
+                                        <option *ngFor="let startState of getStateMachineComponentUniqueStartStates()" [value]="startState">
                                             {{ startState }}
                                         </option>
                                     </select>
@@ -152,9 +151,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 <label>Event </label>
                                 :&nbsp;
                                 <div class="transition_select">
-                                    <!-- <select formControlName="event" [(ngModel)]="newTransitionsObj.event"> -->
-                                    <!-- <select formControlName="event" [(ngModel)]="data"> -->
-                                    <select (change)="onEventChange($event)">
+                                    <select formControlName="event">
                                         <option>-----------Select------------</option>
                                         <option *ngFor="let event of getUniqueEvents()" [value]="event">
                                             {{ event }}
@@ -168,16 +165,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 <div class="input_field">
                                     <label>State </label>
                                     :&nbsp;
-                                    <!-- <div class="transition_select">
-                                     <select formControlName="event" [(ngModel)]="newTransitionsObj.state">
-                                        <option>Choose...</option>
-                                        <ng-container *ngFor="let state of getUniqueEndStates()">
-                                        <option>{{ state }}</option>
-                                    </ng-container>
-                                  </select>
-                                </div> -->
                                     <div class="transition_select">
-                                        <select (change)="onStateCodeChange($event)">
+                                        <select formControlName="stateCode">
                                             <option value="">------------Select---------</option>
                                             <option *ngFor="let stateCode of getUniqueStateCodes()" [value]="stateCode">
                                                 {{ stateCode }}
@@ -188,30 +177,24 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 <div class="input_field">
                                     <label>BreakingAction </label>
                                     :&nbsp; <div class="transition_select">
-                                        <select (change)="onBreakingActionChange($event)">
+                                        <select formControlName="breakingAction">
                                             <option value="">------------Select---------</option>
-                                            <option *ngFor="let breakingAction of getBreakingActions()"
-                                                [value]="breakingAction">
+                                            <option *ngFor="let breakingAction of getBreakingActions()" [value]="breakingAction">
                                                 {{ breakingAction }}
                                             </option>
                                         </select>
-                                        <!-- <ng-container *ngFor="let action of getUniqueBreakingActions()">
-                                                <option>{{ action }}</option>
-                                            </ng-container> -->
                                     </div>
                                 </div>
                             </div><br>
-
+                    
                             <div class="new_transition2">
                                 <div class="input_field">
                                     <label>Non-BreakingActionsgg </label>
                                     :&nbsp; <div class="transition_select">
-                                        <select #selectedOption (change)="onNonBreakingAction(selectedOption.value)">
+                                        <select #selectedOption formControlName="actionType">
                                             <option value="">------------Select---------</option>
                                             <option value="NOTIFICATION">NOTIFICATION</option>
-                                            <!-- Add other options dynamically -->
-                                            <option
-                                                *ngFor="let action of newTransitionsObj?.endStateOne?.nonBreakingActionList"
+                                            <option *ngFor="let action of newTransitionsObj?.endStateOne?.nonBreakingActionList"
                                                 [value]="action.actionType">
                                                 {{ action.actionType }}
                                             </option>
@@ -219,15 +202,14 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     </div>
                                 </div>
                             </div><br>
+                            <div class="modal-footer">
+                                <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Exit</div>
+                                <button class="btn btn-outline-success btn-sm me-1" data-bs-dismiss="modal">Create</button>
+                            </div>
                         </form>
                     </ng-container>
                 </div>
-                <div class="modal-footer">
-                    <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Exit</div>
-                    <button class="btn btn-outline-success btn-sm me-1" data-bs-dismiss="modal"
-                        (click)="createNew()">Create</button>
-                    <!-- <button class="btn btn-outline-success btn-sm me-1"  data-bs-dismiss="modal" (click)="createNewTransition()">Create</button> -->
-                </div>
+                
             </div>
         </div>
     </div>

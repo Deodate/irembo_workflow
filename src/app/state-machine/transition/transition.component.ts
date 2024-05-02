@@ -37,11 +37,43 @@ throw new Error('Method not implemented.');
   // selectedCreateEvent: any;
   @Output() selectedTransition: EventEmitter<createNewTransitions> = new EventEmitter<createNewTransitions>();
 
-  @Output() onUpdated: EventEmitter<{ item: stateConfig, index: number }> = new EventEmitter<{ item: stateConfig, index: number }>();
-
-
+  // @Output() onUpdated: EventEmitter<{ item: stateConfig, index: number }> = new EventEmitter<{ item: stateConfig, index: number }>();
+  @Output() onUpdated: EventEmitter<transitionConfig> = new EventEmitter<transitionConfig>();
 
   @Input() config!: transitionConfig;
+  
+  onCardClick(config: transitionConfig, index: number) {
+    const nonBreakingActionList = config.endStateOne?.nonBreakingActionList?.map(action => action.actionType) || [];
+    const nonBreakingActionString = nonBreakingActionList.join(', ');
+    
+    const newTransition: createNewTransitions = {
+      id: index,
+      event: config.event,
+      startState: config.startState,
+      endStateOne: {
+        stateName: config.endStateOne?.stateName || '',
+        stateCode: config.endStateOne?.stateCode || '',
+        breakingAction: config.endStateOne?.breakingAction || null,
+        nonBreakingActionList: config.endStateOne?.nonBreakingActionList || [],
+      },
+      endStateTwo: config.endStateTwo || null,
+      state: '',
+      breakingAction: '',
+      nonBreakingAction: ''
+    };
+
+    if (nonBreakingActionString) {
+      newTransition.endStateOne.nonBreakingAction = nonBreakingActionString;
+    }
+    
+    this.selectedTransition.emit(newTransition);
+  }
+
+  
+
+  // updateConfig(config: transitionConfig, index: number) {
+  //   this.onUpdated.emit({ config: config, index: index });
+  // }
 
   SlotTypeEnum = SlotType;
 
@@ -67,15 +99,19 @@ throw new Error('Method not implemented.');
     this.showModal.emit();
   }
 
+  // onEdit(item: createNewTransitions){
+  //   this.newTransitionsObj = item;
+  // }
+
   // handleClick() {
   //   this.showData = true;
   //   this.selectedTransition.emit(this.config)
   // }
 
-  handleCreate(event: any) {
-    this.text = event;
-    console.log("handle create")
-  }
+  // handleCreate(event: any) {
+  //   this.text = event;
+  //   console.log("handle create")
+  // }
 
 }
 
