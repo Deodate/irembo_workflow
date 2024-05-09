@@ -307,7 +307,9 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     // Clear the form
     this.creationForm.reset();
     // Reload the page
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
 
 
