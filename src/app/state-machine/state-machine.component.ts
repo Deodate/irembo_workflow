@@ -8,6 +8,16 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { WorflowSample } from '../sample-workflowy';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { MatIconModule } from '@angular/material/icon';
+import { AsyncPipe } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+
 
 
 declare var LeaderLine: any;
@@ -23,6 +33,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   addForm !: FormGroup;
   uniqueStateCodes: string[] = [];
   selectedNonBreakingActions: string[] = [];
+  nonBreakingActionList: any;
+  searchText: any;
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
@@ -40,6 +52,14 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   workflows: stateConfig[] = [];
   updateIndex: any;
   isEditEnabled: boolean = false;
+
+  // selectedCars = new FormControl([3]);
+
+  cities: any[] = [
+    {id: 1, name: 'Toyota'},
+    {id: 1, name: 'Tax (Disabled)', disabled: true},
+  ];
+
 
   onStartStateChange(event: any) {
     const value = (event.target as HTMLSelectElement)?.value || '';
@@ -67,7 +87,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   }
 
   onNonBreakingActionChange(event: any) {
-    const value = event.target?.value;
+    const value = event.target as HTMLSelectElement;
     const action = this.newTransitionsObj?.endStateOne?.nonBreakingActionList.find((item: any) => item.actionType === value);
 
     if (value && action) {
@@ -583,7 +603,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
     this.addForm = this.formBuilder.group({
       items: ['', Validators.required]
     });
@@ -604,8 +623,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     if (event != null) {
       this.newTransitionsObj.event = event;
     }
-
-
     this.initialiseCreationFormGroup();
 
   }
@@ -902,6 +919,11 @@ export class createNewTransitions {
 
   constructor() { this.id = 0; this.startState = ''; this.endStateTwo = ''; this.event = ''; this.state = ''; this.breakingAction = ''; this.nonBreakingAction = '' }
 }
+export class StateMachineComponents {
+  searchText: string = '';
+  // other component code
+}
+
 
  // changeWorkflow() {
   //   this.workflow = {

@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^14.0.0-next.0",
     "@angular/platform-browser-dynamic": "^14.0.0-next.0",
     "@angular/router": "^14.0.0-next.0",
+    "@ng-select/ng-select": "^5.1.0",
     "bootstrap": "^5.3.3",
     "leader-line": "^1.0.7",
     "mxgraph": "^4.2.2",
@@ -32,7 +33,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.0",
-    "@angular/cli": "~14.2.0",
+    "@angular/cli": "~14.0.7",
     "@angular/compiler-cli": "^14.0.0-next.0",
     "@types/jasmine": "~4.0.0",
     "jasmine-core": "~4.3.0",

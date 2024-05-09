@@ -13,7 +13,7 @@ import { AlertComponent } from './components/sidenavbar/alert/alert.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule} from '@angular/material/divider';
-import { NgxDomarrowModule } from 'ngx-domarrow';
+import { NgSelectModule } from '@ng-select/ng-select'; // Import NgSelectModule
 import { MatInputModule} from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -33,8 +33,8 @@ import { NavabarComponent } from './components/navabar/navabar.component';
 import { NavbarsComponent } from './course/navbars/navbars.component';
 import { MatCardModule} from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
-
+import { CommonModule } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     JiraComponent,
     HeaderComponent,
     CourseComponent,
-    
     AlertComponent,
     TransitionComponent,
     TransitionNewComponent,
@@ -60,6 +59,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     BrowserModule,
     AppRoutingModule,
     MatCheckboxModule,
+    NgSelectModule, // Import NgSelectModule here
+    MatGridListModule,
+    CommonModule,
     MatInputModule,
     MatDividerModule,
     MatFormFieldModule,
@@ -76,7 +78,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatListModule,
     MatToolbarModule,
     MatButtonModule,
-    NgxDomarrowModule,
     MatDialogModule,
     MatFormFieldModule,
     MatCardModule
