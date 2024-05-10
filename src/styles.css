@@ -17,3 +17,19 @@ body{
 svg{
     cursor: pointer;
 }
+
+.col-8{
+    float: left;
+    width: 8%;
+    margin-top: 5px;
+}
+
+.col-chk{
+    margin-left: 150px;
+    margin-top: 5px;
+}
+.col-35{
+    float: left;
+    width: 15%;
+    margin-top: 5px;
+}

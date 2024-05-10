@@ -1,14 +1,15 @@
 <!-- <app-jira></app-jira> -->
-<app-state-machine [iremboWorkflow]="sampleWorkflow"></app-state-machine>
+<!-- <app-state-machine [iremboWorkflow]="sampleWorkflow"></app-state-machine> -->
 <!-- <app-todolist></app-todolist> -->
 <!-- <app-state-machine ></app-state-machine> -->
- <!-- <div class="container">
+<div class="container">
     <div class="row pt-3">
         <div class="col-6">
             <h6>Irembian</h6>
         </div>
         <div class="col-6 text-end">
-         <button class="btn btn-outline-success" (click)="openModel()">Add new</button>
+            <button class="btn btn-outline-success" (click)="openModel()">Add new</button>&nbsp;&nbsp;
+            <button class="btn btn-outline-primary" (click)="openChecklist()">CheckList</button>
         </div>
     </div><br>
     <div class="row">
@@ -19,82 +20,149 @@
                         <div class="row">
                             <div class="col-9">
                                 <p>Names: {{item.name}}</p>
-                       
+
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li><p>mail: {{item.email}}</p></li>
-                            <li><p>Address: {{item.contacts}}</p></li>
-                            <li> <p> Mobile: {{item.mobileno}}</p></li>
+                            <li>
+                                <p>mail: {{item.email}}</p>
+                            </li>
+                            <li>
+                                <p>Address: {{item.contacts}}</p>
+                            </li>
+                            <li>
+                                <p> Mobile: {{item.mobileno}}</p>
+                            </li>
                         </ul>
                     </div>
                     <div class="card-footer text-center">
                         <div class="row">
                             <div class="col-6">
-                               <p style="font-size: 12px;">Address: {{item.contacts}}</p>
+                                <p style="font-size: 12px;">Address: {{item.contacts}}</p>
                             </div>
                             <div class="col-6">
                                 <button class="btn btn-sm btn-warning" (click)="onEdit(item)">Edit</button>
                                 <button class="btn btn-sm btn-danger" (click)="onDelete(item)">X</button>
-                             </div>
+                            </div>
                         </div>
-                     
+
+                    </div>
+                </div>
+            </div>
+
+        </ng-container>
+        <div class="modal" id="myModal" #myModal>
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">Create New Developer</h4>
+                        <button type="button" class="btn-close" (click)="closeModel()"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-6">
+                                <label for="">Name.</label>
+                                <input type="text" [(ngModel)]="developerObj.name" class="form-control-sm"
+                                    placeholder="* Names" required />
+                            </div>
+
+                            <div class="col-6">
+                                <label for="">Mobile No.</label>
+                                <input type="text" [(ngModel)]="developerObj.mobileno" class="form-control-sm"
+                                    placeholder="* Mobile no." />
+                            </div>
+
+                            <div class="col-6">
+                                <label for="">Emai Address</label>
+                                <input type="text" [(ngModel)]="developerObj.email" class="form-control-sm"
+                                    placeholder="* Email Address" />
+                            </div>
+
+                            <div class="col-6">
+                                <label for="">Contacts:</label>
+                                <input type="text" [(ngModel)]="developerObj.contacts" class="form-control-sm"
+                                    placeholder="* Contact Address" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                            (click)="closeModel()">x</button>
+                        <ng-container *ngIf="developerObj.id === 0; else updateButton">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                (click)="saveDeveloper()">Save</button>
+                        </ng-container>
+                        <ng-template #updateButton>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                (click)="updateDeveloper()">Update</button>
+                        </ng-template>
+                    </div>
                 </div>
             </div>
         </div>
-        
-    </ng-container>
-  <div class="modal" id="myModal" #myModal>
-    <div class="modal-dialog">
-      <div class="modal-content">
-  
-        <div class="modal-header">
-          <h4 class="modal-title">Create New  Developer</h4>
-          <button type="button" class="btn-close" (click)="closeModel()"></button>
-        </div>
-  
-        <div class="modal-body">
-         <div class="row">
-             
-              <div class="col-6">
-                <label for="">Name.</label>
-                <input type="text" [(ngModel)]="developerObj.name" class="form-control-sm" placeholder="* Names" required/>
-               </div>
-            
-               <div class="col-6">
-                <label for="">Mobile No.</label>
-                <input type="text" [(ngModel)]="developerObj.mobileno"  class="form-control-sm" placeholder="* Mobile no." />
-               </div>
 
-               <div class="col-6">
-                <label for="">Emai Address</label>
-                <input type="text" [(ngModel)]="developerObj.email"  class="form-control-sm" placeholder="* Email Address" />
-               </div>
-            
-               <div class="col-6">
-                <label for="">Contacts:</label>
-                <input type="text" [(ngModel)]="developerObj.contacts"  class="form-control-sm" placeholder="* Contact Address" />
-               </div>
-             </div>
+        <!-- Checklist Modal -->
+        <div class="modal" id="checklistModal" #checklistModal>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Angular #Checklist</h4>
+                        <button type="button" class="btn-close" (click)="closeChecklist()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Add your checklist content here -->
+                        <form (ngSubmit)="onSubmits()">
+                            <div class="container">
+                                <div class="row" style="font-size: 20px;">
+                                    <label>Student:</label>
+                                    <input type="text" name="studentname" [(ngModel)]="_student.names" />
+                                </div>
+
+                            </div>
+                            <div class="container">
+                                <div class="row" style="font-size: 14xp;">Courses:</div>
+                                <div *ngFor="let course of _courseList" class="row">
+                                    <div class="col-8 col-chk"><input type="checkbox" name="{{course.names}}" (change)="onChange()" [(ngModel)]="course.isselected"/></div>
+                                    <div class="col-35"><label>{{course.names}}</label></div>
+                                </div>
+                                <div class="row">
+                                <input type="submit"  value="submit"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeChecklist()">Close</button>
+                    </div>
+                    <table>
+                    <tr *ngFor="let item of _studentlist; let i = index">
+                        <thead *ngIf="i==0">
+                          <td style="width: 100px;">ID</td>
+                          <td style="width: 100px;">NAME</td>
+                          <td style="width: 100px;">COURSES</td>
+                          <td style="width: 100px;">ACTION</td>
+                        </thead>
+                        <tbody>
+                            <td style="width: 100px;">{{item.ids}}</td>
+                            <td style="width: 100px;">{{item.names}}</td>
+                            <td style="width: 100px;">{{item.coursename}}</td>
+                            <td style="width: 100px;"><input type="button" value="Edit" (click)="editt(item)" /></td>
+                        </tbody>
+                    </tr>
+                    </table>
+                </div>
             </div>
-  
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModel()">x</button>
-                <ng-container *ngIf="developerObj.id === 0; else updateButton">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveDeveloper()">Save</button>
-                </ng-container>
-                <ng-template #updateButton>
-                  <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="updateDeveloper()">Update</button>
-                </ng-template>
-              </div>              
-      </div>
+        </div>
     </div>
-  </div>  -->
 
- <!-- <div class="row">
+    <!-- <div class="row">
     <div class="col-lg-5 offset-1"> 
          <h2>{{ title }}</h2> 
          <div class="form-group"><br><br><br><br><br><br><br>
@@ -117,4 +185,3 @@
 <div class="col-lg-5">
     <app-course [namedata]="inputname" [moneydata]="inputmoney" [objdata]="inputobj" (dataupdateevent)="UpdateTitle($event)"></app-course>
 </div> -->
- 
