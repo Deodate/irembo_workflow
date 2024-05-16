@@ -34,6 +34,8 @@ throw new Error('Method not implemented.');
   names: any;
   text: string = '';
 
+  selectedBreakingAction: string | null = null;
+
   constructor(private dialogRef: MatDialog, public el: ElementRef, private fb: FormBuilder) {
     this.creationForm = this.fb.group({
       startState: [''],

@@ -35,6 +35,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   selectedNonBreakingActions: string[] = [];
   nonBreakingActionList: any;
   searchText: any;
+  
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');

@@ -127,7 +127,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">#irembo Create Transition</h1>
+                    <h1 class="modal-title fs-8" id="exampleModalLabel">#irembo Create Transition</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -242,7 +242,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><b>#irembo update transition</b></h5>
+                    <h5 class="modal-title fs-8"  id="exampleModalLabel"><b>#irembo update transition</b></h5>
                     <button style="background-color: #5794de; height: 1px; width: 1px;" type="button" class="btn-close"
                         data-bs-dismiss="modal"></button>
                 </div>
@@ -288,9 +288,12 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     <div class="input_field">
                                         <label>BreakingAction:</label>&nbsp;
                                         <div class="transition_select">
-                                            <select *ngIf="transitionToEdit.endStateOne?.breakingAction">
-
-                                            </select>
+                                            <div class="input_field">
+                                                <select>
+                                                    <option>{{ transitionToEdit.endStateOne?.breakingAction?.actionType }}</option>
+                                                </select>
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div><br>
