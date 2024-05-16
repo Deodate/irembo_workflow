@@ -199,13 +199,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         <select #selectedOption formControlName="actionType">
                                             <option value="">------------Select---------</option>
                                             <option value="NOTIFICATION">NOTIFICATION</option>
-                                            <option *ngFor="let breakingAction of   getUniqueNonBreakingActions()"
-                                                [value]="nonBreakingActionList">
-                                            <option
-                                                *ngFor="let action of newTransitionsObj?.endStateOne?.nonBreakingActionList"
-                                                [value]="action.actionType">
-                                                {{ action.actionType }}
-                                            </option>
+ 
                                         </select>
                                     </div>
                                 </div>
