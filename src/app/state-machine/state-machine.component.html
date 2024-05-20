@@ -134,8 +134,9 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                     <ng-container>
                         <form class="create_transition" [formGroup]="creationForm" (ngSubmit)="createNew()">
                             <div><b class="new_transition">New Transition</b></div>
-                            <mat-divider></mat-divider>
-                            <div class="input_field">
+                            <mat-divider></mat-divider><br>
+                            <div class="new_transition1">
+                            <div class="input_field" >
                                 <label>Start State </label>
                                 :&nbsp;
                                 <div class="transition_select">
@@ -160,6 +161,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             {{ event }}
                                     </select>
                                 </div>
+                            </div>
                             </div>
                             <div class="input_field">
                                 <label><b>End State 1:</b></label>
@@ -217,17 +219,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                           </mat-panel-title>
                                           <mat-panel-description>
                                           </mat-panel-description>
-                                        </mat-expansion-panel-header>
-                                        <!-- <mat-tab-group>
-                                            <ul class="tab-list" >
-                                              <li *ngFor="let label of tabLabels">
-                                                {{ label }}
-                                              </li>
-                                            </ul>
-                                            <mat-tab *ngFor="let label of tabLabels" [label]="label" style=" font-size: 12px">
-                                              Content for {{ label }}
-                                            </mat-tab>
-                                          </mat-tab-group> -->
+                                        </mat-expansion-panel-header><br>
+                                      
                                           <ul class="nav nav-tabs">
                                             <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="setTab(i)">
                                                 <a class="nav-link" [ngClass]="{ 'active': activatedTab === i }">{{ tab }}</a>
