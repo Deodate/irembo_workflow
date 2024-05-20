@@ -28,6 +28,7 @@ declare var LeaderLine: any;
   styleUrls: ['./state-machine.component.css']
 })
 
+
 export class StateMachineComponent implements OnInit, AfterViewInit {
 
   addForm !: FormGroup;
@@ -35,11 +36,15 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   selectedNonBreakingActions: string[] = [];
   nonBreakingActionList: any;
   searchText: any;
-  
+  panelOpenState = false;
+  @Input() tabsArray: string[] = [];
+  @Output() onTabChange = new EventEmitter<number>();
+  activatedTab: number = 0;
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
   }
+  tabs: string [] = ['RW', 'ENG', 'FR'];
 
   @Output() crateEmitter: EventEmitter<string> = new EventEmitter<string>();
 
@@ -60,6 +65,12 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     {id: 1, name: 'Toyota'},
     {id: 1, name: 'Tax (Disabled)', disabled: true},
   ];
+
+  setTab(index:number) {
+    this.activatedTab = index;
+    debugger;
+    this.onTabChange.emit(this.activatedTab);
+  }
 
 
   onStartStateChange(event: any) {

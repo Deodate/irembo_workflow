@@ -196,11 +196,48 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     <label>Non-BreakingAction </label>
                                     :&nbsp; <div class="transition_select">
                                         <select #selectedOption formControlName="actionType">
-                                            <option value="">------------Select---------</option>
+                                            <option value="">----------Select-------</option>
                                             <option value="NOTIFICATION">NOTIFICATION</option>
                                         </select>
+                                        <!-- <button type="button" (click)="addNonBreakingAction()">Add</button> -->
                                     </div>
+                                    <button class="add_nobreakingAction" type="button">Add</button>
                                 </div>
+                                <div class="new_transition2">
+                                    <mat-expansion-panel hideToggle>
+                                        <mat-expansion-panel-header>
+                                        </mat-expansion-panel-header>
+                                        <p>This is the primary content of the panel.</p>
+                                      </mat-expansion-panel>
+                                      <mat-expansion-panel (opened)="panelOpenState = true"
+                                                           (closed)="panelOpenState = false">
+                                        <mat-expansion-panel-header style=" background-color: #0060d3; color: #fff; ">
+                                          <mat-panel-title>
+                                            <div><span class="new_transition" style="color: #fff; font-size: 13px; font-family: 'Times New Roman'; ">NOTIFICATION</span></div>
+                                          </mat-panel-title>
+                                          <mat-panel-description>
+                                          </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <!-- <mat-tab-group>
+                                            <ul class="tab-list" >
+                                              <li *ngFor="let label of tabLabels">
+                                                {{ label }}
+                                              </li>
+                                            </ul>
+                                            <mat-tab *ngFor="let label of tabLabels" [label]="label" style=" font-size: 12px">
+                                              Content for {{ label }}
+                                            </mat-tab>
+                                          </mat-tab-group> -->
+                                          <ul class="nav nav-tabs">
+                                            <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="setTab(i)">
+                                                <a class="nav-link" [ngClass]="{ 'active': activatedTab === i }">{{ tab }}</a>
+                                              </li>
+                                          </ul>
+                                      </mat-expansion-panel>
+                                </div><br>
+                                <span></span>
+                              <div>
+                              </div>
                             </div><br>
 
                             <div class="modal-footer">

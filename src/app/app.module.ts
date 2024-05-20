@@ -35,6 +35,10 @@ import { MatCardModule} from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +65,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatCheckboxModule,
     NgSelectModule, // Import NgSelectModule here
     MatGridListModule,
+    MatExpansionModule,
+    BrowserAnimationsModule,
+    MatTabsModule,
     CommonModule,
     MatInputModule,
     MatDividerModule,
