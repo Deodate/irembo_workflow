@@ -351,7 +351,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 <div>
                                     <b class="new_transition">Edit Transition</b>
                                     <mat-divider></mat-divider>
-                                </div>
+                                </div><br>
+                                <div class="new_transition1">
                                 <div class="input_field">
                                     <label>Start State:</label>&nbsp;
                                     <div class="transition_select">
@@ -370,6 +371,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             </ng-container>
                                         </select>
                                     </div>
+                                </div>
                                 </div>
                                 <div class="input_field">
                                     <label><b>End State 1:</b></label>
@@ -407,11 +409,12 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 </div><br> -->
                                 <div class="new_transition7">
                                     <div class="input_field">
-                                        <label>Non-BreakingAction </label>
-                                        :&nbsp; <div class="transition_select">
+                                        <label style=" font-size: 12px; width: 38%; font-family: 'Times New Roman';">No-BreakingAction </label>
+                                        :&nbsp; 
+                                        <div class="transition_select">
                                             <select #selectedOption formControlName="actionType"
                                                 (change)="onSelectChange(selectedOption.value)">
-                                                <option value="">-----Selects---</option>
+                                                <option value="">--------Select-----</option>
                                                 <option value="NOTIFICATION">NOTIFICATION</option>
                                             </select>
                                         </div>
