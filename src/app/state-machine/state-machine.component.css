@@ -231,6 +231,11 @@
     font-family: 'Times New Roman';
 }
 
+.not-allowed {
+    cursor: not-allowed;
+    color: rgb(247, 20, 20);
+  }
+
 .inputsss{
     padding: 20px;
     width: 85%;

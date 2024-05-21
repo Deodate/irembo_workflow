@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 
 
@@ -40,12 +41,24 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   @Input() tabsArray: string[] = [];
   @Output() onTabChange = new EventEmitter<number>();
   activatedTab: number = 0;
+  selectedActionType: string = '';
   
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
   }
   tabs: string [] = ['RW', 'ENG', 'FR'];
+
+
+  onSelectChange(value: string): void {
+    // Perform any additional logic when the selection changes if necessary
+  }
+
+  openPanel(panel: MatExpansionPanel): void {
+    if (panel) {
+      panel.open();
+    }
+  }
 
   @Output() crateEmitter: EventEmitter<string> = new EventEmitter<string>();
 
