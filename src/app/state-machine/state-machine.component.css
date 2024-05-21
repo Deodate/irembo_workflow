@@ -161,6 +161,7 @@
     background-color: #1678da !important;
     color: white !important;
     --bs-nav-tabs-link-active-border-color: #1678da #1678da #ededed  !important;
+    cursor: pointer;
   }
   
   .nav-tabs {
@@ -173,6 +174,7 @@
   .nav-link {
     padding: 0.25rem 0.5rem; /* Adjust padding as needed */
     line-height: 1.5; /* Adjust line height as needed */
+    cursor: pointer;
   }
   
 .new_transition {
@@ -194,6 +196,15 @@
 .new_transition2 {
     border: 1px solid #7591c9;
     width: 93%;
+    border-radius: 3px;
+    margin-left: 23px;
+    margin-top: -10px;
+    box-shadow: 0px 2px 2px #ebe5e5;
+}
+
+.new_transition7 {
+    border: 1px solid #7591c9;
+    width: 95%;
     border-radius: 3px;
     margin-left: 23px;
     margin-top: -10px;
@@ -222,6 +233,7 @@
 
 .inputss{
     padding: 10px;
+    color: #000;
     width: 85%;
     max-width: 300px;
     margin: 0px 0px 5px 1px;
@@ -238,6 +250,7 @@
 
 .inputsss{
     padding: 20px;
+    color: #000;
     width: 85%;
     max-width: 300px;
     margin: 0px 0px 5px 1px;
@@ -337,6 +350,16 @@
 }
 
 .new_transition2 .input {
+    width: 59%;
+    outline: none;
+    border: 1px solid #0060d3;
+    font-size: 15px;
+    padding: 5px 0px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.new_transition7 .input {
     width: 59%;
     outline: none;
     border: 1px solid #0060d3;

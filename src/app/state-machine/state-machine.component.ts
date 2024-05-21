@@ -211,7 +211,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     // Reload the page
     setTimeout(() => {
       window.location.reload();
-    }, 500);
+    }, 50);
   }
 
 
@@ -465,6 +465,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder
+    
   ) {
     this.workflowData = WorflowSample.sample2;
   }
@@ -483,6 +484,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     //   console.log(item, "================ TRANS");
     // });
   }
+  
 
   ngOnInit(): void {
     this.addForm = this.formBuilder.group({

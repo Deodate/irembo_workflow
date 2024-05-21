@@ -203,23 +203,19 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             <option value="">----------Select-------</option>
                                             <option value="NOTIFICATION">NOTIFICATION</option>
                                         </select>
-                                        <!-- <button type="button" (click)="addNonBreakingAction()">Add</button> -->
+            
                                     </div>
                                     <button class="add_nobreakingAction" type="button"
                                         [disabled]="!selectedOption.value"
                                         [ngClass]="{ 'not-allowed': !selectedOption.value }" (click)="openPanel(panel)">
                                         Add
                                     </button>
-
                                 </div>
                                 <div class="new_transition2">
                                     <mat-expansion-panel hideToggle>
-                                        <mat-expansion-panel-header>
-                                        </mat-expansion-panel-header>
-                                        <p>This is the primary content of the panel.</p>
                                     </mat-expansion-panel>
                                     <mat-expansion-panel (opened)="panelOpenState = true"
-                                        (closed)="panelOpenState = false" #panel >
+                                        (closed)="panelOpenState = false" #panel>
                                         <mat-expansion-panel-header style=" background-color: #0060d3; color: #fff; ">
                                             <mat-panel-title>
                                                 <div><span class="new_transition"
@@ -243,8 +239,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs" value="Dosiye yoherejwe"
-                                                            readonly />
+                                                        <input type="text" class="inputs" value="Dosiye yoherejwe" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
@@ -257,7 +252,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Email</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputsss"></textarea>
+                                                        <textarea class="inputsss" value=""></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -266,8 +261,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs" value="Application submitted"
-                                                            readonly />
+                                                        <input type="text" class="inputs"
+                                                            value="Application submitted" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
@@ -280,7 +275,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Email</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputsss"></textarea>
+                                                        <textarea class="inputsss" value=""></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -289,21 +284,20 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs" value="Demande soumise"
-                                                            readonly />
+                                                        <input type="text" class="inputs" value="Demande soumise" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
                                                     <h2><b>SMS</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputss"></textarea>
+                                                        <textarea class="inputss" value="hh"></textarea>
                                                     </div>
                                                 </div>
 
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Email</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputsss"></textarea>
+                                                        <textarea class="inputsss" value=""></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -316,7 +310,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                             </div><br>
 
                             <div class="modal-footer">
-                                <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">X</div>
+                                <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">EXIT</div>
                                 <button class="btn btn-outline-success btn-sm me-1"
                                     data-bs-dismiss="modal">Create</button>
                             </div>
@@ -353,7 +347,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                 <div class="modal-body form-container">
                     <div class="modal-body">
                         <ng-container *ngIf="transitionToEdit">
-                            <form *ngIf="showForm" class="create_transition">
+                            <form *ngIf="showForm" [formGroup]="creationForm" class="create_transition">
                                 <div>
                                     <b class="new_transition">Edit Transition</b>
                                     <mat-divider></mat-divider>
@@ -392,17 +386,14 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     <div class="input_field">
                                         <label>BreakingAction:</label>&nbsp;
                                         <div class="transition_select">
-                                            <div class="input_field">
-                                                <select>
-                                                    <option>{{ transitionToEdit.endStateOne?.breakingAction?.actionType
-                                                        }}</option>
-                                                </select>
-                                            </div>
-
+                                            <select>
+                                                <option>{{ transitionToEdit.endStateOne?.breakingAction?.actionType
+                                                    }}</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div><br>
-                                <div class="new_transition2">
+                                <!-- <div class="new_transition2">
                                     <div class="input_field">
                                         <label>Non-Breaking Actions</label>:
                                         <div class="transition_select">
@@ -413,36 +404,124 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="row justify-content-end">
-                                        <div class="col-auto">
-                                            <button class="btn btn-success btn-sm me-1"
-                                                (click)="addToTable()">Add</button>
+                                </div><br> -->
+                                <div class="new_transition7">
+                                    <div class="input_field">
+                                        <label>Non-BreakingAction </label>
+                                        :&nbsp; <div class="transition_select">
+                                            <select #selectedOption formControlName="actionType"
+                                                (change)="onSelectChange(selectedOption.value)">
+                                                <option value="">-----Selects---</option>
+                                                <option value="NOTIFICATION">NOTIFICATION</option>
+                                            </select>
                                         </div>
-                                        <table class="table table-bordered"
-                                            style="font-size: 10px; width: 92%; margin: 5px 20px 3px 0px; color: rgb(6, 6, 6);">
-                                            <thead>
-                                                <tr>
-                                                    <th style="color: rgb(44, 41, 214); text-align: left;">Action Name
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody style="color: black;">
-                                                <tr *ngFor="let transition of selectedTransitions; let i = index">
-                                                    <td style="text-align: left;">
-                                                        <input type="text" [(ngModel)]="transition.ActionName"
-                                                            placeholder="--------- - ------- - - ---- - ---"
-                                                            name="actionName{{i}}"
-                                                            style="width: 80%; margin: 10px 15px 13px 22px;border: none;">
-                                                    </td>
-                                                    <td style="text-align: right;">
-                                                        <button type="button"
-                                                            class="btn btn-outline-primary btn-sm me-1">Edit</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <button class="add_nobreakingAction" type="button"
+                                            [disabled]="!selectedOption.value"
+                                            [ngClass]="{ 'not-allowed': !selectedOption.value }"
+                                            (click)="openPanel(panel)">
+                                            Add
+                                        </button>
                                     </div>
-                                </div><br>
+                                    <div class="new_transition2">
+                                        <mat-expansion-panel hideToggle>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false" #panel>
+                                            <mat-expansion-panel-header
+                                                style=" background-color: #0060d3; color: #fff; ">
+                                                <mat-panel-title>
+                                                    <div><span class="new_transition"
+                                                            style="color: #fff; font-size: 13px; font-family: 'Times New Roman'; ">NOTIFICATION</span>
+                                                    </div>
+                                                </mat-panel-title>
+                                                <mat-panel-description>
+                                                </mat-panel-description>
+                                            </mat-expansion-panel-header><br>
+
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item" *ngFor="let tab of tabs; let i = index"
+                                                    (click)="setTab(i)">
+                                                    <a class="nav-link" [ngClass]="{ 'active': activatedTab === i }">{{
+                                                        tab
+                                                        }}</a>
+                                                </li>
+                                            </ul><br>
+
+                                            <div class="new_transition5">
+                                                <div *ngIf="activatedTab === 0">
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Title</b>:</h2>
+                                                        <div class="in-group">
+                                                            <input type="text" class="inputs"
+                                                                value="Dosiye yoherejwe" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>SMS</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputss"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Email</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputsss" value=""></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="activatedTab === 1">
+
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Title</b>:</h2>
+                                                        <div class="in-group">
+                                                            <input type="text" class="inputs"
+                                                                value="Application submitted" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>SMS</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputss"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Email</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputsss" value=""></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="activatedTab === 2">
+
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Title</b>:</h2>
+                                                        <div class="in-group">
+                                                            <input type="text" class="inputs" value="Demande soumise" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>SMS</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputss" value="hh"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Email</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputsss" value=""></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </div><br>
+                                    <span></span>
+                                    <div>
+                                    </div>
+                                </div>
                             </form>
                         </ng-container>
                     </div>
