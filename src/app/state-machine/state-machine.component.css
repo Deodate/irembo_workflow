@@ -211,10 +211,32 @@
 .inputs{
     padding: 2px;
     width: 85%;
-    max-width: 300px;
+    max-width: 200px;
     margin: 0px 0px 5px 1px;
     box-sizing: border-box;
     text-align: center;
+    outline: none;
+    border: 1px solid #007bff;;
+    font-family: 'Times New Roman';
+}
+
+.inputss{
+    padding: 10px;
+    width: 85%;
+    max-width: 300px;
+    margin: 0px 0px 5px 1px;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid #007bff;;
+    font-family: 'Times New Roman';
+}
+
+.inputsss{
+    padding: 20px;
+    width: 85%;
+    max-width: 300px;
+    margin: 0px 0px 5px 1px;
+    box-sizing: border-box;
     outline: none;
     border: 1px solid #007bff;;
     font-family: 'Times New Roman';
