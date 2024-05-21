@@ -202,11 +202,36 @@
 
 .new_transition5 {
     border: 1px solid #7591c9;
-    width: 93%;
+    width: 108%;
     border-radius: 3px;
-    margin-left: 23px;
-    margin-top: -10px;
+    margin-left: -13px;
+    margin-top: -20px;
     box-shadow: 0px 2px 2px #ebe5e5;
+}
+.inputs{
+    padding: 2px;
+    width: 85%;
+    max-width: 300px;
+    margin: 0px 0px 5px 1px;
+    box-sizing: border-box;
+    text-align: center;
+    outline: none;
+    border: 1px solid #007bff;;
+    font-family: 'Times New Roman';
+}
+
+.in-group{
+  position: relative;
+}
+
+.non-breakingsAction{
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.non-breakingsAction h2{
+    font-family: 'Times New Roman';
+    font-size: 14px;
 }
 
 .create_transition .input_field {

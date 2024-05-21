@@ -136,32 +136,33 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                             <div><b class="new_transition">New Transition</b></div>
                             <mat-divider></mat-divider><br>
                             <div class="new_transition1">
-                            <div class="input_field" >
-                                <label>Start State </label>
-                                :&nbsp;
-                                <div class="transition_select">
+                                <div class="input_field">
+                                    <label>Start State </label>
+                                    :&nbsp;
+                                    <div class="transition_select">
 
-                                    <select formControlName="startState" (change)="onStartStateSelected($event)">
-                                        <option value="">-----------Select-----------</option>
-                                        <option *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
-                                            [value]="startState">
-                                            {{ startState }}
+                                        <select formControlName="startState" (change)="onStartStateSelected($event)">
+                                            <option value="">-----------Select-----------</option>
+                                            <option
+                                                *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
+                                                [value]="startState">
+                                                {{ startState }}
 
-                                        </option>
-                                    </select>
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="input_field">
-                                <label>Event </label>
-                                :&nbsp;
-                                <div class="transition_select">
-                                    <select formControlName="event">
-                                        <option>-----------Select------------</option>
-                                        <option *ngFor="let event of getUniqueEvents()" [value]="event">
-                                            {{ event }}
-                                    </select>
+                                <div class="input_field">
+                                    <label>Event </label>
+                                    :&nbsp;
+                                    <div class="transition_select">
+                                        <select formControlName="event">
+                                            <option>-----------Select------------</option>
+                                            <option *ngFor="let event of getUniqueEvents()" [value]="event">
+                                                {{ event }}
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                             <div class="input_field">
                                 <label><b>End State 1:</b></label>
@@ -210,30 +211,54 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         <mat-expansion-panel-header>
                                         </mat-expansion-panel-header>
                                         <p>This is the primary content of the panel.</p>
-                                      </mat-expansion-panel>
-                                      <mat-expansion-panel (opened)="panelOpenState = true"
-                                                           (closed)="panelOpenState = false">
+                                    </mat-expansion-panel>
+                                    <mat-expansion-panel (opened)="panelOpenState = true"
+                                        (closed)="panelOpenState = false">
                                         <mat-expansion-panel-header style=" background-color: #0060d3; color: #fff; ">
-                                          <mat-panel-title>
-                                            <div><span class="new_transition" style="color: #fff; font-size: 13px; font-family: 'Times New Roman'; ">NOTIFICATION</span></div>
-                                          </mat-panel-title>
-                                          <mat-panel-description>
-                                          </mat-panel-description>
+                                            <mat-panel-title>
+                                                <div><span class="new_transition"
+                                                        style="color: #fff; font-size: 13px; font-family: 'Times New Roman'; ">NOTIFICATION</span>
+                                                </div>
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                            </mat-panel-description>
                                         </mat-expansion-panel-header><br>
-                                      
-                                          <ul class="nav nav-tabs">
-                                            <li class="nav-item" *ngFor="let tab of tabs; let i = index" (click)="setTab(i)">
-                                                <a class="nav-link" [ngClass]="{ 'active': activatedTab === i }">{{ tab }}</a>
-                                              </li>
-                                          </ul>
-                                      </mat-expansion-panel><br>
-                                       <div class="new_transition5">
-                                        <p>G</p>
-                                       </div>
+
+                                        <ul class="nav nav-tabs">
+                                            <li class="nav-item" *ngFor="let tab of tabs; let i = index"
+                                                (click)="setTab(i)">
+                                                <a class="nav-link" [ngClass]="{ 'active': activatedTab === i }">{{ tab
+                                                    }}</a>
+                                            </li>
+                                        </ul><br>
+            
+                                        <div class="new_transition5">
+                                        <div *ngIf="activatedTab === 0">
+                                            <div class="non-breakingsAction">
+                                                <h2><b>Title</b>:</h2>
+                                                <div class="in-group">
+                                                    <input type="text" class="inputs"value="Dosiye yoherejwe" readonly/>
+                                                </div>
+                                            </div>
+                                          </div>
+                                          <div *ngIf="activatedTab === 1">
+                                          
+                                            <div class="non-breakingsAction">
+                                                <h2><b>Title</b>: ENG</h2>
+                                            </div>
+                                          </div>
+                                          <div *ngIf="activatedTab === 2">
+                                          
+                                            <div class="non-breakingsAction">
+                                                <h2><b>Title</b>: FR</h2>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </mat-expansion-panel>
                                 </div><br>
                                 <span></span>
-                              <div>
-                              </div>
+                                <div>
+                                </div>
                             </div><br>
 
                             <div class="modal-footer">
@@ -267,7 +292,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fs-8"  id="exampleModalLabel"><b>#irembo update transition</b></h5>
+                    <h5 class="modal-title fs-8" id="exampleModalLabel"><b>#irembo update transition</b></h5>
                     <button style="background-color: #5794de; height: 1px; width: 1px;" type="button" class="btn-close"
                         data-bs-dismiss="modal"></button>
                 </div>
@@ -315,10 +340,11 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         <div class="transition_select">
                                             <div class="input_field">
                                                 <select>
-                                                    <option>{{ transitionToEdit.endStateOne?.breakingAction?.actionType }}</option>
+                                                    <option>{{ transitionToEdit.endStateOne?.breakingAction?.actionType
+                                                        }}</option>
                                                 </select>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div><br>

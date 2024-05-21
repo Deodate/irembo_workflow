@@ -40,6 +40,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   @Input() tabsArray: string[] = [];
   @Output() onTabChange = new EventEmitter<number>();
   activatedTab: number = 0;
+  
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
@@ -68,7 +69,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   setTab(index:number) {
     this.activatedTab = index;
-    debugger;
     this.onTabChange.emit(this.activatedTab);
   }
 
