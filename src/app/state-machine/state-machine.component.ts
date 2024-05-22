@@ -262,7 +262,12 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
           actionType: this.creationForm.value.breakingAction,
           args: null
         },
-        nonBreakingActionList: []
+        nonBreakingActionList: this.creationForm.value.actionType
+          ? [{
+            actionType: this.creationForm.value.actionType,
+            args: notificationTemplates
+          }]
+          : []
       },
       endStateTwo: null,
       breakingAction: '',
@@ -293,17 +298,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       window.location.reload();
     }, 50);
   }
-  currentlyOpenState: any = undefined;
-  addNonBreakingActionToWorkflow(){
-    const isLocalPresent = localStorage.getItem("iremboWorkflow");
-
-    if (isLocalPresent != null) {
-      const oldArray = JSON.parse(isLocalPresent) as createNewTransitions[];
-      this.currentlyOpenState = oldArray.pop();
-      console.log(this.currentlyOpenState);
-
-    }
-  }
 
   onUpdate(item: any, i: number) {
     this.creationForm.controls['item'].setValue(item.event);
@@ -318,6 +312,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     name: '',
     event: '',
     startState: '',
+    emailTemplate: '',
     endStateOne: undefined,
     endStateTwo: undefined,
     position: { x: 0, y: 0 }
@@ -435,7 +430,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   selectedNonBreakingAction: string = '';
   selectedTransitions: any[] = [];
   transitionToEdit: transitionConfig = {
-    description: '', names: '', name: '', startState: '', event: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, position: { x: 0, y: 0 },
+    description: '', names: '', name: '', startState: '', event: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, emailTemplate: '', position: { x: 0, y: 0 },
     id: 0
   };
 
@@ -662,7 +657,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       localStorage.setItem("server", JSON.stringify(newWorkflow));
     }
   }
-
+  
   buildWorkflow() {
     const patX = 280;
     const patY = 120;
@@ -738,6 +733,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
           name: element.event.toString(),
           names: element.event.toString(),
           event: element.event.toString(),
+          emailTemplate: element.endStateOne.toString(),
           description: element.event.toString(),
           startState: element.startState.toString(),
           endStateOne: element.endStateOne,

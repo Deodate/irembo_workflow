@@ -12,6 +12,7 @@ export interface transitionConfig {
     name: string,
     names: string,
     startState: string,
+    emailTemplate: string,
     endStateOne: IremboEndState | undefined,
     endStateTwo: IremboEndState | undefined,
     breakingAction?: IremboAction | undefined,
@@ -124,6 +125,7 @@ export interface IremboEndState {
     breakingAction?: IremboAction | undefined,
     nonBreakingActionList?: IremboAction[] | undefined,
     position?: point | undefined
+    emailTemplate?: string; 
 }
 
 export interface IremboAction {
