@@ -29,9 +29,9 @@ declare var LeaderLine: any;
   styleUrls: ['./state-machine.component.css']
 })
 
-
 export class StateMachineComponent implements OnInit, AfterViewInit {
 
+  updateForm!: FormGroup;
   addForm !: FormGroup;
   uniqueStateCodes: string[] = [];
   selectedNonBreakingActions: string[] = [];
@@ -43,12 +43,11 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   activatedTab: number = 0;
   selectedActionType: string = '';
 
-
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
   }
-  tabs: string[] = ['RW', 'ENG', 'FR'];
 
+  tabs: string[] = ['RW', 'ENG', 'FR'];
 
   onSelectChange(value: string): void {
     // Perform any additional logic when the selection changes if necessary
@@ -150,6 +149,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //   this.newTransitionsObj = item;
 
   // }
+  
   addNonBreakingAction() {
     const nonBreakingAction = this.fb.group({
       actionType: [this.creationForm.value.actionType, Validators.required],
@@ -170,6 +170,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   onUpdated(transition: createNewTransitions) {
     // Handle the updated transition here
   }
+
 
   // createNew() {
 
@@ -299,6 +300,24 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     }, 50);
   }
 
+  updateTransition() {
+    if (this.creationForm.valid) {
+      // Logic to update the transition and save it to local storage
+      console.log(this.creationForm.value);
+
+      // Ensure localStorage returns a string
+      const storedTransitions = localStorage.getItem('iremboWorkflow');
+      const transitions = storedTransitions ? JSON.parse(storedTransitions) : [];
+
+      transitions.push(this.creationForm.value);
+      localStorage.setItem('iremboWorkflow', JSON.stringify(transitions));
+
+      // Close the modal
+      // ($('#exampleModal') as any).modal('hide');
+    }
+  }
+
+
   onUpdate(item: any, i: number) {
     this.creationForm.controls['item'].setValue(item.event);
     this.updateIndex = i;
@@ -330,10 +349,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   transition: any;
   showData: boolean = false;
   // creationForm: FormGroup = new FormGroup({});
-
-  updateTransition(transition: any) {
-
-  }
 
   getStateMachineComponentUniqueStartStates(): string[] {
     return StateMachineComponent.getUniqueStartStates();
@@ -594,6 +609,16 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     if (event != null) {
       this.newTransitionsObj.event = event;
     }
+
+    this.updateForm = this.fb.group({
+      startState: ['', Validators.required],
+      event: ['', Validators.required],
+      stateCode: ['', Validators.required],
+      breakingAction: ['', Validators.required],
+      actionType: ['', Validators.required],
+      // Add other form controls as needed
+    });
+
     this.initialiseCreationFormGroup();
 
   }
@@ -659,11 +684,11 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       localStorage.setItem("server", JSON.stringify(newWorkflow));
     }
   }
-  
+
   buildWorkflow() {
     const patX = 280;
     const patY = 120;
-  
+
     // Define arrays of positions for transitions and states
     const transitionPositions = [
       { x: 270, y: -600 },
@@ -672,7 +697,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       { x: 800, y: -791 },
       // Add more positions as needed
     ];
-  
+
     const statePositions = [
       { x: 270, y: -790 },
       { x: 275, y: -390 },
@@ -681,15 +706,15 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       { x: 600, y: -860 },
       // Add more positions as needed
     ];
-  
+
     let transitionIndex = 0;
     let stateIndex = 0;
-  
+
     this.iremboWorkflow.forEach(element => {
       // Get the position for the current transition
       const transitionPosition = transitionPositions[transitionIndex];
       const statePosition = statePositions[stateIndex];
-  
+
       // Add Start State
       if (!this.workflow.states.has(element.startState.toString())) {
         let state: stateConfig = {
@@ -700,7 +725,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.states.set(element.startState.toString(), state);
       }
-  
+
       // Add End State One
       if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
         let state: stateConfig = {
@@ -714,7 +739,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
       }
-  
+
       // Add End State Two
       if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
         let state: stateConfig = {
@@ -728,15 +753,15 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
       }
-      
-  
+
+
       // Add The transition
       if (element.endStateOne) {
         let transition: transitionConfig = {
           name: element.event.toString(),
           names: element.event.toString(),
           event: element.event.toString(),
-          emailTemplate: element.endStateOne.toString(),       
+          emailTemplate: element.endStateOne.toString(),
           smsTemplate: element.endStateOne.toString(),
           notificationTitle: element.endStateOne.toString(),
           description: element.event.toString(),
@@ -748,17 +773,17 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.transitions.push(transition);
       }
-  
+
       // Increment the indices for the next transition and state
       transitionIndex = (transitionIndex + 1) % transitionPositions.length;
       stateIndex = (stateIndex + 1) % statePositions.length;
     });
   }
-  
+
   // buildWorkflow() {
   //   const patX = 280;
   //   const patY = 120;
-  
+
   //   // Define arrays of positions for transitions and states
   //   const transitionPositions = [
   //     { x: 270, y: -600 },
@@ -767,7 +792,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //     { x: 800, y: -791 },
   //     // Add more positions as needed
   //   ];
-  
+
   //   const statePositions = [
   //     { x: 270, y: -790 },
   //     { x: 275, y: -390 },
@@ -776,14 +801,14 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //     { x: 130, y: -860 },
   //     // Add more positions as needed
   //   ];
-  
+
   //   let i = 0;
-  
+
   //   this.iremboWorkflow.forEach(element => {
   //     // Get the position for the current transition
   //     const transitionPosition = transitionPositions[i];
   //     const statePosition = statePositions[i];
-  
+
   //     // Add Start State
   //     if (!this.workflow.states.has(element.startState.toString())) {
   //       let state: stateConfig = {
@@ -794,7 +819,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //       };
   //       this.workflow.states.set(element.startState.toString(), state);
   //     }
-  
+
   //     // Add End State One
   //     if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
   //       let state: stateConfig = {
@@ -808,7 +833,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //       };
   //       this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
   //     }
-  
+
   //     // Add End State Two
   //     if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
   //       let state: stateConfig = {
@@ -822,7 +847,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //       };
   //       this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
   //     }
-  
+
   //     // Add The transition
   //     if (element.endStateOne) {
   //       let transition: transitionConfig = {
@@ -838,17 +863,17 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //       };
   //       this.workflow.transitions.push(transition);
   //     }
-  
+
   //     // Increment the index for the next transition
   //     i = (i + 1) % transitionPositions.length;
   //   });
   // }
-  
+
 
   // buildWorkflow() {
   //   const patX = 160;
   //   const patY = 190;
-  
+
   //   // Define an array of positions for transitions
   //   const transitionPositions = [
   //     { x: 270, y: -600 },
@@ -856,13 +881,13 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //     { x: 530, y: -600 },
   //     // Add more positions as needed
   //   ];
-  
+
   //   let i = 0;
-  
+
   //   this.iremboWorkflow.forEach(element => {
   //     // Get the position for the current transition
   //     const position = transitionPositions[i];
-  
+
   //     // Add Start State
   //     if (!this.workflow.states.has(element.startState.toString())) {
   //       let state: stateConfig = {
@@ -876,7 +901,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //       };
   //       this.workflow.states.set(element.startState.toString(), state);
   //     }
-  
+
   //     // Add End State One
   //     if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
   //       let stateposition = {
@@ -891,7 +916,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //       };
   //       this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
   //     }
-  
+
   //     // Add End State Two
   //     if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
   //       let stateposition = {
@@ -906,7 +931,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //       };
   //       this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
   //     }
-  
+
   //     // Add The transition
   //     if (element.endStateOne) {
   //       let transition: transitionConfig = {
@@ -922,12 +947,12 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //       };
   //       this.workflow.transitions.push(transition);
   //     }
-  
+
   //     // Increment the index for the next transition
   //     i = (i + 1) % transitionPositions.length;
   //   });
   // }
-  
+
 
   // buildWorkflow() {
 

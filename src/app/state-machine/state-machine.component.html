@@ -351,7 +351,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                 <div class="modal-body form-container">
                     <div class="modal-body">
                         <ng-container *ngIf="transitionToEdit">
-                            <form *ngIf="showForm" [formGroup]="creationForm" class="create_transition">
+                            <form *ngIf="showForm" [formGroup]="updateForm" (ngSubmit)="updateTransition()" class="create_transition">
                                 <div>
                                     <b class="new_transition">Edit Transition</b>
                                     <mat-divider></mat-divider>
@@ -413,10 +413,9 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             </select>
                                         </div>
                                         <button class="add_nobreakingAction" type="button"
-                                            [disabled]="!selectedOption.value"
-                                            [ngClass]="{ 'not-allowed': !selectedOption.value }"
+                                            
                                             (click)="openPanel(panel)">
-                                            Add
+                                            +
                                         </button>
                                     </div>
                                     <div class="new_transition2">
@@ -450,14 +449,14 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         <h2><b>Title</b>:</h2>
                                                         <div class="in-group">
                                                             <input type="text" class="inputs"
-                                                            [value]="transitionToEdit.endStateOne?.nonBreakingActionList?.[0]?.args?.kinyarwandaNotificationTemplate?.notificationTitle" />
+                                                                [value]="transitionToEdit.endStateOne?.nonBreakingActionList?.[0]?.args?.kinyarwandaNotificationTemplate?.notificationTitle" />
                                                         </div>
                                                     </div>
                                                     <div class="non-breakingsAction">
                                                         <h2><b>SMS</b>:</h2>
                                                         <div class="in-group">
-                                                              <textarea class="inputss"
-                                                              *ngFor="let action of transitionToEdit.endStateOne?.nonBreakingActionList">
+                                                            <textarea class="inputss"
+                                                                *ngFor="let action of transitionToEdit.endStateOne?.nonBreakingActionList">
                                                               {{ action.args?.kinyarwandaNotificationTemplate?.smsTemplate }}
                                                           </textarea>
                                                         </div>
@@ -467,7 +466,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         <h2><b>Email</b>:</h2>
                                                         <div class="in-group">
                                                             <textarea class="inputsss"
-                                                            *ngFor="let action of transitionToEdit.endStateOne?.nonBreakingActionList">
+                                                                *ngFor="let action of transitionToEdit.endStateOne?.nonBreakingActionList">
                                                             {{ action.args?.kinyarwandaNotificationTemplate?.emailTemplate}}
                                                         </textarea>
                                                         </div>
@@ -545,7 +544,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                 </div><br>
                 <div class="modal-footer">
                     <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">X</div>
-                    <button class="btn btn-outline-primary btn-sm me-1">Update</button>
+                    <button class="btn btn-outline-primary btn-sm me-1" (click)="updateTransition()">Update</button>
                 </div>
             </div>
         </div>
