@@ -656,16 +656,24 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       localStorage.setItem("server", JSON.stringify(newWorkflow));
     }
   }
-
-  buildWorkflow() {
-    const patX = 160;
-    const patY = 190;
   
-    // Define an array of positions for transitions
+  buildWorkflow() {
+    const patX = 280;
+    const patY = 120;
+  
+    // Define arrays of positions for transitions and states
     const transitionPositions = [
       { x: 270, y: -600 },
-      { x: 270, y: -400 },
-      { x: 530, y: -600 },
+      { x: 550, y: -600 },
+      { x: 800, y: -421 },
+      // Add more positions as needed
+    ];
+  
+    const statePositions = [
+      { x: 270, y: -790 },
+      { x: 275, y: -390 },
+      { x: 520, y: -560 },
+      { x: 130, y: -790 },
       // Add more positions as needed
     ];
   
@@ -673,7 +681,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   
     this.iremboWorkflow.forEach(element => {
       // Get the position for the current transition
-      const position = transitionPositions[i];
+      const transitionPosition = transitionPositions[i];
+      const statePosition = statePositions[i];
   
       // Add Start State
       if (!this.workflow.states.has(element.startState.toString())) {
@@ -681,40 +690,35 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
           name: element.startState.toString(),
           tasks: element.startState.toString(),
           names: element.startState.toString(),
-          position: {
-            x: position.x,
-            y: position.y - patY
-          }
+          position: statePosition
         };
         this.workflow.states.set(element.startState.toString(), state);
       }
   
       // Add End State One
       if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
-        let stateposition = {
-          x: position.x + 2 * patX,
-          y: position.y - patY
-        };
         let state: stateConfig = {
           name: element.endStateOne.stateCode.toString(),
           tasks: element.endStateOne.stateCode.toString(),
           names: element.endStateOne.stateCode.toString(),
-          position: stateposition
+          position: {
+            x: statePosition.x + patX,
+            y: statePosition.y
+          }
         };
         this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
       }
   
       // Add End State Two
       if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
-        let stateposition = {
-          x: position.x + 2 * patX,
-          y: position.y + patY
-        };
         let state: stateConfig = {
           name: element.endStateTwo.stateCode.toString(),
           tasks: element.endStateTwo.stateCode.toString(),
           names: element.endStateTwo.stateCode.toString(),
-          position: stateposition
+          position: {
+            x: statePosition.x + patX,
+            y: statePosition.y + patY
+          }
         };
         this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
       }
@@ -729,7 +733,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
           startState: element.startState.toString(),
           endStateOne: element.endStateOne,
           endStateTwo: element.endStateTwo,
-          position: position, // Assign the position from the array
+          position: transitionPosition,
           id: 0
         };
         this.workflow.transitions.push(transition);
@@ -739,6 +743,90 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       i = (i + 1) % transitionPositions.length;
     });
   }
+  
+
+  // buildWorkflow() {
+  //   const patX = 160;
+  //   const patY = 190;
+  
+  //   // Define an array of positions for transitions
+  //   const transitionPositions = [
+  //     { x: 270, y: -600 },
+  //     { x: 270, y: -400 },
+  //     { x: 530, y: -600 },
+  //     // Add more positions as needed
+  //   ];
+  
+  //   let i = 0;
+  
+  //   this.iremboWorkflow.forEach(element => {
+  //     // Get the position for the current transition
+  //     const position = transitionPositions[i];
+  
+  //     // Add Start State
+  //     if (!this.workflow.states.has(element.startState.toString())) {
+  //       let state: stateConfig = {
+  //         name: element.startState.toString(),
+  //         tasks: element.startState.toString(),
+  //         names: element.startState.toString(),
+  //         position: {
+  //           x: position.x,
+  //           y: position.y - patY
+  //         }
+  //       };
+  //       this.workflow.states.set(element.startState.toString(), state);
+  //     }
+  
+  //     // Add End State One
+  //     if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
+  //       let stateposition = {
+  //         x: position.x + 2 * patX,
+  //         y: position.y - patY
+  //       };
+  //       let state: stateConfig = {
+  //         name: element.endStateOne.stateCode.toString(),
+  //         tasks: element.endStateOne.stateCode.toString(),
+  //         names: element.endStateOne.stateCode.toString(),
+  //         position: stateposition
+  //       };
+  //       this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
+  //     }
+  
+  //     // Add End State Two
+  //     if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
+  //       let stateposition = {
+  //         x: position.x + 2 * patX,
+  //         y: position.y + patY
+  //       };
+  //       let state: stateConfig = {
+  //         name: element.endStateTwo.stateCode.toString(),
+  //         tasks: element.endStateTwo.stateCode.toString(),
+  //         names: element.endStateTwo.stateCode.toString(),
+  //         position: stateposition
+  //       };
+  //       this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
+  //     }
+  
+  //     // Add The transition
+  //     if (element.endStateOne) {
+  //       let transition: transitionConfig = {
+  //         name: element.event.toString(),
+  //         names: element.event.toString(),
+  //         event: element.event.toString(),
+  //         description: element.event.toString(),
+  //         startState: element.startState.toString(),
+  //         endStateOne: element.endStateOne,
+  //         endStateTwo: element.endStateTwo,
+  //         position: position, // Assign the position from the array
+  //         id: 0
+  //       };
+  //       this.workflow.transitions.push(transition);
+  //     }
+  
+  //     // Increment the index for the next transition
+  //     i = (i + 1) % transitionPositions.length;
+  //   });
+  // }
   
 
   // buildWorkflow() {
