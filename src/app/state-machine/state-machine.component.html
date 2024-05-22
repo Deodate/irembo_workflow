@@ -450,22 +450,26 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         <h2><b>Title</b>:</h2>
                                                         <div class="in-group">
                                                             <input type="text" class="inputs"
-                                                                value="Dosiye yoherejwe" />
+                                                            [value]="transitionToEdit.endStateOne?.nonBreakingActionList?.[0]?.args?.kinyarwandaNotificationTemplate?.notificationTitle" />
                                                         </div>
                                                     </div>
                                                     <div class="non-breakingsAction">
                                                         <h2><b>SMS</b>:</h2>
                                                         <div class="in-group">
-                                                            <textarea class="inputst">
-
-                                                              </textarea>
+                                                              <textarea class="inputss"
+                                                              *ngFor="let action of transitionToEdit.endStateOne?.nonBreakingActionList">
+                                                              {{ action.args?.kinyarwandaNotificationTemplate?.smsTemplate }}
+                                                          </textarea>
                                                         </div>
                                                     </div>
 
                                                     <div class="non-breakingsAction">
                                                         <h2><b>Email</b>:</h2>
                                                         <div class="in-group">
-                                                            <textarea class="inputsss" value=""></textarea>
+                                                            <textarea class="inputsss"
+                                                            *ngFor="let action of transitionToEdit.endStateOne?.nonBreakingActionList">
+                                                            {{ action.args?.kinyarwandaNotificationTemplate?.emailTemplate}}
+                                                        </textarea>
                                                         </div>
                                                     </div>
                                                 </div>
