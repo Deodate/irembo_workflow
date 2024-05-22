@@ -313,6 +313,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     event: '',
     startState: '',
     emailTemplate: '',
+    notificationTitle: '',
+    smsTemplate: '',
     endStateOne: undefined,
     endStateTwo: undefined,
     position: { x: 0, y: 0 }
@@ -430,7 +432,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   selectedNonBreakingAction: string = '';
   selectedTransitions: any[] = [];
   transitionToEdit: transitionConfig = {
-    description: '', names: '', name: '', startState: '', event: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, emailTemplate: '', position: { x: 0, y: 0 },
+    description: '', names: '', name: '', startState: '', event: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, emailTemplate: '', notificationTitle: '', smsTemplate: '', position: { x: 0, y: 0 },
     id: 0
   };
 
@@ -726,6 +728,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
       }
+      
   
       // Add The transition
       if (element.endStateOne) {
@@ -733,7 +736,9 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
           name: element.event.toString(),
           names: element.event.toString(),
           event: element.event.toString(),
-          emailTemplate: element.endStateOne.toString(),
+          emailTemplate: element.endStateOne.toString(),       
+          smsTemplate: element.endStateOne.toString(),
+          notificationTitle: element.endStateOne.toString(),
           description: element.event.toString(),
           startState: element.startState.toString(),
           endStateOne: element.endStateOne,
