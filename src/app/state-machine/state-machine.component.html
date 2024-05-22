@@ -481,8 +481,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     <div class="non-breakingsAction">
                                                         <h2><b>SMS</b>:</h2>
                                                         <div class="in-group">
-                                                            <textarea class="inputss">
-                                                                {{ transitionToEdit.endStateOne?.nonBreakingActionList?.[0]?.args?.englishNotificationTemplate?.emailTemplate }}
+                                                            <textarea class="inputss"  *ngFor="let action of transitionToEdit.endStateOne?.nonBreakingActionList">
+                                                                {{ action.args?.englishNotificationTemplate?.emailTemplate }}
                                                             </textarea>
                                                         </div>
                                                     </div>
