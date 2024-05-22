@@ -243,6 +243,18 @@
     font-family: 'Times New Roman';
 }
 
+.inputst{
+    padding: 10px;
+    color: #000;
+    width: 85%;
+    max-width: 300px;
+    margin: 0px 0px 5px 1px;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid #007bff;;
+    font-family: 'Times New Roman';
+}
+
 .not-allowed {
     cursor: not-allowed;
     color: rgb(107, 221, 105);

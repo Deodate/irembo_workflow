@@ -27,34 +27,72 @@ export interface createNewTransitions {
     id: number;
     event: string;
     startState: string;
+    state: string;
     endStateOne: {
-      stateName: string;
-      stateCode: string;
-      breakingAction: {
-        actionType: string;
-        args: null;
-      } | null;
-      nonBreakingActionList: { actionType: string; args: any; }[];
-      frenchNotificationTemplate?: {
-        smsTemplate: string;
-        emailTemplate: string;
-        notificationTitle: string;
-      };
-      englishNotificationTemplate?: {
-        smsTemplate: string;
-        emailTemplate: string;
-        notificationTitle: string;
-      };
-      kinyarwandaNotificationTemplate?: {
-        smsTemplate: string;
-        emailTemplate: string;
-        notificationTitle: string;
-      };
+        stateName: string;
+        stateCode: string;
+        breakingAction: {
+            actionType: string;
+            args: any;
+        } | null;
+        nonBreakingActionList: {
+            actionType: string;
+            args: {
+                frenchNotificationTemplate: {
+                    smsTemplate: string;
+                    emailTemplate: string;
+                    notificationTitle: string;
+                };
+                englishNotificationTemplate: {
+                    smsTemplate: string;
+                    emailTemplate: string;
+                    notificationTitle: string;
+                };
+                kinyarwandaNotificationTemplate: {
+                    smsTemplate: string;
+                    emailTemplate: string;
+                    notificationTitle: string;
+                };
+            };
+        }[];
     };
     endStateTwo: null | any;
-  }
-  
+    breakingAction: string;
+    nonBreakingAction: string;
+}
 
+
+// export interface createNewTransitions {
+//     id: number;
+//     event: string;
+//     startState: string;
+//     endStateOne: {
+//       stateName: string;
+//       stateCode: string;
+//       breakingAction: {
+//         actionType: string;
+//         args: null;
+//       } | null;
+//       nonBreakingActionList: { actionType: string; args: any; }[];
+//       frenchNotificationTemplate?: {
+//         smsTemplate: string;
+//         emailTemplate: string;
+//         notificationTitle: string;
+//       };
+//       englishNotificationTemplate?: {
+//         smsTemplate: string;
+//         emailTemplate: string;
+//         notificationTitle: string;
+//       };
+//       kinyarwandaNotificationTemplate?: {
+//         smsTemplate: string;
+//         emailTemplate: string;
+//         notificationTitle: string;
+//       };
+//     };
+//     endStateTwo: null | any;
+//   }
+  
 export interface point {
     x: number,
     y: number,

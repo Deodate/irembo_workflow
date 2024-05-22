@@ -38,6 +38,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MyTextareaComponent } from './components/my-textarea/my-textarea.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     FormComponent,
     TodolistComponent,
     NavabarComponent,
-    NavbarsComponent
+    NavbarsComponent,
+    MyTextareaComponent
   ],
   imports: [
     BrowserModule,

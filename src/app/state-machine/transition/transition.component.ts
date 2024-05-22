@@ -73,7 +73,8 @@ throw new Error('Method not implemented.');
       endStateTwo: config.endStateTwo || null,
       state: '',
       breakingAction: '',
-      nonBreakingAction: ''
+      nonBreakingAction: '',
+      notificationTitle: undefined
     };
 
     if (nonBreakingActionString) {
@@ -128,19 +129,20 @@ throw new Error('Method not implemented.');
         const nonBreakingActionString = nonBreakingActionList.join(', ');
 
         const newTransition: createNewTransitions = {
-            id: this.config.id || 0,
-            event: this.config.event || '',
-            startState: this.config.startState || '',
-            endStateOne: {
-                stateName: this.config.endStateOne?.stateName || '',
-                stateCode: this.config.endStateOne?.stateCode || '',
-                breakingAction: this.config.endStateOne?.breakingAction || null,
-                nonBreakingActionList: this.config.endStateOne?.nonBreakingActionList || [],
-            },
-            endStateTwo: this.config.endStateTwo || null,
-            state: '',
-            breakingAction: '',
-            nonBreakingAction: nonBreakingActionString
+          id: this.config.id || 0,
+          event: this.config.event || '',
+          startState: this.config.startState || '',
+          endStateOne: {
+            stateName: this.config.endStateOne?.stateName || '',
+            stateCode: this.config.endStateOne?.stateCode || '',
+            breakingAction: this.config.endStateOne?.breakingAction || null,
+            nonBreakingActionList: this.config.endStateOne?.nonBreakingActionList || [],
+          },
+          endStateTwo: this.config.endStateTwo || null,
+          state: '',
+          breakingAction: '',
+          nonBreakingAction: nonBreakingActionString,
+          notificationTitle: undefined
         };
 
         this.selectedTransition.emit(newTransition);

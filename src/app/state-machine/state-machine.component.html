@@ -203,7 +203,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             <option value="">----------Select-------</option>
                                             <option value="NOTIFICATION">NOTIFICATION</option>
                                         </select>
-            
                                     </div>
                                     <button class="add_nobreakingAction" type="button"
                                         [disabled]="!selectedOption.value"
@@ -252,7 +251,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Email</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputsss" value=""></textarea>
+                                                        <textarea class="inputsss"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -268,14 +267,16 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>SMS</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputss"></textarea>
+                                                        <textarea class="inputss"
+                                                            formControlName="frenchSMSTemplate"></textarea>
                                                     </div>
                                                 </div>
 
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Email</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputsss" value=""></textarea>
+                                                        <textarea class="inputsss" value=""
+                                                            formControlName="frenchEmailTemplate"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -284,20 +285,23 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs" value="Demande soumise" />
+                                                        <input type="text" class="inputs" value="Demande soumise"
+                                                            formControlName="frenchNotificationTitle" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
                                                     <h2><b>SMS</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputss" value="hh"></textarea>
+                                                        <textarea class="inputss"
+                                                            formControlName="frenchSMSTemplate"></textarea>
                                                     </div>
                                                 </div>
 
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Email</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputsss" value=""></textarea>
+                                                        <textarea class="inputsss" value=""
+                                                            formControlName="frenchEmailTemplate"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -353,25 +357,25 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     <mat-divider></mat-divider>
                                 </div><br>
                                 <div class="new_transition1">
-                                <div class="input_field">
-                                    <label>Start State:</label>&nbsp;
-                                    <div class="transition_select">
-                                        <select (change)="onStartStateSelected($event)">
-                                            <option>{{transitionToEdit.startState}}</option>
-                                        </select>
+                                    <div class="input_field">
+                                        <label>Start State:</label>&nbsp;
+                                        <div class="transition_select">
+                                            <select (change)="onStartStateSelected($event)">
+                                                <option>{{transitionToEdit.startState}}</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="input_field">
-                                    <label>Event:</label>&nbsp;
-                                    <div class="transition_select">
-                                        <select (change)="onEventSelected($event)">
-                                            <option>{{transitionToEdit.name}}</option>
-                                            <ng-container *ngFor="let event of getUniqueEvents()">
-                                                <option>{{event}}</option>
-                                            </ng-container>
-                                        </select>
+                                    <div class="input_field">
+                                        <label>Event:</label>&nbsp;
+                                        <div class="transition_select">
+                                            <select (change)="onEventSelected($event)">
+                                                <option>{{transitionToEdit.name}}</option>
+                                                <ng-container *ngFor="let event of getUniqueEvents()">
+                                                    <option>{{event}}</option>
+                                                </ng-container>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                                 <div class="input_field">
                                     <label><b>End State 1:</b></label>
@@ -395,27 +399,17 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         </div>
                                     </div>
                                 </div><br>
-                                <!-- <div class="new_transition2">
+                                <div class="new_transition7">
                                     <div class="input_field">
-                                        <label>Non-Breaking Actions</label>:
+                                        <label
+                                            style=" font-size: 12px; width: 38%; font-family: 'Times New Roman';">No-BreakingAction
+                                        </label>
+                                        :&nbsp;
                                         <div class="transition_select">
-                                            <select>
+                                            <select style="font-size: 12px;">
                                                 <option
                                                     *ngFor="let action of transitionToEdit.endStateOne?.nonBreakingActionList">
                                                     {{ action.actionType }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div><br> -->
-                                <div class="new_transition7">
-                                    <div class="input_field">
-                                        <label style=" font-size: 12px; width: 38%; font-family: 'Times New Roman';">No-BreakingAction </label>
-                                        :&nbsp; 
-                                        <div class="transition_select">
-                                            <select #selectedOption formControlName="actionType"
-                                                (change)="onSelectChange(selectedOption.value)">
-                                                <option value="">--------Select-----</option>
-                                                <option value="NOTIFICATION">NOTIFICATION</option>
                                             </select>
                                         </div>
                                         <button class="add_nobreakingAction" type="button"
@@ -462,7 +456,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     <div class="non-breakingsAction">
                                                         <h2><b>SMS</b>:</h2>
                                                         <div class="in-group">
-                                                            <textarea class="inputss"></textarea>
+                                                            <textarea class="inputst"></textarea>
                                                         </div>
                                                     </div>
 

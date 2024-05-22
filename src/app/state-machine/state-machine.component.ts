@@ -42,12 +42,12 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   @Output() onTabChange = new EventEmitter<number>();
   activatedTab: number = 0;
   selectedActionType: string = '';
-  
+
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
   }
-  tabs: string [] = ['RW', 'ENG', 'FR'];
+  tabs: string[] = ['RW', 'ENG', 'FR'];
 
 
   onSelectChange(value: string): void {
@@ -76,11 +76,11 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   // selectedCars = new FormControl([3]);
 
   cities: any[] = [
-    {id: 1, name: 'Toyota'},
-    {id: 1, name: 'Tax (Disabled)', disabled: true},
+    { id: 1, name: 'Toyota' },
+    { id: 1, name: 'Tax (Disabled)', disabled: true },
   ];
 
-  setTab(index:number) {
+  setTab(index: number) {
     this.activatedTab = index;
     this.onTabChange.emit(this.activatedTab);
   }
@@ -150,15 +150,107 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //   this.newTransitionsObj = item;
 
   // }
+  addNonBreakingAction() {
+    const nonBreakingAction = this.fb.group({
+      actionType: [this.creationForm.value.actionType, Validators.required],
+      args: this.fb.group({
+        notificationTitle: [''],
+        smsTemplate: [''],
+        emailTemplate: ['']
+      })
+    });
+    this.nonBreakingActionList.push(nonBreakingAction);
+    this.creationForm.get('actionType')?.reset();
+  }
+
+  removeNonBreakingAction(index: number) {
+    this.nonBreakingActionList.removeAt(index);
+  }
 
   onUpdated(transition: createNewTransitions) {
     // Handle the updated transition here
   }
 
+  // createNew() {
+
+  //   const transitionTemplate: any = {
+  //     id: 0,
+  //     startState: this.creationForm.value.startState,
+  //     event: this.creationForm.value.event,
+  //     state: "PAYMENT_PENDING",
+  //     endStateOne: {
+  //       stateName: "Payment_Pending",
+  //       stateCode: this.creationForm.value.stateCode,
+  //       nextEvent: null,
+  //       breakingAction: {
+  //         actionType: this.creationForm.value.breakingAction,
+  //         args: null
+  //       },
+  //       nonBreakingActionList: this.creationForm.value.actionType
+  //         ? [{
+  //           actionType: this.creationForm.value.actionType,
+  //           args: {
+  //             frenchNotificationTemplate: {},
+  //             englishNotificationTemplate: {},
+  //             kinyarwandaNotificationTemplate: {}
+  //           }
+  //         }]
+  //         : null
+  //     },
+  //     endStateTwo: null,
+  //     breakingAction: '',
+  //     nonBreakingAction: ''
+  //   };
+
+  //   let newArray: createNewTransitions[] = [];
+  //   const isLocalPresent = localStorage.getItem("iremboWorkflow");
+
+  //   if (isLocalPresent != null) {
+  //     const oldArray = JSON.parse(isLocalPresent) as createNewTransitions[];
+  //     const newId = oldArray.length + 1;
+  //     transitionTemplate.id = newId;
+  //     newArray = [...oldArray, transitionTemplate
+  //     ];
+  //   } else {
+  //     transitionTemplate.id = 1;
+  //     newArray = [
+  //       transitionTemplate
+  //     ];
+  //   }
+
+  //   this.newTransitionsList = newArray;
+  //   localStorage.setItem("iremboWorkflow", JSON.stringify(newArray));
+
+  //   // Clear the form
+  //   this.creationForm.reset();
+  //   // Reload the page
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 50);
+  // }
+
   createNew() {
     // console.log(this.creationForm.value, "+==========================")
 
-    const transitionTemplate: any = {
+    const notificationTemplates = {
+      frenchNotificationTemplate: {
+        smsTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
+        emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
+        notificationTitle: "Demande soumise"
+      },
+      englishNotificationTemplate: {
+        smsTemplate: "Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
+        emailTemplate: "Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
+        notificationTitle: "Application submitted"
+      },
+      kinyarwandaNotificationTemplate: {
+        smsTemplate: "Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
+        emailTemplate: "Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
+        notificationTitle: "Dosiye yoherejwe"
+      }
+    };
+
+    const transitionTemplate: createNewTransitions = {
       id: 0,
       startState: this.creationForm.value.startState,
       event: this.creationForm.value.event,
@@ -166,7 +258,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       endStateOne: {
         stateName: "Payment_Pending",
         stateCode: this.creationForm.value.stateCode,
-        nextEvent: null,
         breakingAction: {
           actionType: this.creationForm.value.breakingAction,
           args: null
@@ -174,17 +265,14 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         nonBreakingActionList: this.creationForm.value.actionType
           ? [{
             actionType: this.creationForm.value.actionType,
-            args: {
-              frenchNotificationTemplate: {},
-              englishNotificationTemplate: {},
-              kinyarwandaNotificationTemplate: {}
-            }
+            args: notificationTemplates
           }]
-          : null
+          : []
       },
       endStateTwo: null,
       breakingAction: '',
-      nonBreakingAction: ''
+      nonBreakingAction: '',
+      notificationTitle: undefined
     };
 
     let newArray: createNewTransitions[] = [];
@@ -194,13 +282,10 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       const oldArray = JSON.parse(isLocalPresent) as createNewTransitions[];
       const newId = oldArray.length + 1;
       transitionTemplate.id = newId;
-      newArray = [...oldArray, transitionTemplate
-      ];
+      newArray = [...oldArray, transitionTemplate];
     } else {
       transitionTemplate.id = 1;
-      newArray = [
-        transitionTemplate
-      ];
+      newArray = [transitionTemplate];
     }
 
     this.newTransitionsList = newArray;
@@ -213,7 +298,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       window.location.reload();
     }, 50);
   }
-
 
   onUpdate(item: any, i: number) {
     this.creationForm.controls['item'].setValue(item.event);
@@ -465,7 +549,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
     private fb: FormBuilder
-    
+
   ) {
     this.workflowData = WorflowSample.sample2;
   }
@@ -484,7 +568,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     //   console.log(item, "================ TRANS");
     // });
   }
-  
+
 
   ngOnInit(): void {
     this.addForm = this.formBuilder.group({
@@ -574,87 +658,67 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   }
 
   buildWorkflow() {
-
-    const patX = 120;
-    const patY = 120;
-
-    let currentX = 270;
-    let currentY = -600;
-
-    let i = 1;
-
+    const patX = 160;
+    const patY = 190;
+  
+    // Define an array of positions for transitions
+    const transitionPositions = [
+      { x: 270, y: -600 },
+      { x: 270, y: -400 },
+      { x: 530, y: -600 },
+      // Add more positions as needed
+    ];
+  
+    let i = 0;
+  
     this.iremboWorkflow.forEach(element => {
-
-      i = i + 1;
-
-      // get or set the position of the transition
-      if (element.position) {
-        currentX = element.position.x;
-        currentY = element.position.y;
-      } else {
-        element.position = {
-          x: currentX,
-          y: currentY
-        }
-      }
-
-      // Add Start State :  If the start state not yet added, please add it 
+      // Get the position for the current transition
+      const position = transitionPositions[i];
+  
+      // Add Start State
       if (!this.workflow.states.has(element.startState.toString())) {
         let state: stateConfig = {
           name: element.startState.toString(),
           tasks: element.startState.toString(),
           names: element.startState.toString(),
           position: {
-            x: element.position.x,
-            y: element.position.y - patY
+            x: position.x,
+            y: position.y - patY
           }
-        }
-
+        };
         this.workflow.states.set(element.startState.toString(), state);
       }
-
-      // Add End State One : If the EndStateOne not yet added, please add it 
+  
+      // Add End State One
       if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
-        let stateposition = element.endStateOne.position;
-        if (!stateposition) {
-          stateposition = {
-            x: element.position.x + 2 * patX,
-            y: element.position.y - patY
-          }
-        }
-
+        let stateposition = {
+          x: position.x + 2 * patX,
+          y: position.y - patY
+        };
         let state: stateConfig = {
           name: element.endStateOne.stateCode.toString(),
           tasks: element.endStateOne.stateCode.toString(),
           names: element.endStateOne.stateCode.toString(),
           position: stateposition
-        }
-
+        };
         this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
       }
-
-      // Add End State Two : If the EndStateTwo not yet added, please add it 
+  
+      // Add End State Two
       if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
-
-        let stateposition = element.endStateTwo.position;
-        if (!stateposition) {
-          stateposition = {
-            x: element.position.x + 2 * patX,
-            y: element.position.y + patY
-          }
-        }
-
+        let stateposition = {
+          x: position.x + 2 * patX,
+          y: position.y + patY
+        };
         let state: stateConfig = {
           name: element.endStateTwo.stateCode.toString(),
           tasks: element.endStateTwo.stateCode.toString(),
           names: element.endStateTwo.stateCode.toString(),
           position: stateposition
-
-        }
-
+        };
         this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
       }
-
+  
       // Add The transition
       if (element.endStateOne) {
         let transition: transitionConfig = {
@@ -665,19 +729,123 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
           startState: element.startState.toString(),
           endStateOne: element.endStateOne,
           endStateTwo: element.endStateTwo,
-          position: element.position,
+          position: position, // Assign the position from the array
           id: 0
-        }
+        };
         this.workflow.transitions.push(transition);
-        // createNewTransitions(){
-
-        // }
       }
-
-      currentX = element.position.x + 2 * patX;
-      currentY = element.position.y;
+  
+      // Increment the index for the next transition
+      i = (i + 1) % transitionPositions.length;
     });
   }
+  
+
+  // buildWorkflow() {
+
+  //   const patX = 120;
+  //   const patY = 120;
+
+  //   let currentX = 270;
+  //   let currentY = -600;
+
+  //   let i = 1;
+
+  //   this.iremboWorkflow.forEach(element => {
+
+  //     i = i + 1;
+
+  //     // get or set the position of the transition
+  //     if (element.position) {
+  //       currentX = element.position.x;
+  //       currentY = element.position.y;
+  //     } else {
+  //       element.position = {
+  //         x: currentX,
+  //         y: currentY
+  //       }
+  //     }
+
+  //     // Add Start State :  If the start state not yet added, please add it 
+  //     if (!this.workflow.states.has(element.startState.toString())) {
+  //       let state: stateConfig = {
+  //         name: element.startState.toString(),
+  //         tasks: element.startState.toString(),
+  //         names: element.startState.toString(),
+  //         position: {
+  //           x: element.position.x,
+  //           y: element.position.y - patY
+  //         }
+  //       }
+
+  //       this.workflow.states.set(element.startState.toString(), state);
+  //     }
+
+  //     // Add End State One : If the EndStateOne not yet added, please add it 
+  //     if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
+  //       let stateposition = element.endStateOne.position;
+  //       if (!stateposition) {
+  //         stateposition = {
+  //           x: element.position.x + 2 * patX,
+  //           y: element.position.y - patY
+  //         }
+  //       }
+
+  //       let state: stateConfig = {
+  //         name: element.endStateOne.stateCode.toString(),
+  //         tasks: element.endStateOne.stateCode.toString(),
+  //         names: element.endStateOne.stateCode.toString(),
+  //         position: stateposition
+  //       }
+
+  //       this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
+  //     }
+
+  //     // Add End State Two : If the EndStateTwo not yet added, please add it 
+  //     if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
+
+  //       let stateposition = element.endStateTwo.position;
+  //       if (!stateposition) {
+  //         stateposition = {
+  //           x: element.position.x + 2 * patX,
+  //           y: element.position.y + patY
+  //         }
+  //       }
+
+  //       let state: stateConfig = {
+  //         name: element.endStateTwo.stateCode.toString(),
+  //         tasks: element.endStateTwo.stateCode.toString(),
+  //         names: element.endStateTwo.stateCode.toString(),
+  //         position: stateposition
+
+  //       }
+
+  //       this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
+  //     }
+
+  //     // Add The transition
+  //     if (element.endStateOne) {
+  //       let transition: transitionConfig = {
+  //         name: element.event.toString(),
+  //         names: element.event.toString(),
+  //         event: element.event.toString(),
+  //         description: element.event.toString(),
+  //         startState: element.startState.toString(),
+  //         endStateOne: element.endStateOne,
+  //         endStateTwo: element.endStateTwo,
+  //         position: element.position,
+  //         id: 0
+  //       }
+  //       this.workflow.transitions.push(transition);
+  //       // createNewTransitions(){
+
+  //       // }
+  //     }
+
+  //     currentX = element.position.x + 2 * patX;
+  //     currentY = element.position.y;
+  //   });
+  // }
 
   getStateComponentbyName(name: string): StateComponent | undefined {
     let compo = this.stateComponents.find(element => element.config.name === name);
@@ -761,7 +929,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   handleTransitionSelect(selected: transitionConfig) {
     this.transitionToEdit = selected;
   }
-  
+
 
   initialiseCreationFormGroup() {
     this.creationForm.addControl('startState', new FormControl('', Validators.required));
@@ -801,8 +969,9 @@ export class createNewTransitions {
   nonBreakingAction: string;
   endStateOne: any;
   endStateTwo: any;
+  notificationTitle: any;
 
-  constructor() { this.id = 0; this.startState = ''; this.endStateTwo = ''; this.event = ''; this.state = ''; this.breakingAction = ''; this.nonBreakingAction = '' }
+  constructor() { this.id = 0; this.startState = ''; this.notificationTitle = ''; this.endStateTwo = ''; this.event = ''; this.state = ''; this.breakingAction = ''; this.nonBreakingAction = '' }
 }
 export class StateMachineComponents {
   searchText: string = '';
