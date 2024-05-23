@@ -691,7 +691,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   
     // Define arrays of positions for transitions and states
     const transitionPositions = [
-      { x: 270, y: -600 },
+      { x: 271, y: -600 },
       { x: 550, y: -600 },
       { x: 550, y: -421 },
       { x: 1040, y: -405},
