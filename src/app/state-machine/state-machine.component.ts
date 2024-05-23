@@ -62,9 +62,16 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     }
   }
 
-  hideNonBreakingAction() {
-    this.showOneNonBreakingAction = false;
-}
+  hideNonBreakingAction(action: string) {
+    if (action === 'first') {
+      this.showOneNonBreakingAction = false;
+    } else if (action === 'second') {
+      this.showSecondNonBreakingAction = false;
+    } else if (action === 'third') {
+      this.showThirdNonBreakingAction = false;
+    }
+  }
+
 
   tabs: string[] = ['RW', 'ENG', 'FR'];
 
@@ -720,34 +727,34 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   buildWorkflow() {
     const patX = 280;
     const patY = 120;
-  
+
     // Define arrays of positions for transitions and states
     const transitionPositions = [
       { x: 271, y: -600 },
       { x: 550, y: -600 },
       { x: 550, y: -421 },
-      { x: 1040, y: -405},
+      { x: 1040, y: -405 },
       { x: 800, y: -781 },
       { x: 800, y: -600 },
       // Add more positions as needed
     ];
-  
+
     const statePositions = [
       { x: 273, y: -750 },
       { x: 5, y: -390 },
       { x: 520, y: -375 },
-      { x: 760, y: -570},
+      { x: 760, y: -570 },
       { x: 750, y: -735 },
       // Add more positions as needed
     ];
-  
+
     let i = 0;
-  
+
     this.iremboWorkflow.forEach(element => {
       // Get the position for the current transition and state
       const transitionPosition = transitionPositions[i % transitionPositions.length];
       const statePosition = statePositions[i % statePositions.length];
-  
+
       // Add Start State
       if (!this.workflow.states.has(element.startState.toString())) {
         let state: stateConfig = {
@@ -761,7 +768,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.states.set(element.startState.toString(), state);
       }
-  
+
       // Add End State One
       if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
         let state: stateConfig = {
@@ -775,7 +782,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
       }
-  
+
       // Add End State Two
       if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
         let state: stateConfig = {
@@ -789,7 +796,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
       }
-  
+
       // Add The transition
       if (element.endStateOne) {
         let transition: transitionConfig = {
@@ -808,12 +815,12 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.transitions.push(transition);
       }
-  
+
       // Increment the index for the next transition
       i++;
     });
   }
-  
+
 
   // buildWorkflow() {
   //   const patX = 280;

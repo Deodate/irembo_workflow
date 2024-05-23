@@ -222,20 +222,20 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         <mat-expansion-panel-header style=" background-color: #0060d3; color: #fff; ">
                                             <mat-panel-title>
                                                 <div><span class="new_transition"
-                                                        style="color: #fff; font-size: 13px; font-family: 'Times New Roman'; ">NOTIFICATION</span>
+                                                        style="color: #fff; font-size: 12px; font-family: 'Times New Roman'; ">ACTION
+                                                        NAME</span>
                                                 </div>
                                             </mat-panel-title>
                                             <mat-panel-description>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header>
-                                          <div class="button-container">
-                                            <button mat-button color="warn" class="delete-button" (click)="hideNonBreakingAction()">
+                                        <div class="button-container">
+                                            <button mat-button color="warn" class="delete-button"
+                                                (click)="hideNonBreakingAction('first')">
                                                 <mat-icon>delete</mat-icon>
                                             </button>
-                                          </div>
-                                          
-                                          
-                                          
+                                        </div>
+
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item" *ngFor="let tab of tabs; let i = index"
                                                 (click)="setTab(i)">
@@ -331,13 +331,21 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         (closed)="panelOpenState = false" #panel>
                                         <mat-expansion-panel-header style=" background-color: #0060d3; color: #fff; ">
                                             <mat-panel-title>
-                                                <div><span class="new_transition"
-                                                        style="color: #fff; font-size: 13px; font-family: 'Times New Roman'; ">NOTIFICATION</span>
+                                                <div>
+                                                    <span class="new_transition"
+                                                        style="color: #fff; font-size: 12px; font-family: 'Times New Roman'; ">ACTION
+                                                        NAME</span>
                                                 </div>
                                             </mat-panel-title>
                                             <mat-panel-description>
                                             </mat-panel-description>
-                                        </mat-expansion-panel-header><br>
+                                        </mat-expansion-panel-header>
+                                        <div class="button-container">
+                                            <button mat-button color="warn" class="delete-button"
+                                                (click)="hideNonBreakingAction('second')">
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
+                                        </div>
 
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item" *ngFor="let tab of tabs; let i = index"
@@ -431,13 +439,21 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         (closed)="panelOpenState = false" #panel>
                                         <mat-expansion-panel-header style=" background-color: #0060d3; color: #fff; ">
                                             <mat-panel-title>
-                                                <div><span class="new_transition"
-                                                        style="color: #fff; font-size: 13px; font-family: 'Times New Roman'; ">NOTIFICATION</span>
+                                                <div>
+                                                    <span class="new_transition"
+                                                        style="color: #fff; font-size: 12px; font-family: 'Times New Roman'; ">ACTION
+                                                        NAME</span>
                                                 </div>
                                             </mat-panel-title>
                                             <mat-panel-description>
                                             </mat-panel-description>
-                                        </mat-expansion-panel-header><br>
+                                        </mat-expansion-panel-header>
+                                        <div class="button-container">
+                                            <button mat-button color="warn" class="delete-button"
+                                                (click)="hideNonBreakingAction('third')">
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
+                                        </div>
 
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item" *ngFor="let tab of tabs; let i = index"
