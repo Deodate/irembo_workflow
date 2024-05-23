@@ -109,10 +109,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
 
     <!-- (selectedTransition)="handleTransitionSelect($event)" (selectedTransition)="onUpdated($event)" -->
 
-
-
-
-
     <!-- <mat-card class="mt-3">
         <form [formGroup]="newTransForm">
             <mat-form-field appearance="outline">
@@ -200,22 +196,19 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     :&nbsp; <div class="transition_select">
                                         <select #selectedOption formControlName="actionType"
                                             (change)="onSelectChange(selectedOption.value)">
-                                            <option value="">----------Select-------</option>
+                                            <option value="">NOTIFICATION</option>
                                             <option value="NOTIFICATION">NOTIFICATION</option>
                                         </select>
                                     </div>
-                                    <!-- <button class="add_nobreakingAction" type="button"
-                                        [disabled]="!selectedOption.value"
-                                        [ngClass]="{ 'not-allowed': !selectedOption.value }" (click)="openPanel(panel)">
-                                        Add
-                                    </button> -->
                                     <button class="add_nobreakingAction" type="button"
-                                    [disabled]="!selectedOption.value"
-                                    [ngClass]="{ 'not-allowed': !selectedOption.value }" (click)="toggleSecondNonBreakingAction()">
-                                    Add
-                                </button>
+                                        [disabled]="!selectedOption.value"
+                                        [ngClass]="{ 'not-alloweds': !selectedOption.value }"
+                                        (click)="toggleSecondNonBreakingAction()">
+                                        {{ showSecondNonBreakingAction ? ' - ' : 'Add' }}
+                                    </button>
+
                                 </div>
-                                <div class="new_transition2" >
+                                <div class="new_transition2">
                                     <mat-expansion-panel hideToggle>
                                     </mat-expansion-panel>
                                     <mat-expansion-panel (opened)="panelOpenState = true"
@@ -334,111 +327,115 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         Add
                                     </button> -->
                                     <button class="add_nobreakingAction" type="button"
-                                    [disabled]="!selectedOption.value"
-                                    [ngClass]="{ 'not-allowed': !selectedOption.value }" (click)="toggleSecondNonBreakingAction()">
-                                    Add
-                                </button>
+                                        [disabled]="!selectedOption.value"
+                                        [ngClass]="{ 'not-allowed': !selectedOption.value }"
+                                        (click)="toggleSecondNonBreakingAction()">
+                                        Add
+                                    </button>
                                 </div>
                                 <div>
-                                <div class="new_transition2">
-                                    <mat-expansion-panel hideToggle>
-                                    </mat-expansion-panel>
-                                    <mat-expansion-panel (opened)="panelOpenState = true"
-                                        (closed)="panelOpenState = false" #panel>
-                                        <mat-expansion-panel-header style=" background-color: #0060d3; color: #fff; ">
-                                            <mat-panel-title>
-                                                <div><span class="new_transition"
-                                                        style="color: #fff; font-size: 13px; font-family: 'Times New Roman'; ">NOTIFICATION</span>
-                                                </div>
-                                            </mat-panel-title>
-                                            <mat-panel-description>
-                                            </mat-panel-description>
-                                        </mat-expansion-panel-header><br>
+                                    <div class="new_transition2">
+                                        <mat-expansion-panel hideToggle>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false" #panel>
+                                            <mat-expansion-panel-header
+                                                style=" background-color: #0060d3; color: #fff; ">
+                                                <mat-panel-title>
+                                                    <div><span class="new_transition"
+                                                            style="color: #fff; font-size: 13px; font-family: 'Times New Roman'; ">NOTIFICATION</span>
+                                                    </div>
+                                                </mat-panel-title>
+                                                <mat-panel-description>
+                                                </mat-panel-description>
+                                            </mat-expansion-panel-header><br>
 
-                                        <ul class="nav nav-tabs">
-                                            <li class="nav-item" *ngFor="let tab of tabs; let i = index"
-                                                (click)="setTab(i)">
-                                                <a class="nav-link" [ngClass]="{ 'active': activatedTab === i }">{{ tab
-                                                    }}</a>
-                                            </li>
-                                        </ul><br>
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item" *ngFor="let tab of tabs; let i = index"
+                                                    (click)="setTab(i)">
+                                                    <a class="nav-link" [ngClass]="{ 'active': activatedTab === i }">{{
+                                                        tab
+                                                        }}</a>
+                                                </li>
+                                            </ul><br>
 
-                                        <div class="new_transition5">
-                                            <div *ngIf="activatedTab === 0">
-                                                <div class="non-breakingsAction">
-                                                    <h2><b>Title</b>:</h2>
-                                                    <div class="in-group">
-                                                        <input type="text" class="inputs" value="Dosiye yoherejwe" />
+                                            <div class="new_transition5">
+                                                <div *ngIf="activatedTab === 0">
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Title</b>:</h2>
+                                                        <div class="in-group">
+                                                            <input type="text" class="inputs"
+                                                                value="Dosiye yoherejwe" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>SMS</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputss"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Email</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputsss"></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="non-breakingsAction">
-                                                    <h2><b>SMS</b>:</h2>
-                                                    <div class="in-group">
-                                                        <textarea class="inputss"></textarea>
+                                                <div *ngIf="activatedTab === 1">
+
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Title</b>:</h2>
+                                                        <div class="in-group">
+                                                            <input type="text" class="inputs"
+                                                                value="Application submitted" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>SMS</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputss"
+                                                                formControlName="frenchSMSTemplate"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Email</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputsss" value=""
+                                                                formControlName="frenchEmailTemplate"></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div *ngIf="activatedTab === 2">
 
-                                                <div class="non-breakingsAction">
-                                                    <h2><b>Email</b>:</h2>
-                                                    <div class="in-group">
-                                                        <textarea class="inputsss"></textarea>
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Title</b>:</h2>
+                                                        <div class="in-group">
+                                                            <input type="text" class="inputs" value="Demande soumise"
+                                                                formControlName="frenchNotificationTitle" />
+                                                        </div>
                                                     </div>
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>SMS</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputss"
+                                                                formControlName="frenchSMSTemplate"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="non-breakingsAction">
+                                                        <h2><b>Email</b>:</h2>
+                                                        <div class="in-group">
+                                                            <textarea class="inputsss" value=""
+                                                                formControlName="frenchEmailTemplate"></textarea>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
-                                            <div *ngIf="activatedTab === 1">
-
-                                                <div class="non-breakingsAction">
-                                                    <h2><b>Title</b>:</h2>
-                                                    <div class="in-group">
-                                                        <input type="text" class="inputs"
-                                                            value="Application submitted" />
-                                                    </div>
-                                                </div>
-                                                <div class="non-breakingsAction">
-                                                    <h2><b>SMS</b>:</h2>
-                                                    <div class="in-group">
-                                                        <textarea class="inputss"
-                                                            formControlName="frenchSMSTemplate"></textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="non-breakingsAction">
-                                                    <h2><b>Email</b>:</h2>
-                                                    <div class="in-group">
-                                                        <textarea class="inputsss" value=""
-                                                            formControlName="frenchEmailTemplate"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div *ngIf="activatedTab === 2">
-
-                                                <div class="non-breakingsAction">
-                                                    <h2><b>Title</b>:</h2>
-                                                    <div class="in-group">
-                                                        <input type="text" class="inputs" value="Demande soumise"
-                                                            formControlName="frenchNotificationTitle" />
-                                                    </div>
-                                                </div>
-                                                <div class="non-breakingsAction">
-                                                    <h2><b>SMS</b>:</h2>
-                                                    <div class="in-group">
-                                                        <textarea class="inputss"
-                                                            formControlName="frenchSMSTemplate"></textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="non-breakingsAction">
-                                                    <h2><b>Email</b>:</h2>
-                                                    <div class="in-group">
-                                                        <textarea class="inputsss" value=""
-                                                            formControlName="frenchEmailTemplate"></textarea>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </mat-expansion-panel>
-                                </div>
+                                        </mat-expansion-panel>
+                                    </div>
                                 </div><br>
                                 <span></span>
                                 <div>
@@ -457,7 +454,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
             </div>
         </div>
     </div>
-    
+
 
     <!-- <app-state *ngFor="let item of workflow.states | keyvalue"  [config]="item.value" cdkDrag [cdkDragFreeDragPosition]="item.value.position" (cdkDragMoved)="onDragMove($event)"></app-state> -->
     <!-- <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item"
