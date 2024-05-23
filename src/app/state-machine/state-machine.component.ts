@@ -4,7 +4,7 @@ import { TransitionNewComponent } from './transition/transition.component';
 import { CdkDragDrop, CdkDragMove } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api.service';
 import { IremboTransition, Workflow, irembo, stateConfig, transitionConfig } from './models';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { WorflowSample } from '../sample-workflowy';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -47,7 +47,27 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     throw new Error('Method not implemented.');
   }
 
+  showSecondNonBreakingAction: boolean = false;
+
+  toggleSecondNonBreakingAction() {
+    this.showSecondNonBreakingAction = !this.showSecondNonBreakingAction;
+}
+
+
   tabs: string[] = ['RW', 'ENG', 'FR'];
+
+  get nonBreakingActions(): FormArray {
+    return this.creationForm.get('nonBreakingActions') as FormArray;
+  }
+
+  addNonBreakingActions(): void {
+    const nonBreakingActionGroup = this.fb.group({
+      notificationTitle: [''],
+      smsTemplate: [''],
+      emailTemplate: ['']
+    });
+    this.nonBreakingActions.push(nonBreakingActionGroup);
+  }
 
   onSelectChange(value: string): void {
     // Perform any additional logic when the selection changes if necessary
