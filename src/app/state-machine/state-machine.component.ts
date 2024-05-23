@@ -149,7 +149,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   //   this.newTransitionsObj = item;
 
   // }
-  
+
   addNonBreakingAction() {
     const nonBreakingAction = this.fb.group({
       actionType: [this.creationForm.value.actionType, Validators.required],
@@ -235,7 +235,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
     const notificationTemplates = {
       frenchNotificationTemplate: {
-        smsTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
+        smsTemplate: "Cher ${APPLICANT_LAST_NAME}, Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
         emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
         notificationTitle: "Demande soumise"
       },
@@ -245,8 +245,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         notificationTitle: "Application submitted"
       },
       kinyarwandaNotificationTemplate: {
-        smsTemplate: "Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
-        emailTemplate: "Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
+        smsTemplate: "Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
+        emailTemplate: "Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
         notificationTitle: "Dosiye yoherejwe"
       }
     };
@@ -688,44 +688,47 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   buildWorkflow() {
     const patX = 280;
     const patY = 120;
-
+  
     // Define arrays of positions for transitions and states
     const transitionPositions = [
       { x: 270, y: -600 },
       { x: 550, y: -600 },
-      { x: 800, y: -421 },
-      { x: 800, y: -791 },
+      { x: 550, y: -421 },
+      { x: 1040, y: -405},
+      { x: 800, y: -781 },
       // Add more positions as needed
     ];
-
+  
     const statePositions = [
-      { x: 270, y: -790 },
-      { x: 275, y: -390 },
-      { x: 520, y: -560 },
-      { x: 130, y: -800 },
-      { x: 600, y: -860 },
+      { x: 273, y: -750 },
+      { x: 5, y: -390 },
+      { x: 520, y: -375 },
+      { x: 760, y: -555 },
+      { x: 750, y: -735 },
       // Add more positions as needed
     ];
-
-    let transitionIndex = 0;
-    let stateIndex = 0;
-
+  
+    let i = 0;
+  
     this.iremboWorkflow.forEach(element => {
-      // Get the position for the current transition
-      const transitionPosition = transitionPositions[transitionIndex];
-      const statePosition = statePositions[stateIndex];
-
+      // Get the position for the current transition and state
+      const transitionPosition = transitionPositions[i % transitionPositions.length];
+      const statePosition = statePositions[i % statePositions.length];
+  
       // Add Start State
       if (!this.workflow.states.has(element.startState.toString())) {
         let state: stateConfig = {
           name: element.startState.toString(),
           tasks: element.startState.toString(),
           names: element.startState.toString(),
-          position: statePosition
+          position: {
+            x: statePosition.x,
+            y: statePosition.y
+          }
         };
         this.workflow.states.set(element.startState.toString(), state);
       }
-
+  
       // Add End State One
       if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
         let state: stateConfig = {
@@ -739,7 +742,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
       }
-
+  
       // Add End State Two
       if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
         let state: stateConfig = {
@@ -753,32 +756,126 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         };
         this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
       }
-
-
+  
       // Add The transition
       if (element.endStateOne) {
         let transition: transitionConfig = {
           name: element.event.toString(),
           names: element.event.toString(),
           event: element.event.toString(),
-          emailTemplate: element.endStateOne.toString(),
-          smsTemplate: element.endStateOne.toString(),
-          notificationTitle: element.endStateOne.toString(),
           description: element.event.toString(),
           startState: element.startState.toString(),
           endStateOne: element.endStateOne,
           endStateTwo: element.endStateTwo,
           position: transitionPosition,
-          id: 0
+          id: 0,
+          emailTemplate: '',
+          smsTemplate: '',
+          notificationTitle: ''
         };
         this.workflow.transitions.push(transition);
       }
-
-      // Increment the indices for the next transition and state
-      transitionIndex = (transitionIndex + 1) % transitionPositions.length;
-      stateIndex = (stateIndex + 1) % statePositions.length;
+  
+      // Increment the index for the next transition
+      i++;
     });
   }
+  
+
+  // buildWorkflow() {
+  //   const patX = 280;
+  //   const patY = 120;
+
+  //   // Define arrays of positions for transitions and states
+  //   const transitionPositions = [
+  //     { x: 270, y: -600 },
+  //     { x: 550, y: -600 },
+  //     { x: 800, y: -421 },
+  //     { x: 800, y: -791 },
+  //     // Add more positions as needed
+  //   ];
+
+  //   const statePositions = [
+  //     { x: 270, y: -790 },
+  //     { x: 275, y: -390 },
+  //     { x: 520, y: -560 },
+  //     { x: 130, y: -800 },
+  //     { x: 600, y: -860 },
+  //     // Add more positions as needed
+  //   ];
+
+  //   let transitionIndex = 0;
+  //   let stateIndex = 0;
+
+  //   this.iremboWorkflow.forEach(element => {
+  //     // Get the position for the current transition
+  //     const transitionPosition = transitionPositions[transitionIndex];
+  //     const statePosition = statePositions[stateIndex];
+
+  //     // Add Start State
+  //     if (!this.workflow.states.has(element.startState.toString())) {
+  //       let state: stateConfig = {
+  //         name: element.startState.toString(),
+  //         tasks: element.startState.toString(),
+  //         names: element.startState.toString(),
+  //         position: statePosition
+  //       };
+  //       this.workflow.states.set(element.startState.toString(), state);
+  //     }
+
+  //     // Add End State One
+  //     if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
+  //       let state: stateConfig = {
+  //         name: element.endStateOne.stateCode.toString(),
+  //         tasks: element.endStateOne.stateCode.toString(),
+  //         names: element.endStateOne.stateCode.toString(),
+  //         position: {
+  //           x: statePosition.x + patX,
+  //           y: statePosition.y
+  //         }
+  //       };
+  //       this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
+  //     }
+
+  //     // Add End State Two
+  //     if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
+  //       let state: stateConfig = {
+  //         name: element.endStateTwo.stateCode.toString(),
+  //         tasks: element.endStateTwo.stateCode.toString(),
+  //         names: element.endStateTwo.stateCode.toString(),
+  //         position: {
+  //           x: statePosition.x + patX,
+  //           y: statePosition.y + patY
+  //         }
+  //       };
+  //       this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
+  //     }
+
+
+  //     // Add The transition
+  //     if (element.endStateOne) {
+  //       let transition: transitionConfig = {
+  //         name: element.event.toString(),
+  //         names: element.event.toString(),
+  //         event: element.event.toString(),
+  //         emailTemplate: element.endStateOne.toString(),
+  //         smsTemplate: element.endStateOne.toString(),
+  //         notificationTitle: element.endStateOne.toString(),
+  //         description: element.event.toString(),
+  //         startState: element.startState.toString(),
+  //         endStateOne: element.endStateOne,
+  //         endStateTwo: element.endStateTwo,
+  //         position: transitionPosition,
+  //         id: 0
+  //       };
+  //       this.workflow.transitions.push(transition);
+  //     }
+
+  //     // Increment the indices for the next transition and state
+  //     transitionIndex = (transitionIndex + 1) % transitionPositions.length;
+  //     stateIndex = (stateIndex + 1) % statePositions.length;
+  //   });
+  // }
 
   // buildWorkflow() {
   //   const patX = 280;

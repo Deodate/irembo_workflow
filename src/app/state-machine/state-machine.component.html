@@ -351,7 +351,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                 <div class="modal-body form-container">
                     <div class="modal-body">
                         <ng-container *ngIf="transitionToEdit">
-                            <form *ngIf="showForm" [formGroup]="updateForm" (ngSubmit)="updateTransition()" class="create_transition">
+                            <form *ngIf="showForm" [formGroup]="updateForm" (ngSubmit)="updateTransition()"
+                                class="create_transition">
                                 <div>
                                     <b class="new_transition">Edit Transition</b>
                                     <mat-divider></mat-divider>
@@ -412,9 +413,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     {{ action.actionType }}</option>
                                             </select>
                                         </div>
-                                        <button class="add_nobreakingAction" type="button"
-                                            
-                                            (click)="openPanel(panel)">
+                                        <button class="add_nobreakingAction" type="button" (click)="openPanel(panel)">
                                             +
                                         </button>
                                     </div>
@@ -443,7 +442,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 </li>
                                             </ul><br>
 
-                                            <div class="new_transition5">
+                                            <div class="new_transition5" style="font-size: 14px;">
                                                 <div *ngIf="activatedTab === 0">
                                                     <div class="non-breakingsAction">
                                                         <h2><b>Title</b>:</h2>
@@ -531,6 +530,14 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div>
+                                                    <button class="add_nobreakingAction" type="button"
+                                                        (click)="openPanel(panel)">
+                                                        +
+                                                    </button>
+
+                                                </div>
+
                                             </div>
                                         </mat-expansion-panel>
                                     </div><br>
