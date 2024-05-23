@@ -282,6 +282,29 @@
     color: rgb(107, 221, 105);
   }
 
+  .button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    width: 100%; /* Ensure the container takes full width */
+  }
+  
+  .delete-button {
+    background-color: rgb(252, 250, 250); /* Ensure the background color is red */
+    color: rgb(251, 6, 6); /* Text color should be white */
+    font-size: 12px; /* Adjust the font size */
+    width: 30px; /* Set width to 30px */
+    height: 30px; /* Set height to 30px */
+    padding: 0; /* Remove any padding */
+    margin: 0; /* Remove any margin */
+    border: none; /* Remove any default border */
+    border-radius: 4px; /* Slightly round the corners */
+    text-align: center; /* Center the text horizontally */
+    line-height: 20px; /* Center the text vertically */
+    display: inline-block; /* Ensure the button respects width and height */
+    cursor: pointer; /* Change cursor to pointer on hover */
+   
+  }
+
 .inputsss{
     padding: 20px;
     color: #000;

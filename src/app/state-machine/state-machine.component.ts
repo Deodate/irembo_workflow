@@ -62,6 +62,9 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     }
   }
 
+  hideNonBreakingAction() {
+    this.showOneNonBreakingAction = false;
+}
 
   tabs: string[] = ['RW', 'ENG', 'FR'];
 

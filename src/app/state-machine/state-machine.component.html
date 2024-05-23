@@ -227,8 +227,15 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             </mat-panel-title>
                                             <mat-panel-description>
                                             </mat-panel-description>
-                                        </mat-expansion-panel-header><br>
-
+                                        </mat-expansion-panel-header>
+                                          <div class="button-container">
+                                            <button mat-button color="warn" class="delete-button" (click)="hideNonBreakingAction()">
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
+                                          </div>
+                                          
+                                          
+                                          
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item" *ngFor="let tab of tabs; let i = index"
                                                 (click)="setTab(i)">
