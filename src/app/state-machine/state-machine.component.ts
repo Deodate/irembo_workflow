@@ -47,19 +47,20 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     throw new Error('Method not implemented.');
   }
 
+
   showSecondNonBreakingAction: boolean = false;
   showThirdNonBreakingAction: boolean = false;
+  showOneNonBreakingAction: boolean = false;
 
-  toggleThirdNonBreakingAction() {
-    this.showThirdNonBreakingAction = !this.showThirdNonBreakingAction;
-}
-
-toggleSecondNonBreakingAction() {
-  this.showSecondNonBreakingAction = !this.showSecondNonBreakingAction;
-  if (!this.showSecondNonBreakingAction) {
-    this.showThirdNonBreakingAction = false; // Hide showThirdNonBreakingAction when showSecondNonBreakingAction is false
-}
-}
+  toggleActions() {
+    if (!this.showOneNonBreakingAction) {
+      this.showOneNonBreakingAction = true;
+    } else if (!this.showSecondNonBreakingAction) {
+      this.showSecondNonBreakingAction = true;
+    } else if (!this.showThirdNonBreakingAction) {
+      this.showThirdNonBreakingAction = true;
+    }
+  }
 
 
   tabs: string[] = ['RW', 'ENG', 'FR'];

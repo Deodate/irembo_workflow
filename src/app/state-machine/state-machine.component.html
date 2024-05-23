@@ -200,16 +200,21 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             <option value="NOTIFICATION">NOTIFICATION</option>
                                         </select>
                                     </div>
-                                    <button class="add_nobreakingAction" type="button"
+                                    <!-- <button class="add_nobreakingAction" type="button"
                                         [disabled]="!selectedOption.value"
                                         [ngClass]="{ 'not-alloweds': !selectedOption.value }"
                                         (click)="toggleSecondNonBreakingAction()"
                                         [style.background-color]="showSecondNonBreakingAction ? 'red' : ''">
                                         {{ showSecondNonBreakingAction ? ' - ' : 'Add' }}
+                                    </button> -->
+                                    <button class="add_nobreakingAction" type="button"
+                                        [disabled]="!selectedOption.value"
+                                        [ngClass]="{ 'not-alloweds': !selectedOption.value }" (click)="toggleActions()">
+                                        Add
                                     </button>
 
                                 </div>
-                                <div class="new_transition2">
+                                <div class="new_transition2" *ngIf="showOneNonBreakingAction">
                                     <mat-expansion-panel hideToggle>
                                     </mat-expansion-panel>
                                     <mat-expansion-panel (opened)="panelOpenState = true"
@@ -326,7 +331,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             <mat-panel-description>
                                             </mat-panel-description>
                                         </mat-expansion-panel-header><br>
-                                        
+
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item" *ngFor="let tab of tabs; let i = index"
                                                 (click)="setTab(i)">
