@@ -696,6 +696,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       { x: 550, y: -421 },
       { x: 1040, y: -405},
       { x: 800, y: -781 },
+      { x: 800, y: -600 },
       // Add more positions as needed
     ];
   
@@ -703,7 +704,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       { x: 273, y: -750 },
       { x: 5, y: -390 },
       { x: 520, y: -375 },
-      { x: 760, y: -555 },
+      { x: 760, y: -570},
       { x: 750, y: -735 },
       // Add more positions as needed
     ];
