@@ -48,9 +48,17 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   }
 
   showSecondNonBreakingAction: boolean = false;
+  showThirdNonBreakingAction: boolean = false;
 
-  toggleSecondNonBreakingAction() {
-    this.showSecondNonBreakingAction = !this.showSecondNonBreakingAction;
+  toggleThirdNonBreakingAction() {
+    this.showThirdNonBreakingAction = !this.showThirdNonBreakingAction;
+}
+
+toggleSecondNonBreakingAction() {
+  this.showSecondNonBreakingAction = !this.showSecondNonBreakingAction;
+  if (!this.showSecondNonBreakingAction) {
+    this.showThirdNonBreakingAction = false; // Hide showThirdNonBreakingAction when showSecondNonBreakingAction is false
+}
 }
 
 
