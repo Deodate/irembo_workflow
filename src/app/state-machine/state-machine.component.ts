@@ -72,7 +72,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   tabs: string[] = ['RW', 'ENG', 'FR'];
 
   get nonBreakingActions(): FormArray {
