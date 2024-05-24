@@ -669,20 +669,79 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   RWtitle: string = '';
   ENGtitle: string = '';
   FRtitle: string= '';
+  RWtitle1: string = '';
+  ENGtitle1: string = '';
+  FRtitle1: string= '';
+  RWtitle2: string = '';
+  ENGtitle2: string = '';
+  FRtitle2: string= '';
+
+  RWSms: string = '';
+
+  RWEmail: string = '';
+
+  setSms(event: any): void {
+    switch (this.activatedTab) {
+      case 0:
+          this.RWSms = event.target.value;
+          break;
+      // case 1:
+      //     this.ENGtitle = event.target.value;
+      //     break;
+      // case 2:
+      //     this.FRtitle = event.target.value;
+      //     break;
+  }
+}
+
+setEmail(event: any): void {
+  switch (this.activatedTab) {
+    case 0:
+        this.RWEmail = event.target.value;
+        break;
+    // case 1:
+    //     this.ENGtitle = event.target.value;
+    //     break;
+    // case 2:
+    //     this.FRtitle = event.target.value;
+    //     break;
+}
+
+}
 
   setTitle(event: any): void {
     switch (this.activatedTab) {
-      case 0:
-        this.RWtitle = event.target.value;
-        break;
-      case 1:
-        this.ENGtitle = event.target.value;
-        break;
-      case 2:
-        this.FRtitle = event.target.value;
-        break;
+        case 0:
+            this.RWtitle = event.target.value;
+            break;
+        case 1:
+            this.ENGtitle = event.target.value;
+            break;
+        case 2:
+            this.FRtitle = event.target.value;
+            break;
+        // case 3:
+        //     this.RWtitle1 = event.target.value;
+        //     break;
+        // case 4:
+        //     this.ENGtitle1 = event.target.value;
+        //     break;
+        // case 5:
+        //     this.FRtitle1 = event.target.value;
+        //     break;
+        // case 6:
+        //     this.RWtitle2 = event.target.value;
+        //     break;
+        // case 7:
+        //     this.ENGtitle2 = event.target.value;
+        //     break;
+        // case 8:
+        //     this.FRtitle2 = event.target.value;
+            // Handle default case if needed
+            // break;
     }
-  }
+}
+
 
   sidebarActive = false;
 
