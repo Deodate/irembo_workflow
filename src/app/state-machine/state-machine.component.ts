@@ -46,8 +46,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
   }
-
-
+  
   showSecondNonBreakingAction: boolean = false;
   showThirdNonBreakingAction: boolean = false;
   showOneNonBreakingAction: boolean = false;
@@ -89,6 +88,12 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   onSelectChange(value: string): void {
     // Perform any additional logic when the selection changes if necessary
+    const nonBreakingActionGroup = this.fb.group({
+      title: [''],
+      smsTemplate: [''],
+      emailTemplate: ['']
+    });
+    this.nonBreakingActions.push(nonBreakingActionGroup);
   }
 
   openPanel(panel: MatExpansionPanel): void {
@@ -659,6 +664,24 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
     this.initialiseCreationFormGroup();
 
+  }
+
+  RWtitle: string = '';
+  ENGtitle: string = '';
+  FRtitle: string= '';
+
+  setTitle(event: any): void {
+    switch (this.activatedTab) {
+      case 0:
+        this.RWtitle = event.target.value;
+        break;
+      case 1:
+        this.ENGtitle = event.target.value;
+        break;
+      case 2:
+        this.FRtitle = event.target.value;
+        break;
+    }
   }
 
   sidebarActive = false;

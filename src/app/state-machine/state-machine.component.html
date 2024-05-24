@@ -242,7 +242,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs" value="Dosiye yoherejwe" />
+                                                        <input type="text" class="inputs" (input)="setTitle($event)" [value]="RWtitle" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
@@ -265,7 +265,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
                                                         <input type="text" class="inputs"
-                                                            value="Application submitted" />
+                                                        (input)="setTitle($event)" [value]="ENGtitle" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
@@ -289,7 +289,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs" value="Demande soumise"
+                                                        <input type="text" class="inputs" (input)="setTitle($event)" [value]="FRtitle"
                                                             formControlName="frenchNotificationTitle" />
                                                     </div>
                                                 </div>
