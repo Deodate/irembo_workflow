@@ -200,13 +200,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                             <option value="NOTIFICATION">NOTIFICATION</option>
                                         </select>
                                     </div>
-                                    <!-- <button class="add_nobreakingAction" type="button"
-                                        [disabled]="!selectedOption.value"
-                                        [ngClass]="{ 'not-alloweds': !selectedOption.value }"
-                                        (click)="toggleSecondNonBreakingAction()"
-                                        [style.background-color]="showSecondNonBreakingAction ? 'red' : ''">
-                                        {{ showSecondNonBreakingAction ? ' - ' : 'Add' }}
-                                    </button> -->
                                     <button class="add_nobreakingAction" type="button"
                                         [disabled]="!selectedOption.value"
                                         [ngClass]="{ 'not-alloweds': !selectedOption.value }" (click)="toggleActions()">
@@ -245,7 +238,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         </ul><br>
 
                                         <div class="new_transition5">
-                                            <div *ngIf="activatedTab === 0">
+                                            <div *ngIf="activatedTab === 0" formGroupName="RW">
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
@@ -266,7 +259,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="activatedTab === 1">
+                                            <div *ngIf="activatedTab === 1" formGroupName="ENG">
 
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
@@ -291,7 +284,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="activatedTab === 2">
+                                            <div *ngIf="activatedTab === 2" formGroupName="FR">
 
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
@@ -357,7 +350,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         </ul><br>
 
                                         <div class="new_transition5">
-                                            <div *ngIf="activatedTab === 0">
+                                            <div *ngIf="activatedTab === 0" formGroupName="RW">
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
@@ -378,7 +371,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="activatedTab === 1">
+                                            <div *ngIf="activatedTab === 1" formGroupName="ENG">
 
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
@@ -403,7 +396,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="activatedTab === 2">
+                                            <div *ngIf="activatedTab === 2" formGroupName="FR">
 
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
@@ -465,7 +458,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         </ul><br>
 
                                         <div class="new_transition5">
-                                            <div *ngIf="activatedTab === 0">
+                                            <div *ngIf="activatedTab === 0" formGroupName="RW">
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
@@ -486,7 +479,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="activatedTab === 1">
+                                            <div *ngIf="activatedTab === 1" formGroupName="ENG">
 
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
@@ -511,7 +504,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="activatedTab === 2">
+                                            <div *ngIf="activatedTab === 2" formGroupName="FR">
 
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
