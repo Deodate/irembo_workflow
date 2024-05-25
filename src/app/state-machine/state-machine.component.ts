@@ -335,12 +335,11 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.newTransitionsList = newArray;
     localStorage.setItem("iremboWorkflow", JSON.stringify(newArray));
 
-    // Clear the form
-    this.creationForm.reset();
-    // Reload the page
-    setTimeout(() => {
-      window.location.reload();
-    }, 50);
+   // Clear the form
+   this.creationForm.reset();
+   // Reload the page immediately
+   window.location.reload();
+   
   }
 
   updateTransition() {
