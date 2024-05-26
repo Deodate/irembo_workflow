@@ -535,8 +535,10 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                             </div>
                             <div class="modal-footer">
                                 <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">EXIT</div>
-                                <button class="btn btn-outline-success btn-sm me-1"
-                                    data-bs-dismiss="modal">Create</button>
+                                <button class="btn btn-outline-success btn-sm me-1"   [disabled]="!selectedOption.value"
+                                [ngClass]="{ 'not-alloweds': !selectedOption.value }">
+                            Create
+                        </button>
                             </div>
                         </form>
                     </ng-container>

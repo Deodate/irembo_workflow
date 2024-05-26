@@ -359,7 +359,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   onUpdate(item: any, i: number) {
     this.creationForm.controls['item'].setValue(item.event);
     this.updateIndex = i;
