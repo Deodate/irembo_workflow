@@ -559,7 +559,7 @@ option {
   .notifications{
     position: fixed;
     top: 30px;
-    right: 20px
+    right: -5px
   }
 
   .toasts{
@@ -574,7 +574,48 @@ option {
     border-radius: 5px;
     --color: #0abf30;
     background-image: linear-gradient(
-        to right, #0abf30, #22242f 30%
+        to right, #0abf3055, #22242f 30%
     );
+    animation: show 0.3s ease 1 forwards
+}
 
-  }
+    .toasts i{
+        color: var(--color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: x-large;
+    }
+    .toasts .title{
+        font-size: x-large;
+        font-weight: bold;
+    }
+    .toasts span, .toasts i:nth-child(3){
+        color: #fff;
+        opacity: 0.6;
+    }
+    .toasts::before{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: var(--color);
+        width: 100%;
+        height: 2px;
+        content: '';
+        box-shadow: 0 0 7px var(--color);
+        animation: timeOut 5s linear 1 forwards
+    }
+ @keyframes show{
+    0%{
+        transform: translateX(100%);
+    }
+    40%{
+      transform: translateX(-5%);
+    }
+    80%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-10%);
+    }
+ }
