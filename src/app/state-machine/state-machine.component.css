@@ -559,7 +559,8 @@ option {
   .notifications{
     position: fixed;
     top: 30px;
-    right: -5px
+    right: -4px;
+   
   }
 
   .toasts{
@@ -568,13 +569,14 @@ option {
     color: #fff;
     margin-bottom: 10px;
     width: 200px;
+    height: 40px;
     top:20px;
     display: grid;
     grid-template-columns: 70px 1fr 70px;
     border-radius: 5px;
     --color: #0abf30;
     background-image: linear-gradient(
-        to right, #0abf3055, #22242f 30%
+        to right, #0abf3055, #f9f9fb 30%
     );
     animation: show 0.3s ease 1 forwards
 }
@@ -617,5 +619,11 @@ option {
     }
     100%{
         transform: translateX(-10%);
+    }
+ }
+
+ @keyframes timeOut{
+    to{
+        width: 0;
     }
  }

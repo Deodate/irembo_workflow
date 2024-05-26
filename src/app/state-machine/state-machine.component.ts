@@ -903,6 +903,64 @@ setEmail(event: any): void {
       i++;
     });
     
+    document.addEventListener("DOMContentLoaded", () => {
+      const notifications = document.querySelector('.notifications') as HTMLElement;
+      const successButton = document.getElementById('success');
+    
+      if (successButton) {
+        successButton.onclick = function() {
+          let type = 'success';
+          let icon = 'fa-solid fa-circle-check';
+          let text = 'Wow..! Transition Created!';
+          createToasts(type, icon, text, notifications);
+        }
+      } else {
+        console.error("Success button not found");
+      }
+    });
+    
+    function createToasts(type: string, icon: string, text: string, container: HTMLElement) {
+      // Show notifications container
+      container.style.display = 'block';
+    
+      let newToasts = document.createElement('div');
+      newToasts.innerHTML = `
+        <div class="toasts ${type}">
+          <i class="${icon}"></i>
+          <div class="content" style="width: 190px;">
+            <p style="font-size: 10px; margin: 8px -30px; color:#000;">${text}</p>
+          </div>
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      `;
+    
+      const toast = newToasts.firstChild as HTMLElement;
+    
+      // Add click event to remove toast on close icon click
+      toast.querySelector('.fa-xmark')?.addEventListener('click', () => {
+        clearTimeout(toastTimeout);
+        toast.remove();
+        hideContainerIfEmpty(container);
+      });
+    
+      container.appendChild(toast);
+    
+      // Set a timeout to remove the toast after 1 minute
+      const toastTimeout = setTimeout(() => {
+        toast.remove();
+        hideContainerIfEmpty(container);
+      }, 60000);
+    }
+    
+    // Hide the notifications container if there are no toasts
+    function hideContainerIfEmpty(container: HTMLElement) {
+      if (container.children.length === 0) {
+        container.style.display = 'none';
+      }
+    }
+    
+    
+    
   }
 
 

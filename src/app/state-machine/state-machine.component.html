@@ -64,19 +64,12 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
     </div>
 
     <div id="side-bar">
-        <div class="notifications">
-            <div class="toasts success">
-                <i class="fa-solid fa-circle-check"></i>
-                <div class="content">
-                    <div class="title">Success</div>
-                    <span>This is a success</span>
-                </div>
-                <i class="fa-solid fa-xmark"></i>
-            </div>
+        <div class="notifications" style="display: none;">
+           
         </div>
-        <div class="buttons">
-            <button id="success">Success</button>
-        </div>
+        <!-- <div class="buttons">
+            <button >Success</button>
+        </div> -->
 
         <h1 class="paragraphs">Power up your team with the right workflow <br><br>
             <a href="#" class="linkS" style="color: #000; text-decoration: none; font-size: 13px;">Follow our guide to
@@ -530,8 +523,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                             </div>
                             <div class="modal-footer">
                                 <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">EXIT</div>
-                                <button class="btn btn-outline-success btn-sm me-1" id="createBtn"
-                                    [disabled]="!selectedOption.value"
+                                <button class="btn btn-outline-success btn-sm me-1" 
+                                    [disabled]="!selectedOption.value" id="success"
                                     [ngClass]="{ 'not-alloweds': !selectedOption.value }">
                                     Create
                                 </button>
