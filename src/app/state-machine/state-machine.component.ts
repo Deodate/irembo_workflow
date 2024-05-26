@@ -919,6 +919,22 @@ setEmail(event: any): void {
       }
     });
     
+    document.addEventListener("DOMContentLoaded", () => {
+      const notifications = document.querySelector('.notifications') as HTMLElement;
+      const successButton = document.getElementById('success');
+    
+      if (successButton) {
+        successButton.onclick = function() {
+          let type = 'success';
+          let icon = 'fa-solid fa-circle-check';
+          let text = 'Wow..! Transition Created!';
+          createToasts(type, icon, text, notifications);
+        }
+      } else {
+        console.error("Success button not found");
+      }
+    });
+    
     function createToasts(type: string, icon: string, text: string, container: HTMLElement) {
       // Show notifications container
       container.style.display = 'block';
@@ -934,7 +950,7 @@ setEmail(event: any): void {
         </div>
       `;
     
-      const toast = newToasts.firstChild as HTMLElement;
+      const toast = newToasts.firstElementChild as HTMLElement;
     
       // Add click event to remove toast on close icon click
       toast.querySelector('.fa-xmark')?.addEventListener('click', () => {
@@ -945,11 +961,11 @@ setEmail(event: any): void {
     
       container.appendChild(toast);
     
-      // Set a timeout to remove the toast after 1 minute
+      // Set a timeout to remove the toast after 1 minute (60000 milliseconds)
       const toastTimeout = setTimeout(() => {
         toast.remove();
         hideContainerIfEmpty(container);
-      }, 60000);
+      }, 30000);
     }
     
     // Hide the notifications container if there are no toasts
@@ -958,8 +974,6 @@ setEmail(event: any): void {
         container.style.display = 'none';
       }
     }
-    
-    
     
   }
 
