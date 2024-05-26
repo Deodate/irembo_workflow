@@ -60,6 +60,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       this.showThirdNonBreakingAction = true;
     }
   }
+  
 
   hideNonBreakingAction(action: string) {
     if (action === 'first') {
@@ -85,6 +86,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     });
     this.nonBreakingActions.push(nonBreakingActionGroup);
   }
+  
 
   onSelectChange(value: string): void {
     // Perform any additional logic when the selection changes if necessary
@@ -564,6 +566,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.updateSuccessMessage = 'Update successful!';
   }
 
+  
+
   getUniqueEndStates(): { stateName: string, stateCode: string, nextEvent: string | null }[] {
     const uniqueStates: { stateName: string, stateCode: string, nextEvent: string | null }[] = [];
 
@@ -898,6 +902,7 @@ setEmail(event: any): void {
       // Increment the index for the next transition
       i++;
     });
+    
   }
 
 

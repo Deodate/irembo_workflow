@@ -60,35 +60,11 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                     </div>
                 </div>
             </div>
-
-            <!-- 
-            <span style="font-family: 'Times New Roman', Times, serif;">State:</span> <input type="text"
-                placeholder="Done" class="form-control"
-                style=" border-radius: 0% ; border: 1px solid #1b7fda; ; font-family: 'Times New Roman', Times, serif; font-size: 12px; height: 30px; background-color: rgb(181, 198, 224);" />
-            <span style="font-family: 'Times New Roman', Times, serif;">Transition:</span>
-            <select class="form-control"
-                style="border-radius: 0%; border: 1px solid #1b7fda; font-family: 'Times New Roman', Times, serif; font-size: 12px; height: 30px; background-color: rgb(181, 198, 224);">
-                <option value="option1">Create</option>
-                <option value="option2">Pay</option>
-                <option value="option3">Push</option>
-            </select> -->
-            <!-- <button type="button" style="font-size: 10px; 
-          margin: 20px;
-          margin-left: 50px;
-          width: 60px;
-          height: 30px;
-          background-color: #0060d3;
-          cursor: pointer;
-          border: none;
-          color: #d9dedb;
-          border-radius: 20px;
-          box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
-         5px 2px 12px -1px rgba(255, 255, 255, 0.70);
-          ">Click</button> -->
         </div>
     </div>
 
     <div id="side-bar">
+        <span>Hloo</span>
         <h1 class="paragraphs">Power up your team with the right workflow <br><br>
             <a href="#" class="linkS" style="color: #000; text-decoration: none; font-size: 13px;">Follow our guide to
                 mapping a workflow with your team 🤩</a><br><br>
@@ -100,7 +76,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
             <span style="color: #fff; font-size: 13px;">Learn how to manage workflows here in irembo 💡</span>
         </h1>
     </div>
-
+   
     <div class="myState" (click)="toggleSidebar()">
         <app-state *ngFor="let item of workflow.states | keyvalue" [config]="item.value" cdkDrag
             [cdkDragFreeDragPosition]="item.value.position" (cdkDragMoved)="onDragMove($event)">
@@ -117,7 +93,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
         </form>
         <button mat-raised-button [disabled]="newTransForm.invalid" color="primary">Add</button>
     </mat-card> -->
-
 
     <div class="modal fade" id="exampleModalss" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -241,20 +216,23 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs" (input)="setTitle($event)" [value]="RWtitle" />
+                                                        <input type="text" class="inputs" (input)="setTitle($event)"
+                                                            [value]="RWtitle" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
                                                     <h2><b>SMSe</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputss" (input)="setSms($event)" [value]="RWSms"></textarea>
+                                                        <textarea class="inputss" (input)="setSms($event)"
+                                                            [value]="RWSms"></textarea>
                                                     </div>
                                                 </div>
 
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Email</b>:</h2>
                                                     <div class="in-group">
-                                                        <textarea class="inputsss" (input)="setEmail($event)" [value]="RWEmail"></textarea>
+                                                        <textarea class="inputsss" (input)="setEmail($event)"
+                                                            [value]="RWEmail"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -263,8 +241,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs"
-                                                        (input)="setTitle($event)" [value]="ENGtitle" />
+                                                        <input type="text" class="inputs" (input)="setTitle($event)"
+                                                            [value]="ENGtitle" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
@@ -288,7 +266,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs" (input)="setTitle($event)" [value]="FRtitle"
+                                                        <input type="text" class="inputs" (input)="setTitle($event)"
+                                                            [value]="FRtitle"
                                                             formControlName="frenchNotificationTitle" />
                                                     </div>
                                                 </div>
@@ -353,7 +332,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs"  (input)="setTitle($event)" [value]="RWtitle2" />
+                                                        <input type="text" class="inputs" (input)="setTitle($event)"
+                                                            [value]="RWtitle2" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
@@ -375,8 +355,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs"
-                                                        (input)="setTitle($event)" [value]="ENGtitle2" />
+                                                        <input type="text" class="inputs" (input)="setTitle($event)"
+                                                            [value]="ENGtitle2" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
@@ -461,7 +441,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs"  (input)="setTitle($event)" [value]="RWtitle1" />
+                                                        <input type="text" class="inputs" (input)="setTitle($event)"
+                                                            [value]="RWtitle1" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
@@ -483,8 +464,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs"
-                                                        (input)="setTitle($event)" [value]="ENGtitle1" />
+                                                        <input type="text" class="inputs" (input)="setTitle($event)"
+                                                            [value]="ENGtitle1" />
                                                     </div>
                                                 </div>
                                                 <div class="non-breakingsAction">
@@ -508,7 +489,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <div class="non-breakingsAction">
                                                     <h2><b>Title</b>:</h2>
                                                     <div class="in-group">
-                                                        <input type="text" class="inputs" (input)="setTitle($event)" [value]="FRtitle1"
+                                                        <input type="text" class="inputs" (input)="setTitle($event)"
+                                                            [value]="FRtitle1"
                                                             formControlName="frenchNotificationTitle" />
                                                     </div>
                                                 </div>
@@ -535,10 +517,11 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                             </div>
                             <div class="modal-footer">
                                 <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">EXIT</div>
-                                <button class="btn btn-outline-success btn-sm me-1"   [disabled]="!selectedOption.value"
+                                <button class="btn btn-outline-success btn-sm me-1" id="createBtn"
+                                [disabled]="!selectedOption.value"
                                 [ngClass]="{ 'not-alloweds': !selectedOption.value }">
-                            Create
-                        </button>
+                                Create
+                            </button>
                             </div>
                         </form>
                     </ng-container>

@@ -39,6 +39,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MyTextareaComponent } from './components/my-textarea/my-textarea.component';
+// import { ToastrModule} from 'ngx-toastr';
+import { NotifierComponent } from './notifier/notifier.component'
 
 
 @NgModule({
@@ -59,7 +61,8 @@ import { MyTextareaComponent } from './components/my-textarea/my-textarea.compon
     TodolistComponent,
     NavabarComponent,
     NavbarsComponent,
-    MyTextareaComponent
+    MyTextareaComponent,
+    NotifierComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +92,10 @@ import { MyTextareaComponent } from './components/my-textarea/my-textarea.compon
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    // ToastrModule.forRoot({
+
+    // })
   ],
   providers: [],
   bootstrap: [AppComponent]
