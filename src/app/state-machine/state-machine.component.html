@@ -64,7 +64,10 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
     </div>
 
     <div id="side-bar">
-        <span>Hloo</span>
+        <div class="buttons">
+            <button id="success">Success</button>
+        </div>
+
         <h1 class="paragraphs">Power up your team with the right workflow <br><br>
             <a href="#" class="linkS" style="color: #000; text-decoration: none; font-size: 13px;">Follow our guide to
                 mapping a workflow with your team 🤩</a><br><br>
@@ -76,7 +79,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
             <span style="color: #fff; font-size: 13px;">Learn how to manage workflows here in irembo 💡</span>
         </h1>
     </div>
-   
+
     <div class="myState" (click)="toggleSidebar()">
         <app-state *ngFor="let item of workflow.states | keyvalue" [config]="item.value" cdkDrag
             [cdkDragFreeDragPosition]="item.value.position" (cdkDragMoved)="onDragMove($event)">
@@ -518,10 +521,10 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                             <div class="modal-footer">
                                 <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">EXIT</div>
                                 <button class="btn btn-outline-success btn-sm me-1" id="createBtn"
-                                [disabled]="!selectedOption.value"
-                                [ngClass]="{ 'not-alloweds': !selectedOption.value }">
-                                Create
-                            </button>
+                                    [disabled]="!selectedOption.value"
+                                    [ngClass]="{ 'not-alloweds': !selectedOption.value }">
+                                    Create
+                                </button>
                             </div>
                         </form>
                     </ng-container>
