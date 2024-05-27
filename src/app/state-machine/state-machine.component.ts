@@ -965,7 +965,7 @@ setEmail(event: any): void {
       const toastTimeout = setTimeout(() => {
         toast.remove();
         hideContainerIfEmpty(container);
-      }, 60000);
+      }, 70000);
     }
     
     // Hide the notifications container if there are no toasts
@@ -974,7 +974,7 @@ setEmail(event: any): void {
         container.style.display = 'none';
       }
     }
-    
+  
   }
   // buildWorkflow() {
   //   const patX = 280;

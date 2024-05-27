@@ -546,7 +546,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                 <div class="modal-body form-container">
                     <div class="modal-body">
                         <ng-container *ngIf="transitionToEdit">
-                            <form *ngIf="showForm" [formGroup]="updateForm" (ngSubmit)="updateTransition()">
+                            <form *ngIf="showForm" [formGroup]="updateForm" (ngSubmit)="updateTransition()"
+                                class="create_transition">
                                 <div>
                                     <b class="new_transition">Edit Transition</b>
                                     <mat-divider></mat-divider>
@@ -736,7 +737,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 </div>
                                 <div class="modal-footer">
                                     <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">X</div>
-                                    <button class="btn btn-outline-primary btn-sm me-1">Update</button>
+                                    <button class="btn btn-outline-primary btn-sm me-1" data-bs-dismiss="modal">Update</button>
                                 </div>
                             </form>
                         </ng-container>

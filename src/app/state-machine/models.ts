@@ -22,6 +22,8 @@ export interface transitionConfig {
     position: point
 }
 
+
+
 export interface irembo {
     description: string,
 }
@@ -148,6 +150,53 @@ export enum IremboState {
 export enum IremboActionType {
     NOTIFICATION, BILL_ID_GENERATION
 }
+
+interface NotificationTemplate {
+    smsTemplate: string;
+    emailTemplate: string;
+    notificationTitle: string;
+  }
+
+  interface NonBreakingAction {
+    actionType: string;
+    args: {
+      kinyarwandaNotificationTemplate: NotificationTemplate;
+      englishNotificationTemplate: NotificationTemplate;
+      frenchNotificationTemplate: NotificationTemplate;
+    };
+  }
+
+  interface BreakingAction {
+    actionType: string;
+    args: any | null;
+  }
+
+  interface EndState {
+    stateName: string;
+    stateCode: string;
+    breakingAction: BreakingAction;
+    nonBreakingActionList: NonBreakingAction[];
+  }
+
+
+
+  interface TransitionConfig {
+    id: number;
+    startState: string;
+    event: string;
+    state: string;
+    endStateOne: EndState;
+    endStateTwo: EndState | null;
+    description: string;
+    name: string;
+    names: string[];
+    emailTemplate: string;
+    breakingAction: string;
+    nonBreakingAction: string;
+    notificationTitle: string | undefined;
+  }
+
+  interface CreateNewTransitions extends Omit<TransitionConfig, 'description' | 'name' | 'names' | 'emailTemplate'> {}
 
 // export interface IremboTransition {
 //     event : IremboEvent,
