@@ -66,7 +66,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
 
     <div id="side-bar">
         <!-- <div class="notifications" style="display: none;"> -->
-        <div class="notifications">
+        <div class="notifications" style="display: none;">
             <div class="toasts success">
                 <i class="fa-solid fa-circle-check"></i>
                 <div class="content" style=" width: 99px;">
@@ -93,17 +93,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
             [cdkDragFreeDragPosition]="item.value.position" (cdkDragMoved)="onDragMove($event)">
         </app-state>
     </div>
-
-    <!-- (selectedTransition)="handleTransitionSelect($event)" (selectedTransition)="onUpdated($event)" -->
-
-    <!-- <mat-card class="mt-3">
-        <form [formGroup]="newTransForm">
-            <mat-form-field appearance="outline">
-               <input formControlName="item" matInput placeholder=""/>
-            </mat-form-field>
-        </form>
-        <button mat-raised-button [disabled]="newTransForm.invalid" color="primary">Add</button>
-    </mat-card> -->
 
     <div class="modal fade" id="exampleModalss" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -541,16 +530,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
         </div>
     </div>
 
-
-    <!-- <app-state *ngFor="let item of workflow.states | keyvalue"  [config]="item.value" cdkDrag [cdkDragFreeDragPosition]="item.value.position" (cdkDragMoved)="onDragMove($event)"></app-state> -->
-    <!-- <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item"
-        [data]="item.description" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"
-        (selectedTransition)="handleTransitionSelect($event)" [data]="data"></app-transition-new> -->
-
-    <!-- <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item"
-        [data]="item.description" cdkDrag [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)"
-        [workflows]="workflows">
-    </app-transition-new> -->
     <app-transition-new *ngFor="let item of workflow.transitions; let i = index" [config]="item" [data]="item" cdkDrag
         [cdkDragFreeDragPosition]="item.position" (cdkDragMoved)="onDragMove($event)" [workflows]="workflows"
         (selectedTransition)="onUpdated($event)" (displayData)="handleTransitionSelect($event)">
@@ -567,8 +546,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                 <div class="modal-body form-container">
                     <div class="modal-body">
                         <ng-container *ngIf="transitionToEdit">
-                            <form *ngIf="showForm" [formGroup]="updateForm" (ngSubmit)="updateTransition()"
-                                class="create_transition">
+                            <form *ngIf="showForm" [formGroup]="updateForm" (ngSubmit)="updateTransition()">
                                 <div>
                                     <b class="new_transition">Edit Transition</b>
                                     <mat-divider></mat-divider>
@@ -756,18 +734,18 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     <div>
                                     </div>
                                 </div>
+                                <div class="modal-footer">
+                                    <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">X</div>
+                                    <button class="btn btn-outline-primary btn-sm me-1">Update</button>
+                                </div>
                             </form>
                         </ng-container>
                     </div>
                 </div><br>
-                <div class="modal-footer">
-                    <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">X</div>
-                    <button class="btn btn-outline-primary btn-sm me-1" (click)="updateTransition()">Update</button>
-                </div>
+               
             </div>
         </div>
     </div>
-
 
     <div class="new_transition3">
         <div class="input_field">

@@ -927,7 +927,7 @@ setEmail(event: any): void {
         successButton.onclick = function() {
           let type = 'success';
           let icon = 'fa-solid fa-circle-check';
-          let text = 'Wow..! Transition Created!';
+          let text = 'Wow..! Transition created!';
           createToasts(type, icon, text, notifications);
         }
       } else {
@@ -943,8 +943,8 @@ setEmail(event: any): void {
       newToasts.innerHTML = `
         <div class="toasts ${type}">
           <i class="${icon}"></i>
-          <div class="content" style="width: 190px;">
-            <p style="font-size: 10px; margin: 8px -30px; color:#000;">${text}</p>
+          <div class="content" style="width: 99px;">
+            <span style="font-size: 10px; margin: 8px -31px; color: #000;">${text}</span>
           </div>
           <i class="fa-solid fa-xmark"></i>
         </div>
@@ -965,7 +965,7 @@ setEmail(event: any): void {
       const toastTimeout = setTimeout(() => {
         toast.remove();
         hideContainerIfEmpty(container);
-      }, 30000);
+      }, 60000);
     }
     
     // Hide the notifications container if there are no toasts
@@ -976,8 +976,6 @@ setEmail(event: any): void {
     }
     
   }
-
-
   // buildWorkflow() {
   //   const patX = 280;
   //   const patY = 120;
