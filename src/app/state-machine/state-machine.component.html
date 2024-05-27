@@ -1,5 +1,5 @@
 <div class="state-machine" [ngClass]="{sidebarActive: sidebarActive}">
-    <div id="header">
+    <div id="header" style=" position: fixed; top: 0px;">
         <div class="logo">
             <img [src]="sidebarActive 
            ? 'assets/images/cross-icon.svg'
@@ -36,6 +36,7 @@
           height: 30px;
           background-color: #0060d3;
           cursor: pointer;
+          position: fixed;
           border: none;
           color: #d9dedb;
           border-radius: 20px;
@@ -64,12 +65,16 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
     </div>
 
     <div id="side-bar">
-        <div class="notifications" style="display: none;">
-           
+        <!-- <div class="notifications" style="display: none;"> -->
+        <div class="notifications">
+            <div class="toasts success">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="content" style=" width: 99px;">
+                    <span style="font-size: 10px; margin: 8px -31px; color:#000;">Wow!.. Transition created!</span>
+                </div>
+                <i class="fa-solid fa-xmark"></i>
+            </div>
         </div>
-        <!-- <div class="buttons">
-            <button >Success</button>
-        </div> -->
 
         <h1 class="paragraphs">Power up your team with the right workflow <br><br>
             <a href="#" class="linkS" style="color: #000; text-decoration: none; font-size: 13px;">Follow our guide to
@@ -177,7 +182,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     :&nbsp; <div class="transition_select">
                                         <select #selectedOption formControlName="actionType"
                                             (change)="onSelectChange(selectedOption.value)">
-                                            <option value="">NOTIFICATION</option>
+                                            <option value="">--------Select-----</option>
                                             <option value="NOTIFICATION">NOTIFICATION</option>
                                         </select>
                                     </div>
@@ -523,9 +528,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                             </div>
                             <div class="modal-footer">
                                 <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">EXIT</div>
-                                <button class="btn btn-outline-success btn-sm me-1" 
-                                    [disabled]="!selectedOption.value" id="success"
-                                    [ngClass]="{ 'not-alloweds': !selectedOption.value }">
+                                <button class="btn btn-outline-success btn-sm me-1" [disabled]="!selectedOption.value"
+                                    id="success" [ngClass]="{ 'not-alloweds': !selectedOption.value }">
                                     Create
                                 </button>
                             </div>
