@@ -12,7 +12,7 @@ export class MyTextareaComponent implements OnInit {
     devList: new FormArray([])
   });
 
-  getDevFields(): FormGroup{
+  getDevFields(): FormGroup {
     return new FormGroup({
       dev_name: new FormControl(''),
       dev_office: new FormControl(''),
@@ -23,43 +23,43 @@ export class MyTextareaComponent implements OnInit {
     });
   }
 
-  devListArray(){
+  devListArray() {
     return this.devForm.get('devList') as FormArray;
   }
 
-  addDev(){
+  addDev() {
     this.devListArray().push(this.getDevFields());
   }
 
-  removeDev(i: number){
+  removeDev(i: number) {
     this.devListArray().removeAt(i);
   }
 
-  getFormData(){
+  getFormData() {
     console.log(this.devForm.value);
   }
 
-  technologyFormGroup(i: number){
-   return this.devListArray().at(i).get('developerTechnology') as FormGroup;
+  technologyFormGroup(i: number) {
+    return this.devListArray().at(i).get('developerTechnology') as FormGroup;
   }
 
-  technologyArray(i: number){
+  technologyArray(i: number) {
     return this.technologyFormGroup(i).get('developerTechnologyArray') as FormArray;
   }
 
-  putNewTechnology(){
+  putNewTechnology() {
     return new FormGroup({
       technology: new FormControl(''),
       version: new FormControl('')
     })
   }
 
-  addNewTechnology(i: number){
+  addNewTechnology(i: number) {
     this.technologyArray(i).push(this.putNewTechnology());
   }
 
-  removeNewTechnology(i: number, j: number){
-   this.technologyArray(i).push(this.putNewTechnology());
+  removeNewTechnology(i: number, j: number) {
+    this.technologyArray(i).removeAt(j);
   }
 
   constructor() { }
