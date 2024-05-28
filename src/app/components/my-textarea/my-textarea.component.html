@@ -1,25 +1,27 @@
 <div class="d-flex justify-content-center">
     <form [formGroup]="devForm" class="border border-info p-5 mt-5 w-35">
-        <div>
-            <div class="border border-dark my-2 p-5">
-                <input type="text" name="" id="" placeholder="* Developer's Name" />
-                <input type="text" name="" id="" placeholder="* Developer's Office" />
-                <input type="text" name="" id="" placeholder="* Developer's Salary" />
-                <button type="button" class="btn btn-sm btn-danger ms-1">Remove</button>
-
-                <div>
-                    <div>
-                        <div>
-                            <input type="text" name="" id="" placeholder="* Develope's Technology" />
-                            <input type="text" name="" id="" placeholder="* Version" />
-                            <button type="button" class="btn btn-sm btn-danger ms-1">Remove</button>
+        <div formArrayName="devList">
+            <div *ngFor="let developer of devListArray().controls; let i = index;" class="border border-dark my-2 p-5">
+                <div [formGroupName]="i">
+                    <input type="text" name="" id="" formControlName="dev_name" placeholder="* Developer's Name" />
+                    <input type="text" name="" id="" formControlName="dev_office" placeholder="* Developer's Office" />
+                    <input type="text" name="" id="" formControlName="dev_salary" placeholder="* Developer's Salary" />
+                    <button type="button" *ngIf="devListArray().length > 1" class="btn btn-sm btn-danger ms-1" (click)="removeDev(i)">Remove</button>
+    
+                    <div [formGroup]="technologyFormGroup(i)">
+                        <div formArrayName="developerTechnologyArray">
+                            <div *ngFor="let developerTech of technologyArray(i).controls; let j = index;">
+                                <input type="text" name="" id="" formControlName="technology" placeholder="* Developer's Technology" />
+                                <input type="text" name="" id="" formControlName="version" placeholder="* Version" />
+                                <button type="button" class="btn btn-sm btn-danger ms-1" (click)="removeNewTechnology(i, j)">Remove</button>
+                            </div>
                         </div>
                     </div>
+                    <button class="btn btn-sm btn-warning" (click)="addNewTechnology(i)">+</button>
                 </div>
-                <button class="btn btn-sm btn-warning">+</button>
             </div>
         </div>
-        <button class="btn btn-sm btn-primary mt-4 mb-5 ms-1">Add</button>
+        <button class="btn btn-sm btn-primary mt-4 mb-5 ms-1" (click)="addDev()">Add</button>
         <button class="btn btn-sm btn-success mt-4 mb-5 ms-1">Submit</button>
     </form>
-    <div>
+</div>

@@ -14,17 +14,20 @@ export class MyTextareaComponent implements OnInit {
 
   getDevFields(): FormGroup{
     return new FormGroup({
-     dev_name: new FormControl(''),
-     dev_office: new FormControl(''),
-     dev_salary: new FormControl(''),
+      dev_name: new FormControl(''),
+      dev_office: new FormControl(''),
+      dev_salary: new FormControl(''),
+      developerTechnology: new FormGroup({
+        developerTechnologyArray: new FormArray([this.putNewTechnology()])
+      })
     });
   }
 
   devListArray(){
-    return this.devForm.get('DeveloperList') as FormArray;
+    return this.devForm.get('devList') as FormArray;
   }
 
-  addDev(i: number){
+  addDev(){
     this.devListArray().push(this.getDevFields());
   }
 
@@ -34,6 +37,29 @@ export class MyTextareaComponent implements OnInit {
 
   getFormData(){
     console.log(this.devForm.value);
+  }
+
+  technologyFormGroup(i: number){
+   return this.devListArray().at(i).get('developerTechnology') as FormGroup;
+  }
+
+  technologyArray(i: number){
+    return this.technologyFormGroup(i).get('developerTechnologyArray') as FormArray;
+  }
+
+  putNewTechnology(){
+    return new FormGroup({
+      technology: new FormControl(''),
+      version: new FormControl('')
+    })
+  }
+
+  addNewTechnology(i: number){
+    this.technologyArray(i).push(this.putNewTechnology());
+  }
+
+  removeNewTechnology(i: number, j: number){
+   this.technologyArray(i).push(this.putNewTechnology());
   }
 
   constructor() { }
