@@ -280,21 +280,41 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
     const notificationTemplates = {
       frenchNotificationTemplate: {
-        smsTemplate: "Cher ${APPLICANT_LAST_NAME}, Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
-        emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
-        notificationTitle: "Demande soumise"
+        smsTemplate: this.creationForm.get('FR')?.get('smsTemplate')?.value ?? '',
+        emailTemplate: this.creationForm.get('FR')?.get('emailTemplate')?.value ?? '',
+        notificationTitle: this.creationForm.get('FR')?.get('notificationTitle')?.value ?? ''
       },
       englishNotificationTemplate: {
-        smsTemplate: "Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
-        emailTemplate: "Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
-        notificationTitle: "Application submitted"
+        smsTemplate: this.creationForm.get('ENG')?.get('smsTemplate')?.value ?? '',
+        emailTemplate: this.creationForm.get('ENG')?.get('emailTemplate')?.value ?? '',
+        notificationTitle: this.creationForm.get('ENG')?.get('notificationTitle')?.value ?? ''
       },
       kinyarwandaNotificationTemplate: {
-        smsTemplate: "Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
-        emailTemplate: "Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
-        notificationTitle: "Dosiye yoherejwe"
+        smsTemplate: this.creationForm.get('RW')?.get('smsTemplate')?.value ?? '',
+        emailTemplate: this.creationForm.get('RW')?.get('emailTemplate')?.value ?? '',
+        notificationTitle: this.creationForm.get('RW')?.get('notificationTitle')?.value ?? ''
       }
     };
+
+
+
+    // const notificationTemplates = {
+    //   frenchNotificationTemplate: {
+    //     smsTemplate: "Cher ${APPLICANT_LAST_NAME}, Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
+    //     emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
+    //     notificationTitle: "Demande soumise"
+    //   },
+    //   englishNotificationTemplate: {
+    //     smsTemplate: "Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
+    //     emailTemplate: "Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
+    //     notificationTitle: "Application submitted"
+    //   },
+    //   kinyarwandaNotificationTemplate: {
+    //     smsTemplate: "Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
+    //     emailTemplate: "Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
+    //     notificationTitle: "Dosiye yoherejwe"
+    //   }
+    // };
 
     const transitionTemplate: createNewTransitions = {
       id: 0,
