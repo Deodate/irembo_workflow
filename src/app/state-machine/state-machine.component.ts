@@ -46,7 +46,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
   }
-  
+
   showSecondNonBreakingAction: boolean = false;
   showThirdNonBreakingAction: boolean = false;
   showOneNonBreakingAction: boolean = false;
@@ -60,7 +60,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       this.showThirdNonBreakingAction = true;
     }
   }
-  
+
 
   hideNonBreakingAction(action: string) {
     if (action === 'first') {
@@ -86,7 +86,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     });
     this.nonBreakingActions.push(nonBreakingActionGroup);
   }
-  
+
 
   onSelectChange(value: string): void {
     // Perform any additional logic when the selection changes if necessary
@@ -337,11 +337,11 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.newTransitionsList = newArray;
     localStorage.setItem("iremboWorkflow", JSON.stringify(newArray));
 
-   // Clear the form
-   this.creationForm.reset();
-   // Reload the page immediately
-   window.location.reload();
-   
+    // Clear the form
+    this.creationForm.reset();
+    // Reload the page immediately
+    window.location.reload();
+
   }
 
   updateTransition() {
@@ -566,7 +566,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.updateSuccessMessage = 'Update successful!';
   }
 
-  
+
 
   getUniqueEndStates(): { stateName: string, stateCode: string, nextEvent: string | null }[] {
     const uniqueStates: { stateName: string, stateCode: string, nextEvent: string | null }[] = [];
@@ -670,13 +670,13 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   RWtitle: string = '';
   ENGtitle: string = '';
-  FRtitle: string= '';
+  FRtitle: string = '';
   RWtitle1: string = '';
   ENGtitle1: string = '';
-  FRtitle1: string= '';
+  FRtitle1: string = '';
   RWtitle2: string = '';
   ENGtitle2: string = '';
-  FRtitle2: string= '';
+  FRtitle2: string = '';
 
   RWSms: string = '';
 
@@ -685,64 +685,64 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   setSms(event: any): void {
     switch (this.activatedTab) {
       case 0:
-          this.RWSms = event.target.value;
-          break;
+        this.RWSms = event.target.value;
+        break;
       // case 1:
       //     this.ENGtitle = event.target.value;
       //     break;
       // case 2:
       //     this.FRtitle = event.target.value;
       //     break;
+    }
   }
-}
 
-setEmail(event: any): void {
-  switch (this.activatedTab) {
-    case 0:
+  setEmail(event: any): void {
+    switch (this.activatedTab) {
+      case 0:
         this.RWEmail = event.target.value;
         break;
-    // case 1:
-    //     this.ENGtitle = event.target.value;
-    //     break;
-    // case 2:
-    //     this.FRtitle = event.target.value;
-    //     break;
-}
+      // case 1:
+      //     this.ENGtitle = event.target.value;
+      //     break;
+      // case 2:
+      //     this.FRtitle = event.target.value;
+      //     break;
+    }
 
-}
+  }
 
   setTitle(event: any): void {
     switch (this.activatedTab) {
-        case 0:
-            this.RWtitle = event.target.value;
-            break;
-        case 1:
-            this.ENGtitle = event.target.value;
-            break;
-        case 2:
-            this.FRtitle = event.target.value;
-            break;
-        // case 3:
-        //     this.RWtitle1 = event.target.value;
-        //     break;
-        // case 4:
-        //     this.ENGtitle1 = event.target.value;
-        //     break;
-        // case 5:
-        //     this.FRtitle1 = event.target.value;
-        //     break;
-        // case 6:
-        //     this.RWtitle2 = event.target.value;
-        //     break;
-        // case 7:
-        //     this.ENGtitle2 = event.target.value;
-        //     break;
-        // case 8:
-        //     this.FRtitle2 = event.target.value;
-            // Handle default case if needed
-            // break;
+      case 0:
+        this.RWtitle = event.target.value;
+        break;
+      case 1:
+        this.ENGtitle = event.target.value;
+        break;
+      case 2:
+        this.FRtitle = event.target.value;
+        break;
+      // case 3:
+      //     this.RWtitle1 = event.target.value;
+      //     break;
+      // case 4:
+      //     this.ENGtitle1 = event.target.value;
+      //     break;
+      // case 5:
+      //     this.FRtitle1 = event.target.value;
+      //     break;
+      // case 6:
+      //     this.RWtitle2 = event.target.value;
+      //     break;
+      // case 7:
+      //     this.ENGtitle2 = event.target.value;
+      //     break;
+      // case 8:
+      //     this.FRtitle2 = event.target.value;
+      // Handle default case if needed
+      // break;
     }
-}
+  }
 
 
   sidebarActive = false;
@@ -902,13 +902,13 @@ setEmail(event: any): void {
       // Increment the index for the next transition
       i++;
     });
-    
+
     document.addEventListener("DOMContentLoaded", () => {
       const notifications = document.querySelector('.notifications') as HTMLElement;
       const successButton = document.getElementById('success');
-    
+
       if (successButton) {
-        successButton.onclick = function() {
+        successButton.onclick = function () {
           let type = 'success';
           let icon = 'fa-solid fa-circle-check';
           let text = 'Wow..! Transition Created!';
@@ -918,13 +918,13 @@ setEmail(event: any): void {
         console.error("Success button not found");
       }
     });
-    
+
     document.addEventListener("DOMContentLoaded", () => {
       const notifications = document.querySelector('.notifications') as HTMLElement;
       const successButton = document.getElementById('success');
-    
+
       if (successButton) {
-        successButton.onclick = function() {
+        successButton.onclick = function () {
           let type = 'success';
           let icon = 'fa-solid fa-circle-check';
           let text = 'Wow..! Transition created!';
@@ -934,11 +934,11 @@ setEmail(event: any): void {
         console.error("Success button not found");
       }
     });
-    
+
     function createToasts(type: string, icon: string, text: string, container: HTMLElement) {
       // Show notifications container
       container.style.display = 'block';
-    
+
       let newToasts = document.createElement('div');
       newToasts.innerHTML = `
         <div class="toasts ${type}">
@@ -949,32 +949,32 @@ setEmail(event: any): void {
           <i class="fa-solid fa-xmark"></i>
         </div>
       `;
-    
+
       const toast = newToasts.firstElementChild as HTMLElement;
-    
+
       // Add click event to remove toast on close icon click
       toast.querySelector('.fa-xmark')?.addEventListener('click', () => {
         clearTimeout(toastTimeout);
         toast.remove();
         hideContainerIfEmpty(container);
       });
-    
+
       container.appendChild(toast);
-    
+
       // Set a timeout to remove the toast after 1 minute (60000 milliseconds)
       const toastTimeout = setTimeout(() => {
         toast.remove();
         hideContainerIfEmpty(container);
       }, 70000);
     }
-    
+
     // Hide the notifications container if there are no toasts
     function hideContainerIfEmpty(container: HTMLElement) {
       if (container.children.length === 0) {
         container.style.display = 'none';
       }
     }
-  
+
   }
   // buildWorkflow() {
   //   const patX = 280;
