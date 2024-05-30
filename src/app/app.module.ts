@@ -41,7 +41,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { MyTextareaComponent } from './components/my-textarea/my-textarea.component';
 // import { ToastrModule} from 'ngx-toastr';
 import { NotifierComponent } from './notifier/notifier.component';
-import { ProductComponent } from './product/product.component'
+// import { ProductComponent } from './product/product.component'
 
 
 @NgModule({
@@ -63,8 +63,8 @@ import { ProductComponent } from './product/product.component'
     NavabarComponent,
     NavbarsComponent,
     MyTextareaComponent,
-    NotifierComponent,
-    ProductComponent
+    NotifierComponent
+    // ProductComponent
   ],
   imports: [
     BrowserModule,

@@ -278,24 +278,27 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   createNew() {
     // console.log(this.creationForm.value, "+==========================")
 
-    const notificationTemplates = {
-      frenchNotificationTemplate: {
-        smsTemplate: this.creationForm.get('FR')?.get('smsTemplate')?.value ?? '',
-        emailTemplate: this.creationForm.get('FR')?.get('emailTemplate')?.value ?? '',
-        notificationTitle: this.creationForm.get('FR')?.get('notificationTitle')?.value ?? ''
-      },
-      englishNotificationTemplate: {
-        smsTemplate: this.creationForm.get('ENG')?.get('smsTemplate')?.value ?? '',
-        emailTemplate: this.creationForm.get('ENG')?.get('emailTemplate')?.value ?? '',
-        notificationTitle: this.creationForm.get('ENG')?.get('notificationTitle')?.value ?? ''
-      },
-      kinyarwandaNotificationTemplate: {
-        smsTemplate: this.creationForm.get('RW')?.get('smsTemplate')?.value ?? '',
-        emailTemplate: this.creationForm.get('RW')?.get('emailTemplate')?.value ?? '',
-        notificationTitle: this.creationForm.get('RW')?.get('notificationTitle')?.value ?? ''
-      }
+    const getValue = (group: string, control: string) => {
+      return this.creationForm.get(group)?.get(control)?.value ?? '';
     };
 
+    const notificationTemplates = {
+      frenchNotificationTemplate: {
+        smsTemplate: getValue('FR', 'smsTemplate'),
+        emailTemplate: getValue('FR', 'emailTemplate'),
+        notificationTitle: getValue('FR', 'notificationTitle')
+      },
+      englishNotificationTemplate: {
+        smsTemplate: getValue('ENG', 'smsTemplate'),
+        emailTemplate: getValue('ENG', 'emailTemplate'),
+        notificationTitle: getValue('ENG', 'notificationTitle')
+      },
+      kinyarwandaNotificationTemplate: {
+        smsTemplate: getValue('RW', 'smsTemplate'),
+        emailTemplate: getValue('RW', 'emailTemplate'),
+        notificationTitle: getValue('RW', 'notificationTitle')
+      }
+    };
 
 
     // const notificationTemplates = {
@@ -586,8 +589,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.updateSuccessMessage = 'Update successful!';
   }
 
-
-
   getUniqueEndStates(): { stateName: string, stateCode: string, nextEvent: string | null }[] {
     const uniqueStates: { stateName: string, stateCode: string, nextEvent: string | null }[] = [];
 
@@ -674,6 +675,12 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     if (event != null) {
       this.newTransitionsObj.event = event;
     }
+
+    ENG: this.fb.group({
+      notificationTitle: ['', Validators.required],
+      smsTemplate: ['', Validators.required],
+      emailTemplate: ['', Validators.required]
+    }),
 
     this.updateForm = this.fb.group({
       startState: ['', Validators.required],

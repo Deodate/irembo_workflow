@@ -3,31 +3,33 @@
         <div formArrayName="devList">
             <div *ngFor="let developer of devListArray().controls; let i = index;" class="border border-dark my-2 p-5">
                 <div [formGroupName]="i">
-                    <input type="text" name="" id="" formControlName="dev_name" placeholder="* Developer's Name" />
-                    <input type="text" name="" id="" formControlName="dev_office" placeholder="* Developer's Office" />
-                    <input type="text" name="" id="" formControlName="dev_salary" placeholder="* Developer's Salary" />
+                    <input type="text" formControlName="dev_name" placeholder="* Developer's Name" />
+                    <input type="text" formControlName="dev_office" placeholder="* Developer's Office" />
+                    <input type="text" formControlName="dev_salary" placeholder="* Developer's Salary" />
                     <button type="button" *ngIf="devListArray().length > 1" class="btn btn-sm btn-danger ms-1"
                         (click)="removeDev(i)">Remove</button>
 
                     <div [formGroup]="technologyFormGroup(i)">
                         <div formArrayName="developerTechnologyArray">
                             <div *ngFor="let developerTech of technologyArray(i).controls; let j = index;">
-                                <!-- <div [formGroupName="j"]> -->
-                                <input type="text" name="" id="" formControlName="technology"
-                                    placeholder="* Developer's Technology" />
-                                <input type="text" name="" id="" formControlName="version" placeholder="* Version" />
-                                <button type="button" class="btn btn-sm btn-danger ms-1"
-                                    *ngIf="technologyArray(i).length > 1"
-                                    (click)="removeNewTechnology(i, j)">Remove</button>
-                            <!-- </div> -->
-                        </div>
+                                <div [formGroupName]="j">
+                                    <input type="text" formControlName="technology" placeholder="* Developer's Technology" />
+                                    <input type="text" formControlName="version" placeholder="* Version" />
+                                    <button type="button" class="btn btn-sm btn-danger ms-1"
+                                        *ngIf="technologyArray(i).length > 1"
+                                        (click)="removeNewTechnology(i, j)">Remove</button>
+                                </div>
+                            </div>
                         </div>
                     </div><br>
                     <button class="btn btn-sm btn-warning" (click)="addNewTechnology(i)">+</button>
                 </div>
             </div>
         </div>
-        <button class="btn btn-sm btn-primary mt-4 mb-5" (click)="addDev()">Add</button>
-        <button class="btn btn-sm btn-success mt-4 mb-5 ms-1">Submit</button>
+        <button type="button" class="btn btn-sm btn-primary mt-4 mb-5" (click)="addDev()">Add</button>
+        <button type="button" class="btn btn-sm btn-success mt-4 mb-5" (click)="getFormData()">Submit</button>
+        <button type="button" class="btn btn-sm btn-info mt-4 mb-5" (click)="saveFormData()">Save</button>
+        <button type="button" class="btn btn-sm btn-secondary mt-4 mb-5" (click)="loadFormData()">Load</button>
+    
     </form>
 </div>
