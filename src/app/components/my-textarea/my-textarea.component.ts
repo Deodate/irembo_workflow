@@ -21,7 +21,6 @@ export class MyTextareaComponent implements OnInit {
     }
   }
 
-  // Method to create a new developer form group
   getDevFields(): FormGroup {
     return new FormGroup({
       dev_name: new FormControl(''),
@@ -33,7 +32,6 @@ export class MyTextareaComponent implements OnInit {
     });
   }
 
-  // Method to create a new technology form group
   createTechnologyFormGroup(): FormGroup {
     return new FormGroup({
       technology: new FormControl(''),
@@ -41,53 +39,44 @@ export class MyTextareaComponent implements OnInit {
     });
   }
 
-  // Helper to get the developer list form array
   devListArray(): FormArray<FormGroup> {
     return this.devForm.get('devList') as FormArray<FormGroup>;
   }
 
-  // Add a new developer form group to the developer list
   addDev(): void {
     this.devListArray().push(this.getDevFields());
   }
 
-  // Remove a developer form group from the developer list
   removeDev(index: number): void {
     this.devListArray().removeAt(index);
   }
 
-  // Get the technology form group for a specific developer
   technologyFormGroup(devIndex: number): FormGroup {
     return this.devListArray().at(devIndex).get('developerTechnology') as FormGroup;
   }
 
-  // Get the technology form array for a specific developer
   technologyArray(devIndex: number): FormArray<FormGroup> {
     return this.technologyFormGroup(devIndex).get('developerTechnologyArray') as FormArray<FormGroup>;
   }
 
-  // Add a new technology form group to the technology list of a specific developer
   addNewTechnology(devIndex: number): void {
     this.technologyArray(devIndex).push(this.createTechnologyFormGroup());
   }
 
-  // Remove a technology form group from the technology list of a specific developer
   removeNewTechnology(devIndex: number, techIndex: number): void {
     this.technologyArray(devIndex).removeAt(techIndex);
   }
 
-  // Log the form data to the console
   getFormData(): void {
     console.log(this.devForm.value);
   }
 
-  // Save form data to local storage
   saveFormData(): void {
     const formData = JSON.stringify(this.devForm.value);
     localStorage.setItem('devFormData', formData);
+    this.resetForm(); // Reset the form after saving
   }
 
-  // Load form data from local storage
   loadFormData(): void {
     const savedFormData = localStorage.getItem('devFormData');
     if (savedFormData) {
@@ -96,7 +85,6 @@ export class MyTextareaComponent implements OnInit {
     }
   }
 
-  // Helper to build form array from saved data
   buildFormArray(data: any[]): FormArray<FormGroup> {
     const formArray = new FormArray<FormGroup>([]);
     data.forEach(dev => {
@@ -120,5 +108,18 @@ export class MyTextareaComponent implements OnInit {
       formArray.push(devGroup);
     });
     return formArray;
+  }
+
+  resetForm(): void {
+    this.devForm.reset();
+    this.devForm.setControl('devList', new FormArray<FormGroup>([]));
+    this.addDev(); // Add one initial developer form group
+  }
+
+  onSubmit(event: Event): void {
+    event.preventDefault(); // Prevent the default form submission
+    this.saveFormData(); // Save the form data to local storage
+    this.resetForm(); // Reset the form after saving
+    console.log('Form submitted and saved:', this.devForm.value); // For debugging
   }
 }
