@@ -9,7 +9,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 export class MyTextareaComponent implements OnInit {
 
   devForm: FormGroup = new FormGroup({
-    devList: new FormArray<FormGroup>([])
+    devList: new FormArray([])
   });
 
   constructor() { }
@@ -18,7 +18,7 @@ export class MyTextareaComponent implements OnInit {
     this.addDev(); // Initialize with one developer
   }
 
-  devListArray() {
+  devListArray(): FormArray {
     return this.devForm.get('devList') as FormArray;
   }
 
@@ -34,20 +34,36 @@ export class MyTextareaComponent implements OnInit {
           actionType: new FormControl(''),
           args: new FormControl('')
         }),
-        nonBreakingActionList: new FormArray<FormGroup>([])
+        nonBreakingActionList: new FormArray([])
       })
     });
     this.devListArray().push(devGroup);
   }
 
-  nonBreakingActions(i: number) {
+  nonBreakingActions(i: number): FormArray {
     return (this.devListArray().at(i).get('endStateOne') as FormGroup).get('nonBreakingActionList') as FormArray;
   }
 
   addNonBreakingAction(i: number) {
     const actionGroup = new FormGroup({
-      actionType: new FormControl(''),
-      args: new FormControl('')
+      actionType: new FormControl('NOTIFICATION'),
+      args: new FormGroup({
+        frenchNotificationTemplate: new FormGroup({
+          smsTemplate: new FormControl(''),
+          emailTemplate: new FormControl(''),
+          notificationTitle: new FormControl('')
+        }),
+        englishNotificationTemplate: new FormGroup({
+          smsTemplate: new FormControl(''),
+          emailTemplate: new FormControl(''),
+          notificationTitle: new FormControl('')
+        }),
+        kinyarwandaNotificationTemplate: new FormGroup({
+          smsTemplate: new FormControl(''),
+          emailTemplate: new FormControl(''),
+          notificationTitle: new FormControl('')
+        })
+      })
     });
     this.nonBreakingActions(i).push(actionGroup);
   }
@@ -63,16 +79,19 @@ export class MyTextareaComponent implements OnInit {
   onSubmit(event: Event) {
     event.preventDefault();
     console.log(this.devForm.value);
+    this.saveFormData();
   }
 
   saveFormData() {
-    localStorage.setItem('devForm', JSON.stringify(this.devForm.value));
+    const formValue = this.devForm.value;
+    localStorage.setItem('devForm', JSON.stringify(formValue));
   }
 
   loadFormData() {
     const savedData = JSON.parse(localStorage.getItem('devForm') || '{}');
     if (savedData && savedData.devList) {
-      this.devForm.setControl('devList', new FormArray(savedData.devList.map((dev: any) => this.createDevGroup(dev))));
+      const devList = new FormArray(savedData.devList.map((dev: any) => this.createDevGroup(dev)));
+      this.devForm.setControl('devList', devList);
     }
   }
 
@@ -90,7 +109,23 @@ export class MyTextareaComponent implements OnInit {
         }),
         nonBreakingActionList: new FormArray(dev.endStateOne.nonBreakingActionList.map((action: any) => new FormGroup({
           actionType: new FormControl(action.actionType),
-          args: new FormControl(action.args)
+          args: new FormGroup({
+            frenchNotificationTemplate: new FormGroup({
+              smsTemplate: new FormControl(action.args.frenchNotificationTemplate.smsTemplate),
+              emailTemplate: new FormControl(action.args.frenchNotificationTemplate.emailTemplate),
+              notificationTitle: new FormControl(action.args.frenchNotificationTemplate.notificationTitle)
+            }),
+            englishNotificationTemplate: new FormGroup({
+              smsTemplate: new FormControl(action.args.englishNotificationTemplate.smsTemplate),
+              emailTemplate: new FormControl(action.args.englishNotificationTemplate.emailTemplate),
+              notificationTitle: new FormControl(action.args.englishNotificationTemplate.notificationTitle)
+            }),
+            kinyarwandaNotificationTemplate: new FormGroup({
+              smsTemplate: new FormControl(action.args.kinyarwandaNotificationTemplate.smsTemplate),
+              emailTemplate: new FormControl(action.args.kinyarwandaNotificationTemplate.emailTemplate),
+              notificationTitle: new FormControl(action.args.kinyarwandaNotificationTemplate.notificationTitle)
+            })
+          })
         })))
       })
     });
