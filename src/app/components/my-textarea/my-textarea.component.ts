@@ -13,7 +13,6 @@ export class MyTextareaComponent implements OnInit {
   });
 
   constructor() { }
-
   ngOnInit(): void {
     this.loadFormData();
     if (this.devListArray().length === 0) {
@@ -23,19 +22,25 @@ export class MyTextareaComponent implements OnInit {
 
   getDevFields(): FormGroup {
     return new FormGroup({
-      dev_name: new FormControl(''),
-      dev_office: new FormControl(''),
-      dev_salary: new FormControl(''),
-      developerTechnology: new FormGroup({
-        developerTechnologyArray: new FormArray<FormGroup>([this.createTechnologyFormGroup()])
+      startState: new FormControl(''),
+      event: new FormControl(''),
+      stateCode: new FormControl(''),
+      endStateOne: new FormGroup({
+        stateName: new FormControl(''),
+        stateCode: new FormControl(''),
+        breakingAction: new FormGroup({
+          actionType: new FormControl(''),
+          args: new FormControl('')
+        }),
+        nonBreakingActionList: new FormArray<FormGroup>([this.createNonBreakingActionFormGroup()])
       })
     });
   }
 
-  createTechnologyFormGroup(): FormGroup {
+  createNonBreakingActionFormGroup(): FormGroup {
     return new FormGroup({
-      technology: new FormControl(''),
-      version: new FormControl('')
+      actionType: new FormControl(''),
+      args: new FormControl('')
     });
   }
 
@@ -51,30 +56,21 @@ export class MyTextareaComponent implements OnInit {
     this.devListArray().removeAt(index);
   }
 
-  technologyFormGroup(devIndex: number): FormGroup {
-    return this.devListArray().at(devIndex).get('developerTechnology') as FormGroup;
+  nonBreakingActions(devIndex: number): FormArray<FormGroup> {
+    return (this.devListArray().at(devIndex).get('endStateOne') as FormGroup).get('nonBreakingActionList') as FormArray<FormGroup>;
   }
 
-  technologyArray(devIndex: number): FormArray<FormGroup> {
-    return this.technologyFormGroup(devIndex).get('developerTechnologyArray') as FormArray<FormGroup>;
+  addNonBreakingAction(devIndex: number): void {
+    this.nonBreakingActions(devIndex).push(this.createNonBreakingActionFormGroup());
   }
 
-  addNewTechnology(devIndex: number): void {
-    this.technologyArray(devIndex).push(this.createTechnologyFormGroup());
-  }
-
-  removeNewTechnology(devIndex: number, techIndex: number): void {
-    this.technologyArray(devIndex).removeAt(techIndex);
-  }
-
-  getFormData(): void {
-    console.log(this.devForm.value);
+  removeNonBreakingAction(devIndex: number, actionIndex: number): void {
+    this.nonBreakingActions(devIndex).removeAt(actionIndex);
   }
 
   saveFormData(): void {
     const formData = JSON.stringify(this.devForm.value);
     localStorage.setItem('devFormData', formData);
-    this.resetForm(); // Reset the form after saving
   }
 
   loadFormData(): void {
@@ -90,36 +86,33 @@ export class MyTextareaComponent implements OnInit {
     data.forEach(dev => {
       const devGroup = this.getDevFields();
       devGroup.patchValue({
-        dev_name: dev.dev_name,
-        dev_office: dev.dev_office,
-        dev_salary: dev.dev_salary
+        startState: dev.startState,
+        event: dev.event,
+        stateCode: dev.stateCode,
+        endStateOne: {
+          stateName: dev.endStateOne.stateName,
+          stateCode: dev.endStateOne.stateCode,
+          breakingAction: dev.endStateOne.breakingAction,
+          nonBreakingActionList: dev.endStateOne.nonBreakingActionList
+        }
       });
-      const developerTechnologyGroup = devGroup.get('developerTechnology') as FormGroup;
-      const techArray = developerTechnologyGroup?.get('developerTechnologyArray') as FormArray<FormGroup>;
-      techArray.clear();
-      dev.developerTechnology.developerTechnologyArray.forEach((tech: { technology: any; version: any; }) => {
-        const techGroup = this.createTechnologyFormGroup();
-        techGroup.patchValue({
-          technology: tech.technology,
-          version: tech.version
-        });
-        techArray.push(techGroup);
+
+      const nonBreakingActionsArray = devGroup.get('endStateOne')?.get('nonBreakingActionList') as FormArray<FormGroup>;
+      nonBreakingActionsArray.clear();
+      dev.endStateOne.nonBreakingActionList.forEach((action: any) => {
+        const actionGroup = this.createNonBreakingActionFormGroup();
+        actionGroup.patchValue(action);
+        nonBreakingActionsArray.push(actionGroup);
       });
+
       formArray.push(devGroup);
     });
     return formArray;
   }
 
-  resetForm(): void {
-    this.devForm.reset();
-    this.devForm.setControl('devList', new FormArray<FormGroup>([]));
-    this.addDev(); // Add one initial developer form group
-  }
-
   onSubmit(event: Event): void {
     event.preventDefault(); // Prevent the default form submission
     this.saveFormData(); // Save the form data to local storage
-    this.resetForm(); // Reset the form after saving
     console.log('Form submitted and saved:', this.devForm.value); // For debugging
   }
 }

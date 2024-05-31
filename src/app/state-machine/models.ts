@@ -22,8 +22,6 @@ export interface transitionConfig {
     position: point
 }
 
-
-
 export interface irembo {
     description: string,
 }

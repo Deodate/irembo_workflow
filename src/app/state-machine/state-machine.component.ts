@@ -31,6 +31,7 @@ declare var LeaderLine: any;
 
 export class StateMachineComponent implements OnInit, AfterViewInit {
 
+  i: number = 0;
   updateForm!: FormGroup;
   addForm !: FormGroup;
   uniqueStateCodes: string[] = [];
@@ -117,7 +118,28 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   updateIndex: any;
   isEditEnabled: boolean = false;
 
-  // selectedCars = new FormControl([3]);
+  getnonBreakingActionFields(): FormGroup {
+    return new FormGroup({
+      actionType: new FormControl(''),
+      nonBreakingAction: new FormGroup({
+        nonBreakingActionArray: new FormArray<FormGroup>([this.createNonBreakingActionFormGroup()])
+      })
+    });
+  }
+
+  createNonBreakingActionFormGroup(): FormGroup {
+    return new FormGroup({
+      actionType: new FormControl('')
+    });
+  }
+
+  nonBreakingActionFormGroup(devIndex: number): FormGroup {
+    return this.nonBreakingActionArray().at(devIndex).get('nonbreakingAction') as FormGroup;
+  }
+
+  nonBreakingActionArray(): FormArray<FormGroup> {
+    return this.creationForm.get('onbreakingActionList') as FormArray<FormGroup>;
+  }
 
   cities: any[] = [
     { id: 1, name: 'Toyota' },
@@ -190,11 +212,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.isEditEnabled = false;
   }
 
-  // onUpdated(item: createNewTransitions) {
-  //   this.newTransitionsObj = item;
-
-  // }
-
   addNonBreakingAction() {
     const nonBreakingAction = this.fb.group({
       actionType: [this.creationForm.value.actionType, Validators.required],
@@ -217,64 +234,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   }
 
 
-  // createNew() {
-
-  //   const transitionTemplate: any = {
-  //     id: 0,
-  //     startState: this.creationForm.value.startState,
-  //     event: this.creationForm.value.event,
-  //     state: "PAYMENT_PENDING",
-  //     endStateOne: {
-  //       stateName: "Payment_Pending",
-  //       stateCode: this.creationForm.value.stateCode,
-  //       nextEvent: null,
-  //       breakingAction: {
-  //         actionType: this.creationForm.value.breakingAction,
-  //         args: null
-  //       },
-  //       nonBreakingActionList: this.creationForm.value.actionType
-  //         ? [{
-  //           actionType: this.creationForm.value.actionType,
-  //           args: {
-  //             frenchNotificationTemplate: {},
-  //             englishNotificationTemplate: {},
-  //             kinyarwandaNotificationTemplate: {}
-  //           }
-  //         }]
-  //         : null
-  //     },
-  //     endStateTwo: null,
-  //     breakingAction: '',
-  //     nonBreakingAction: ''
-  //   };
-
-  //   let newArray: createNewTransitions[] = [];
-  //   const isLocalPresent = localStorage.getItem("iremboWorkflow");
-
-  //   if (isLocalPresent != null) {
-  //     const oldArray = JSON.parse(isLocalPresent) as createNewTransitions[];
-  //     const newId = oldArray.length + 1;
-  //     transitionTemplate.id = newId;
-  //     newArray = [...oldArray, transitionTemplate
-  //     ];
-  //   } else {
-  //     transitionTemplate.id = 1;
-  //     newArray = [
-  //       transitionTemplate
-  //     ];
-  //   }
-
-  //   this.newTransitionsList = newArray;
-  //   localStorage.setItem("iremboWorkflow", JSON.stringify(newArray));
-
-  //   // Clear the form
-  //   this.creationForm.reset();
-  //   // Reload the page
-  //   setTimeout(() => {
-  //     window.location.reload();
-  //   }, 50);
-  // }
-
   createNew() {
     // console.log(this.creationForm.value, "+==========================")
 
@@ -284,40 +243,24 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
     const notificationTemplates = {
       frenchNotificationTemplate: {
-        smsTemplate: getValue('FR', 'smsTemplate'),
-        emailTemplate: getValue('FR', 'emailTemplate'),
-        notificationTitle: getValue('FR', 'notificationTitle')
+        smsTemplate: "Cher ${APPLICANT_LAST_NAME}, Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
+        emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
+        notificationTitle: "Demande soumise"
       },
       englishNotificationTemplate: {
-        smsTemplate: getValue('ENG', 'smsTemplate'),
-        emailTemplate: getValue('ENG', 'emailTemplate'),
-        notificationTitle: getValue('ENG', 'notificationTitle')
+        smsTemplate: "Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
+        emailTemplate: "Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
+        notificationTitle: "Application submitted"
       },
       kinyarwandaNotificationTemplate: {
-        smsTemplate: getValue('RW', 'smsTemplate'),
-        emailTemplate: getValue('RW', 'emailTemplate'),
-        notificationTitle: getValue('RW', 'notificationTitle')
+        smsTemplate: "Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
+        emailTemplate: "Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
+        notificationTitle: "Dosiye yoherejwe"
       }
     };
 
 
-    // const notificationTemplates = {
-    //   frenchNotificationTemplate: {
-    //     smsTemplate: "Cher ${APPLICANT_LAST_NAME}, Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
-    //     emailTemplate: "Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
-    //     notificationTitle: "Demande soumise"
-    //   },
-    //   englishNotificationTemplate: {
-    //     smsTemplate: "Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
-    //     emailTemplate: "Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
-    //     notificationTitle: "Application submitted"
-    //   },
-    //   kinyarwandaNotificationTemplate: {
-    //     smsTemplate: "Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
-    //     emailTemplate: "Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
-    //     notificationTitle: "Dosiye yoherejwe"
-    //   }
-    // };
+    
 
     const transitionTemplate: createNewTransitions = {
       id: 0,
@@ -648,11 +591,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   logTransitions() {
     console.log(this.workflow, "========================== TRANS");
-    // this.workflow.states.forEach(item => {
-    //   console.log(item, "================ TRANS");
-    // });
-  }
 
+  }
 
   ngOnInit(): void {
     this.addForm = this.formBuilder.group({
@@ -682,14 +622,14 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       emailTemplate: ['', Validators.required]
     }),
 
-    this.updateForm = this.fb.group({
-      startState: ['', Validators.required],
-      event: ['', Validators.required],
-      stateCode: ['', Validators.required],
-      breakingAction: ['', Validators.required],
-      actionType: ['', Validators.required],
-      // Add other form controls as needed
-    });
+      this.updateForm = this.fb.group({
+        startState: ['', Validators.required],
+        event: ['', Validators.required],
+        stateCode: ['', Validators.required],
+        breakingAction: ['', Validators.required],
+        actionType: ['', Validators.required],
+        // Add other form controls as needed
+      });
 
     this.initialiseCreationFormGroup();
 
@@ -714,12 +654,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       case 0:
         this.RWSms = event.target.value;
         break;
-      // case 1:
-      //     this.ENGtitle = event.target.value;
-      //     break;
-      // case 2:
-      //     this.FRtitle = event.target.value;
-      //     break;
+
     }
   }
 
@@ -728,12 +663,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       case 0:
         this.RWEmail = event.target.value;
         break;
-      // case 1:
-      //     this.ENGtitle = event.target.value;
-      //     break;
-      // case 2:
-      //     this.FRtitle = event.target.value;
-      //     break;
+
     }
 
   }
@@ -749,28 +679,9 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       case 2:
         this.FRtitle = event.target.value;
         break;
-      // case 3:
-      //     this.RWtitle1 = event.target.value;
-      //     break;
-      // case 4:
-      //     this.ENGtitle1 = event.target.value;
-      //     break;
-      // case 5:
-      //     this.FRtitle1 = event.target.value;
-      //     break;
-      // case 6:
-      //     this.RWtitle2 = event.target.value;
-      //     break;
-      // case 7:
-      //     this.ENGtitle2 = event.target.value;
-      //     break;
-      // case 8:
-      //     this.FRtitle2 = event.target.value;
-      // Handle default case if needed
-      // break;
+
     }
   }
-
 
   sidebarActive = false;
 
@@ -1001,382 +912,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
         container.style.display = 'none';
       }
     }
-
   }
-  // buildWorkflow() {
-  //   const patX = 280;
-  //   const patY = 120;
 
-  //   // Define arrays of positions for transitions and states
-  //   const transitionPositions = [
-  //     { x: 270, y: -600 },
-  //     { x: 550, y: -600 },
-  //     { x: 800, y: -421 },
-  //     { x: 800, y: -791 },
-  //     // Add more positions as needed
-  //   ];
-
-  //   const statePositions = [
-  //     { x: 270, y: -790 },
-  //     { x: 275, y: -390 },
-  //     { x: 520, y: -560 },
-  //     { x: 130, y: -800 },
-  //     { x: 600, y: -860 },
-  //     // Add more positions as needed
-  //   ];
-
-  //   let transitionIndex = 0;
-  //   let stateIndex = 0;
-
-  //   this.iremboWorkflow.forEach(element => {
-  //     // Get the position for the current transition
-  //     const transitionPosition = transitionPositions[transitionIndex];
-  //     const statePosition = statePositions[stateIndex];
-
-  //     // Add Start State
-  //     if (!this.workflow.states.has(element.startState.toString())) {
-  //       let state: stateConfig = {
-  //         name: element.startState.toString(),
-  //         tasks: element.startState.toString(),
-  //         names: element.startState.toString(),
-  //         position: statePosition
-  //       };
-  //       this.workflow.states.set(element.startState.toString(), state);
-  //     }
-
-  //     // Add End State One
-  //     if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
-  //       let state: stateConfig = {
-  //         name: element.endStateOne.stateCode.toString(),
-  //         tasks: element.endStateOne.stateCode.toString(),
-  //         names: element.endStateOne.stateCode.toString(),
-  //         position: {
-  //           x: statePosition.x + patX,
-  //           y: statePosition.y
-  //         }
-  //       };
-  //       this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
-  //     }
-
-  //     // Add End State Two
-  //     if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
-  //       let state: stateConfig = {
-  //         name: element.endStateTwo.stateCode.toString(),
-  //         tasks: element.endStateTwo.stateCode.toString(),
-  //         names: element.endStateTwo.stateCode.toString(),
-  //         position: {
-  //           x: statePosition.x + patX,
-  //           y: statePosition.y + patY
-  //         }
-  //       };
-  //       this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
-  //     }
-
-
-  //     // Add The transition
-  //     if (element.endStateOne) {
-  //       let transition: transitionConfig = {
-  //         name: element.event.toString(),
-  //         names: element.event.toString(),
-  //         event: element.event.toString(),
-  //         emailTemplate: element.endStateOne.toString(),
-  //         smsTemplate: element.endStateOne.toString(),
-  //         notificationTitle: element.endStateOne.toString(),
-  //         description: element.event.toString(),
-  //         startState: element.startState.toString(),
-  //         endStateOne: element.endStateOne,
-  //         endStateTwo: element.endStateTwo,
-  //         position: transitionPosition,
-  //         id: 0
-  //       };
-  //       this.workflow.transitions.push(transition);
-  //     }
-
-  //     // Increment the indices for the next transition and state
-  //     transitionIndex = (transitionIndex + 1) % transitionPositions.length;
-  //     stateIndex = (stateIndex + 1) % statePositions.length;
-  //   });
-  // }
-
-  // buildWorkflow() {
-  //   const patX = 280;
-  //   const patY = 120;
-
-  //   // Define arrays of positions for transitions and states
-  //   const transitionPositions = [
-  //     { x: 270, y: -600 },
-  //     { x: 550, y: -600 },
-  //     { x: 800, y: -421 },
-  //     { x: 800, y: -791 },
-  //     // Add more positions as needed
-  //   ];
-
-  //   const statePositions = [
-  //     { x: 270, y: -790 },
-  //     { x: 275, y: -390 },
-  //     { x: 520, y: -560 },
-  //     { x: 130, y: -800 },
-  //     { x: 130, y: -860 },
-  //     // Add more positions as needed
-  //   ];
-
-  //   let i = 0;
-
-  //   this.iremboWorkflow.forEach(element => {
-  //     // Get the position for the current transition
-  //     const transitionPosition = transitionPositions[i];
-  //     const statePosition = statePositions[i];
-
-  //     // Add Start State
-  //     if (!this.workflow.states.has(element.startState.toString())) {
-  //       let state: stateConfig = {
-  //         name: element.startState.toString(),
-  //         tasks: element.startState.toString(),
-  //         names: element.startState.toString(),
-  //         position: statePosition
-  //       };
-  //       this.workflow.states.set(element.startState.toString(), state);
-  //     }
-
-  //     // Add End State One
-  //     if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
-  //       let state: stateConfig = {
-  //         name: element.endStateOne.stateCode.toString(),
-  //         tasks: element.endStateOne.stateCode.toString(),
-  //         names: element.endStateOne.stateCode.toString(),
-  //         position: {
-  //           x: statePosition.x + patX,
-  //           y: statePosition.y
-  //         }
-  //       };
-  //       this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
-  //     }
-
-  //     // Add End State Two
-  //     if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
-  //       let state: stateConfig = {
-  //         name: element.endStateTwo.stateCode.toString(),
-  //         tasks: element.endStateTwo.stateCode.toString(),
-  //         names: element.endStateTwo.stateCode.toString(),
-  //         position: {
-  //           x: statePosition.x + patX,
-  //           y: statePosition.y + patY
-  //         }
-  //       };
-  //       this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
-  //     }
-
-  //     // Add The transition
-  //     if (element.endStateOne) {
-  //       let transition: transitionConfig = {
-  //         name: element.event.toString(),
-  //         names: element.event.toString(),
-  //         event: element.event.toString(),
-  //         description: element.event.toString(),
-  //         startState: element.startState.toString(),
-  //         endStateOne: element.endStateOne,
-  //         endStateTwo: element.endStateTwo,
-  //         position: transitionPosition,
-  //         id: 0
-  //       };
-  //       this.workflow.transitions.push(transition);
-  //     }
-
-  //     // Increment the index for the next transition
-  //     i = (i + 1) % transitionPositions.length;
-  //   });
-  // }
-
-
-  // buildWorkflow() {
-  //   const patX = 160;
-  //   const patY = 190;
-
-  //   // Define an array of positions for transitions
-  //   const transitionPositions = [
-  //     { x: 270, y: -600 },
-  //     { x: 270, y: -400 },
-  //     { x: 530, y: -600 },
-  //     // Add more positions as needed
-  //   ];
-
-  //   let i = 0;
-
-  //   this.iremboWorkflow.forEach(element => {
-  //     // Get the position for the current transition
-  //     const position = transitionPositions[i];
-
-  //     // Add Start State
-  //     if (!this.workflow.states.has(element.startState.toString())) {
-  //       let state: stateConfig = {
-  //         name: element.startState.toString(),
-  //         tasks: element.startState.toString(),
-  //         names: element.startState.toString(),
-  //         position: {
-  //           x: position.x,
-  //           y: position.y - patY
-  //         }
-  //       };
-  //       this.workflow.states.set(element.startState.toString(), state);
-  //     }
-
-  //     // Add End State One
-  //     if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
-  //       let stateposition = {
-  //         x: position.x + 2 * patX,
-  //         y: position.y - patY
-  //       };
-  //       let state: stateConfig = {
-  //         name: element.endStateOne.stateCode.toString(),
-  //         tasks: element.endStateOne.stateCode.toString(),
-  //         names: element.endStateOne.stateCode.toString(),
-  //         position: stateposition
-  //       };
-  //       this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
-  //     }
-
-  //     // Add End State Two
-  //     if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
-  //       let stateposition = {
-  //         x: position.x + 2 * patX,
-  //         y: position.y + patY
-  //       };
-  //       let state: stateConfig = {
-  //         name: element.endStateTwo.stateCode.toString(),
-  //         tasks: element.endStateTwo.stateCode.toString(),
-  //         names: element.endStateTwo.stateCode.toString(),
-  //         position: stateposition
-  //       };
-  //       this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
-  //     }
-
-  //     // Add The transition
-  //     if (element.endStateOne) {
-  //       let transition: transitionConfig = {
-  //         name: element.event.toString(),
-  //         names: element.event.toString(),
-  //         event: element.event.toString(),
-  //         description: element.event.toString(),
-  //         startState: element.startState.toString(),
-  //         endStateOne: element.endStateOne,
-  //         endStateTwo: element.endStateTwo,
-  //         position: position, // Assign the position from the array
-  //         id: 0
-  //       };
-  //       this.workflow.transitions.push(transition);
-  //     }
-
-  //     // Increment the index for the next transition
-  //     i = (i + 1) % transitionPositions.length;
-  //   });
-  // }
-
-
-  // buildWorkflow() {
-
-  //   const patX = 120;
-  //   const patY = 120;
-
-  //   let currentX = 270;
-  //   let currentY = -600;
-
-  //   let i = 1;
-
-  //   this.iremboWorkflow.forEach(element => {
-
-  //     i = i + 1;
-
-  //     // get or set the position of the transition
-  //     if (element.position) {
-  //       currentX = element.position.x;
-  //       currentY = element.position.y;
-  //     } else {
-  //       element.position = {
-  //         x: currentX,
-  //         y: currentY
-  //       }
-  //     }
-
-  //     // Add Start State :  If the start state not yet added, please add it 
-  //     if (!this.workflow.states.has(element.startState.toString())) {
-  //       let state: stateConfig = {
-  //         name: element.startState.toString(),
-  //         tasks: element.startState.toString(),
-  //         names: element.startState.toString(),
-  //         position: {
-  //           x: element.position.x,
-  //           y: element.position.y - patY
-  //         }
-  //       }
-
-  //       this.workflow.states.set(element.startState.toString(), state);
-  //     }
-
-  //     // Add End State One : If the EndStateOne not yet added, please add it 
-  //     if (element.endStateOne && !this.workflow.states.has(element.endStateOne?.stateCode.toString())) {
-  //       let stateposition = element.endStateOne.position;
-  //       if (!stateposition) {
-  //         stateposition = {
-  //           x: element.position.x + 2 * patX,
-  //           y: element.position.y - patY
-  //         }
-  //       }
-
-  //       let state: stateConfig = {
-  //         name: element.endStateOne.stateCode.toString(),
-  //         tasks: element.endStateOne.stateCode.toString(),
-  //         names: element.endStateOne.stateCode.toString(),
-  //         position: stateposition
-  //       }
-
-  //       this.workflow.states.set(element.endStateOne.stateCode.toString(), state);
-  //     }
-
-  //     // Add End State Two : If the EndStateTwo not yet added, please add it 
-  //     if (element.endStateTwo && !this.workflow.states.has(element.endStateTwo?.stateCode.toString())) {
-
-  //       let stateposition = element.endStateTwo.position;
-  //       if (!stateposition) {
-  //         stateposition = {
-  //           x: element.position.x + 2 * patX,
-  //           y: element.position.y + patY
-  //         }
-  //       }
-
-  //       let state: stateConfig = {
-  //         name: element.endStateTwo.stateCode.toString(),
-  //         tasks: element.endStateTwo.stateCode.toString(),
-  //         names: element.endStateTwo.stateCode.toString(),
-  //         position: stateposition
-
-  //       }
-
-  //       this.workflow.states.set(element.endStateTwo.stateCode.toString(), state);
-  //     }
-
-  //     // Add The transition
-  //     if (element.endStateOne) {
-  //       let transition: transitionConfig = {
-  //         name: element.event.toString(),
-  //         names: element.event.toString(),
-  //         event: element.event.toString(),
-  //         description: element.event.toString(),
-  //         startState: element.startState.toString(),
-  //         endStateOne: element.endStateOne,
-  //         endStateTwo: element.endStateTwo,
-  //         position: element.position,
-  //         id: 0
-  //       }
-  //       this.workflow.transitions.push(transition);
-  //       // createNewTransitions(){
-
-  //       // }
-  //     }
-
-  //     currentX = element.position.x + 2 * patX;
-  //     currentY = element.position.y;
-  //   });
-  // }
 
   getStateComponentbyName(name: string): StateComponent | undefined {
     let compo = this.stateComponents.find(element => element.config.name === name);
