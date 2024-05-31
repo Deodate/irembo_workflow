@@ -6,33 +6,36 @@
             <input type="text" formControlName="startState" placeholder="* Start State" />
             <input type="text" formControlName="event" placeholder="* Event" />
             <input type="text" formControlName="stateCode" placeholder="* stateCode" />
-            
+  
             <div formGroupName="endStateOne">
               <input type="text" formControlName="stateName" placeholder="* State Name" />
               <input type="text" formControlName="stateCode" placeholder="* End State Code" />
-              
+  
               <div formGroupName="breakingAction">
                 <input type="text" formControlName="actionType" placeholder="* Breaking Action Type" />
                 <textarea formControlName="args" placeholder="Args (JSON format)"></textarea>
               </div>
-              
+  
               <div formArrayName="nonBreakingActionList">
                 <div *ngFor="let action of nonBreakingActions(i).controls; let j = index;">
                   <div [formGroupName]="j">
-                    <input type="text" formControlName="actionType" placeholder="* Non-breaking Action Type" />
-                    <textarea formControlName="args" placeholder="Args (JSON format)"></textarea>
-                    <button type="button" *ngIf="nonBreakingActions(i).length > 1" class="btn btn-sm btn-danger ms-1" (click)="removeNonBreakingAction(i, j)">Remove</button>
+                    <mat-expansion-panel hideToggle>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>Non-breaking Action {{ j + 1 }}</mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <input type="text" formControlName="actionType" placeholder="* Non-breaking Action Type" />
+                      <textarea formControlName="args" placeholder="Args (JSON format)"></textarea>
+                      <button type="button" *ngIf="nonBreakingActions(i).length > 1" class="btn btn-sm btn-danger ms-1" (click)="removeNonBreakingAction(i, j)">Remove</button>
+                    </mat-expansion-panel>
                   </div>
                 </div>
                 <button type="button" class="btn btn-sm btn-warning" (click)="addNonBreakingAction(i)">+</button>
               </div>
             </div>
-            
-            <button type="button" *ngIf="devListArray().length > 1" class="btn btn-sm btn-danger ms-1" (click)="removeDev(i)">Remove</button>
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-sm btn-primary mt-4 mb-5" (click)="addDev()">Add</button>
+      <button type="button" class="btn btn-sm btn-primary mt-4 mb-5" (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First Developer</button>
       <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
       <button type="button" class="btn btn-sm btn-info mt-4 mb-5" (click)="saveFormData()">Save</button>
       <button type="button" class="btn btn-sm btn-secondary mt-4 mb-5" (click)="loadFormData()">Load</button>

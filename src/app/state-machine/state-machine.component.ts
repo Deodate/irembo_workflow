@@ -259,9 +259,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       }
     };
 
-
-    
-
     const transitionTemplate: createNewTransitions = {
       id: 0,
       startState: this.creationForm.value.startState,

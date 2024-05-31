@@ -11,20 +11,19 @@ export class MyTextareaComponent implements OnInit {
   devForm: FormGroup = new FormGroup({
     devList: new FormArray<FormGroup>([])
   });
-  formId: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.loadFormData();
-    if (this.devListArray().length === 0) {
-      this.addDev();
-    }
+    this.addDev(); // Initialize with one developer
   }
 
-  getDevFields(): FormGroup {
-    return new FormGroup({
-      id: new FormControl(this.generateId()),
+  devListArray() {
+    return this.devForm.get('devList') as FormArray;
+  }
+
+  addDev() {
+    const devGroup = new FormGroup({
       startState: new FormControl(''),
       event: new FormControl(''),
       stateCode: new FormControl(''),
@@ -35,95 +34,65 @@ export class MyTextareaComponent implements OnInit {
           actionType: new FormControl(''),
           args: new FormControl('')
         }),
-        nonBreakingActionList: new FormArray<FormGroup>([this.createNonBreakingActionFormGroup()])
+        nonBreakingActionList: new FormArray<FormGroup>([])
       })
     });
+    this.devListArray().push(devGroup);
   }
 
-  createNonBreakingActionFormGroup(): FormGroup {
-    return new FormGroup({
+  nonBreakingActions(i: number) {
+    return (this.devListArray().at(i).get('endStateOne') as FormGroup).get('nonBreakingActionList') as FormArray;
+  }
+
+  addNonBreakingAction(i: number) {
+    const actionGroup = new FormGroup({
       actionType: new FormControl(''),
       args: new FormControl('')
     });
+    this.nonBreakingActions(i).push(actionGroup);
   }
 
-  devListArray(): FormArray<FormGroup> {
-    return this.devForm.get('devList') as FormArray<FormGroup>;
+  removeNonBreakingAction(i: number, j: number) {
+    this.nonBreakingActions(i).removeAt(j);
   }
 
-  addDev(): void {
-    this.devListArray().push(this.getDevFields());
+  addNonBreakingActionToFirst() {
+    this.addNonBreakingAction(0); // Assuming you want to add to the first developer
   }
 
-  removeDev(index: number): void {
-    this.devListArray().removeAt(index);
+  onSubmit(event: Event) {
+    event.preventDefault();
+    console.log(this.devForm.value);
   }
 
-  nonBreakingActions(devIndex: number): FormArray<FormGroup> {
-    return (this.devListArray().at(devIndex).get('endStateOne') as FormGroup).get('nonBreakingActionList') as FormArray<FormGroup>;
+  saveFormData() {
+    localStorage.setItem('devForm', JSON.stringify(this.devForm.value));
   }
 
-  addNonBreakingAction(devIndex: number): void {
-    this.nonBreakingActions(devIndex).push(this.createNonBreakingActionFormGroup());
-  }
-
-  removeNonBreakingAction(devIndex: number, actionIndex: number): void {
-    this.nonBreakingActions(devIndex).removeAt(actionIndex);
-  }
-
-  generateId(): number {
-    let currentId = Number(localStorage.getItem('currentId')) || 0;
-    currentId += 1;
-    localStorage.setItem('currentId', currentId.toString());
-    return currentId;
-  }
-
-  saveFormData(): void {
-    const formData = JSON.stringify(this.devForm.value);
-    localStorage.setItem('devFormData', formData);
-  }
-
-  loadFormData(): void {
-    const savedFormData = localStorage.getItem('devFormData');
-    if (savedFormData) {
-      const parsedData = JSON.parse(savedFormData);
-      this.devForm.setControl('devList', this.buildFormArray(parsedData.devList));
+  loadFormData() {
+    const savedData = JSON.parse(localStorage.getItem('devForm') || '{}');
+    if (savedData && savedData.devList) {
+      this.devForm.setControl('devList', new FormArray(savedData.devList.map((dev: any) => this.createDevGroup(dev))));
     }
   }
 
-  buildFormArray(data: any[]): FormArray<FormGroup> {
-    const formArray = new FormArray<FormGroup>([]);
-    data.forEach(dev => {
-      const devGroup = this.getDevFields();
-      devGroup.patchValue({
-        id: dev.id || this.generateId(),
-        startState: dev.startState,
-        event: dev.event,
-        stateCode: dev.stateCode,
-        endStateOne: {
-          stateName: dev.endStateOne.stateName,
-          stateCode: dev.endStateOne.stateCode,
-          breakingAction: dev.endStateOne.breakingAction,
-          nonBreakingActionList: dev.endStateOne.nonBreakingActionList
-        }
-      });
-
-      const nonBreakingActionsArray = devGroup.get('endStateOne')?.get('nonBreakingActionList') as FormArray<FormGroup>;
-      nonBreakingActionsArray.clear();
-      dev.endStateOne.nonBreakingActionList.forEach((action: any) => {
-        const actionGroup = this.createNonBreakingActionFormGroup();
-        actionGroup.patchValue(action);
-        nonBreakingActionsArray.push(actionGroup);
-      });
-
-      formArray.push(devGroup);
+  createDevGroup(dev: any): FormGroup {
+    return new FormGroup({
+      startState: new FormControl(dev.startState),
+      event: new FormControl(dev.event),
+      stateCode: new FormControl(dev.stateCode),
+      endStateOne: new FormGroup({
+        stateName: new FormControl(dev.endStateOne.stateName),
+        stateCode: new FormControl(dev.endStateOne.stateCode),
+        breakingAction: new FormGroup({
+          actionType: new FormControl(dev.endStateOne.breakingAction.actionType),
+          args: new FormControl(dev.endStateOne.breakingAction.args)
+        }),
+        nonBreakingActionList: new FormArray(dev.endStateOne.nonBreakingActionList.map((action: any) => new FormGroup({
+          actionType: new FormControl(action.actionType),
+          args: new FormControl(action.args)
+        })))
+      })
     });
-    return formArray;
-  }
-
-  onSubmit(event: Event): void {
-    event.preventDefault(); // Prevent the default form submission
-    this.saveFormData(); // Save the form data to local storage
-    console.log('Form submitted and saved:', this.devForm.value); // For debugging
   }
 }
