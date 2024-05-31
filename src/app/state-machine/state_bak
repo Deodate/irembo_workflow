@@ -49,4 +49,34 @@
               }
             }
 
+            {"devList":
+            [
+              {
+                "startState":"as",
+                "event":"sa",
+                "stateCode":"sa",
+                "endStateOne":
+                {
+                  "stateName":"sa",
+                  "stateCode":"sa",
+                  "breakingAction":
+                  {
+                    "actionType":"sa",
+                    "args":"s"
+                    },
+                    "nonBreakingActionList":
+                    [
+                      {"actionType":"sa",
+                      "args":"sa"
+                      },
+                      {
+                        "actionType":"fdf",
+                        "args":"df"
+                        }
+                        ]
+                        }
+                        }
+                        ]
+                        }
+
 

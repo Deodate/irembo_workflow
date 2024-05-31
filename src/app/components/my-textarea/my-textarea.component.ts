@@ -11,8 +11,10 @@ export class MyTextareaComponent implements OnInit {
   devForm: FormGroup = new FormGroup({
     devList: new FormArray<FormGroup>([])
   });
+  formId: number = 0;
 
   constructor() { }
+
   ngOnInit(): void {
     this.loadFormData();
     if (this.devListArray().length === 0) {
@@ -22,6 +24,7 @@ export class MyTextareaComponent implements OnInit {
 
   getDevFields(): FormGroup {
     return new FormGroup({
+      id: new FormControl(this.generateId()),
       startState: new FormControl(''),
       event: new FormControl(''),
       stateCode: new FormControl(''),
@@ -68,6 +71,13 @@ export class MyTextareaComponent implements OnInit {
     this.nonBreakingActions(devIndex).removeAt(actionIndex);
   }
 
+  generateId(): number {
+    let currentId = Number(localStorage.getItem('currentId')) || 0;
+    currentId += 1;
+    localStorage.setItem('currentId', currentId.toString());
+    return currentId;
+  }
+
   saveFormData(): void {
     const formData = JSON.stringify(this.devForm.value);
     localStorage.setItem('devFormData', formData);
@@ -86,6 +96,7 @@ export class MyTextareaComponent implements OnInit {
     data.forEach(dev => {
       const devGroup = this.getDevFields();
       devGroup.patchValue({
+        id: dev.id || this.generateId(),
         startState: dev.startState,
         event: dev.event,
         stateCode: dev.stateCode,
