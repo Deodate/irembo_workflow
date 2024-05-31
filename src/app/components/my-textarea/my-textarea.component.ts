@@ -79,14 +79,17 @@ export class MyTextareaComponent implements OnInit {
 
   onSubmit(event: Event) {
     event.preventDefault();
-    console.log(this.devForm.value);
-    this.saveFormData();
+    console.log("Form submitted.");
+    console.log(this.devForm.value); // Check form value before saving
+    this.saveFormData(); // Save form data to localStorage
     this.devForm.reset(); // Reset the form
   }
 
   saveFormData() {
     const formValue = this.devForm.value;
+    console.log("Form Value:", formValue); // Check if form value is correct
     localStorage.setItem('devForm', JSON.stringify(formValue));
+    console.log("Form data saved to localStorage.");
   }
 
   loadFormData() {

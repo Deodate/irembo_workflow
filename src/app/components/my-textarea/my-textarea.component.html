@@ -1,64 +1,59 @@
 <div class="d-flex justify-content-center">
-    <form [formGroup]="devForm" class="border border-info p-5 mt-5 w-35" (ngSubmit)="onSubmit($event)">
-        <div formArrayName="devList">
-            <div *ngFor="let developer of devListArray().controls; let i = index;" class="border border-dark my-2 p-5">
-                <div [formGroupName]="i">
-                    <label>Start State:</label>
-                    <input type="text" formControlName="startState" placeholder="* Start State" />
+  <form [formGroup]="devForm" class="border border-info p-5 mt-5 w-35" (ngSubmit)="onSubmit($event)">
+    <div formArrayName="devList">
+      <div *ngFor="let developer of devListArray().controls; let i = index;" class="border border-dark my-2 p-5">
+        <div [formGroupName]="i">
+          <input type="text" formControlName="startState" placeholder="* Start State" />
+          <input type="text" formControlName="event" placeholder="* Event" />
+          <input type="text" formControlName="stateCode" placeholder="* stateCode" />
 
-                    <label>Event:</label>
-                    <input type="text" formControlName="event" placeholder="* Event" />
+          <div formGroupName="endStateOne">
+            <input type="text" formControlName="stateName" placeholder="* State Name" />
+            <input type="text" formControlName="stateCode" placeholder="* End State Code" />
 
-                    <label>State Code:</label>
-                    <input type="text" formControlName="stateCode" placeholder="* State Code" />
-
-                    <div formGroupName="endStateOne">
-                        <label>State Name:</label>
-                        <input type="text" formControlName="stateName" placeholder="* State Name" />
-
-                        <label>End State Code:</label>
-                        <input type="text" formControlName="stateCode" placeholder="* End State Code" />
-
-                        <div formGroupName="breakingAction">
-                            <label>Breaking Action Type:</label>
-                            <input type="text" formControlName="actionType" placeholder="* Breaking Action Type" />
-
-                            <label>Breaking Action Args:</label>
-                            <textarea formControlName="args" placeholder="Breaking Action Args (JSON format)"></textarea>
-                        </div>
-
-                        <div formArrayName="nonBreakingActionList">
-                            <mat-accordion>
-                                <mat-expansion-panel *ngFor="let action of nonBreakingActions(i).controls; let j = index;">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>Non-breaking Action {{ j + 1 }}</mat-panel-title>
-                                    </mat-expansion-panel-header>
-                                    <div [formGroupName]="j">
-                                        <label>Non-breaking Action Type:</label>
-                                        <input type="text" formControlName="actionType" placeholder="* Non-breaking Action Type" />
-
-                                        <div formGroupName="args">
-                                            <div formGroupName="frenchNotificationTemplate">
-                                                <label>French SMS Template:</label>
-                                                <textarea formControlName="smsTemplate" placeholder="French SMS Template"></textarea>
-                                                <label>French Email Template:</label>
-                                                <textarea formControlName="emailTemplate" placeholder="French Email Template"></textarea>
-                                                <label>French Notification Title:</label>
-                                                <input type="text" formControlName="notificationTitle" placeholder="French Notification Title" />
-                                            </div>
-                                          
-                                            <button type="button" *ngIf="nonBreakingActions(i).length > 1" class="btn btn-sm btn-danger ms-1" (click)="removeNonBreakingAction(i, j)">Remove</button>
-                                        </div>
-                                    </div>
-                                </mat-expansion-panel>
-                            </mat-accordion>
-                            <button type="button" class="btn btn-sm btn-warning" (click)="addNonBreakingAction(i)">+</button>
-                        </div>
-                    </div>
-                </div>
+            <div formGroupName="breakingAction">
+              <input type="text" formControlName="actionType" placeholder="* Breaking Action Type" />
+              <textarea formControlName="args" placeholder="Args (JSON format)"></textarea>
             </div>
+
+            <div formArrayName="nonBreakingActionList">
+              <div *ngFor="let action of nonBreakingActions(i).controls; let j = index;">
+                <div [formGroupName]="j">
+                  <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>Non-breaking Action {{ j + 1 }}</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <input type="text" formControlName="actionType" placeholder="* Non-breaking Action Type" />
+                    <div formGroupName="args">
+                      <div formGroupName="frenchNotificationTemplate">
+                        <textarea formControlName="smsTemplate" placeholder="French SMS Template"></textarea>
+                        <textarea formControlName="emailTemplate" placeholder="French Email Template"></textarea>
+                        <input type="text" formControlName="notificationTitle" placeholder="French Notification Title" />
+                      </div>
+                      <div formGroupName="englishNotificationTemplate">
+                        <textarea formControlName="smsTemplate" placeholder="English SMS Template"></textarea>
+                        <textarea formControlName="emailTemplate" placeholder="English Email Template"></textarea>
+                        <input type="text" formControlName="notificationTitle" placeholder="English Notification Title" />
+                      </div>
+                      <div formGroupName="kinyarwandaNotificationTemplate">
+                        <textarea formControlName="smsTemplate" placeholder="Kinyarwanda SMS Template"></textarea>
+                        <textarea formControlName="emailTemplate" placeholder="Kinyarwanda Email Template"></textarea>
+                        <input type="text" formControlName="notificationTitle" placeholder="Kinyarwanda Notification Title" />
+                      </div>
+                    </div>
+                    <button type="button" *ngIf="nonBreakingActions(i).length > 1" class="btn btn-sm btn-danger ms-1" (click)="removeNonBreakingAction(i, j)">Remove</button>
+                  </mat-expansion-panel>
+                </div>
+              </div>
+              <button type="button" class="btn btn-sm btn-warning" (click)="addNonBreakingAction(i)">+</button>
+            </div>
+          </div>
         </div>
-        <button type="button" class="btn btn-sm btn-primary mt-4 mb-5" (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First Developer</button>
-        <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
-    </form>
+      </div>
+    </div>
+    <button type="button" class="btn btn-sm btn-primary mt-4 mb-5" (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First Developer</button>
+    <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
+    <button type="button" class="btn btn-sm btn-info mt-4 mb-5" (click)="saveFormData()">Save</button>
+    <button type="button" class="btn btn-sm btn-secondary mt-4 mb-5" (click)="loadFormData()">Load</button>
+  </form>
 </div>
