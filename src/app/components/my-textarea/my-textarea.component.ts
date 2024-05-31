@@ -16,6 +16,7 @@ export class MyTextareaComponent implements OnInit {
 
   ngOnInit(): void {
     this.addDev(); // Initialize with one developer
+    this.loadFormData(); // Load form data from local storage
   }
 
   devListArray(): FormArray {
@@ -80,6 +81,7 @@ export class MyTextareaComponent implements OnInit {
     event.preventDefault();
     console.log(this.devForm.value);
     this.saveFormData();
+    this.devForm.reset(); // Reset the form
   }
 
   saveFormData() {
