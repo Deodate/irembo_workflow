@@ -93,14 +93,16 @@ export class MyTextareaComponent implements OnInit {
 
   saveFormData() {
     const formValue = this.devForm.value;
-    localStorage.setItem('devForm', JSON.stringify(formValue));
+    const existingData = JSON.parse(localStorage.getItem('devForm') || '[]');
+    const newData = [...existingData, ...formValue.devList];
+    localStorage.setItem('devForm', JSON.stringify(newData));
     localStorage.setItem('idCounter', this.idCounter.toString());
   }
 
   loadFormData() {
-    const savedData = JSON.parse(localStorage.getItem('devForm') || '{}');
-    if (savedData && savedData.devList) {
-      const devList = new FormArray(savedData.devList.map((dev: any) => this.createDevGroup(dev)));
+    const savedData = JSON.parse(localStorage.getItem('devForm') || '[]');
+    if (savedData && savedData.length > 0) {
+      const devList = new FormArray(savedData.map((dev: any) => this.createDevGroup(dev)));
       this.devForm.setControl('devList', devList);
     }
     this.idCounter = parseInt(localStorage.getItem('idCounter') || '0', 10);
