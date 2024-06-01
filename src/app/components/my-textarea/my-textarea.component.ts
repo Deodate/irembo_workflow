@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-my-textarea',
@@ -8,15 +8,21 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 })
 export class MyTextareaComponent implements OnInit {
 
-  devForm: FormGroup = new FormGroup({
-    devList: new FormArray([])
-  });
+  devForm: FormGroup;
+  private idCounter: number;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+    this.devForm = this.fb.group({
+      devList: this.fb.array([])
+    });
+    this.idCounter = 0;
+  }
 
   ngOnInit(): void {
-    this.addDev(); // Initialize with one developer
-    this.loadFormData(); // Load form data from local storage
+    this.loadFormData();
+    if (this.devListArray().length === 0) {
+      this.addDev();
+    }
   }
 
   devListArray(): FormArray {
@@ -24,18 +30,18 @@ export class MyTextareaComponent implements OnInit {
   }
 
   addDev() {
-    const devGroup = new FormGroup({
-      startState: new FormControl(''),
-      event: new FormControl(''),
-      stateCode: new FormControl(''),
-      endStateOne: new FormGroup({
-        stateName: new FormControl(''),
-        stateCode: new FormControl(''),
-        breakingAction: new FormGroup({
-          actionType: new FormControl(''),
-          args: new FormControl('')
+    const devGroup = this.fb.group({
+      id: this.getNextId(),
+      startState: '',
+      event: '',
+      stateCode: '',
+      endStateOne: this.fb.group({
+        stateName: '',
+        stateCode: '',
+        breakingAction: this.fb.group({
+          actionType: ''
         }),
-        nonBreakingActionList: new FormArray([])
+        nonBreakingActionList: this.fb.array([])
       })
     });
     this.devListArray().push(devGroup);
@@ -46,23 +52,23 @@ export class MyTextareaComponent implements OnInit {
   }
 
   addNonBreakingAction(i: number) {
-    const actionGroup = new FormGroup({
-      actionType: new FormControl('NOTIFICATION'),
-      args: new FormGroup({
-        frenchNotificationTemplate: new FormGroup({
-          smsTemplate: new FormControl(''),
-          emailTemplate: new FormControl(''),
-          notificationTitle: new FormControl('')
+    const actionGroup = this.fb.group({
+      actionType: 'NOTIFICATION',
+      args: this.fb.group({
+        frenchNotificationTemplate: this.fb.group({
+          smsTemplate: '',
+          emailTemplate: '',
+          notificationTitle: ''
         }),
-        englishNotificationTemplate: new FormGroup({
-          smsTemplate: new FormControl(''),
-          emailTemplate: new FormControl(''),
-          notificationTitle: new FormControl('')
+        englishNotificationTemplate: this.fb.group({
+          smsTemplate: '',
+          emailTemplate: '',
+          notificationTitle: ''
         }),
-        kinyarwandaNotificationTemplate: new FormGroup({
-          smsTemplate: new FormControl(''),
-          emailTemplate: new FormControl(''),
-          notificationTitle: new FormControl('')
+        kinyarwandaNotificationTemplate: this.fb.group({
+          smsTemplate: '',
+          emailTemplate: '',
+          notificationTitle: ''
         })
       })
     });
@@ -74,22 +80,21 @@ export class MyTextareaComponent implements OnInit {
   }
 
   addNonBreakingActionToFirst() {
-    this.addNonBreakingAction(0); // Assuming you want to add to the first developer
+    this.addNonBreakingAction(0);
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
-    console.log("Form submitted.");
-    console.log(this.devForm.value); // Check form value before saving
-    this.saveFormData(); // Save form data to localStorage
-    this.devForm.reset(); // Reset the form
+    this.saveFormData();
+    this.devForm.reset();
+    this.devForm.setControl('devList', this.fb.array([]));
+    this.addDev();
   }
 
   saveFormData() {
     const formValue = this.devForm.value;
-    console.log("Form Value:", formValue); // Check if form value is correct
     localStorage.setItem('devForm', JSON.stringify(formValue));
-    console.log("Form data saved to localStorage.");
+    localStorage.setItem('idCounter', this.idCounter.toString());
   }
 
   loadFormData() {
@@ -98,40 +103,50 @@ export class MyTextareaComponent implements OnInit {
       const devList = new FormArray(savedData.devList.map((dev: any) => this.createDevGroup(dev)));
       this.devForm.setControl('devList', devList);
     }
+    this.idCounter = parseInt(localStorage.getItem('idCounter') || '0', 10);
+  }
+
+  getNextId(): number {
+    this.idCounter += 1;
+    return this.idCounter;
   }
 
   createDevGroup(dev: any): FormGroup {
-    return new FormGroup({
-      startState: new FormControl(dev.startState),
-      event: new FormControl(dev.event),
-      stateCode: new FormControl(dev.stateCode),
-      endStateOne: new FormGroup({
-        stateName: new FormControl(dev.endStateOne.stateName),
-        stateCode: new FormControl(dev.endStateOne.stateCode),
-        breakingAction: new FormGroup({
-          actionType: new FormControl(dev.endStateOne.breakingAction.actionType),
-          args: new FormControl(dev.endStateOne.breakingAction.args)
+    return this.fb.group({
+      id: dev.id,
+      startState: dev.startState,
+      event: dev.event,
+      stateCode: dev.stateCode,
+      endStateOne: this.fb.group({
+        stateName: dev.endStateOne.stateName,
+        stateCode: dev.endStateOne.stateCode,
+        breakingAction: this.fb.group({
+          actionType: dev.endStateOne.breakingAction.actionType
         }),
-        nonBreakingActionList: new FormArray(dev.endStateOne.nonBreakingActionList.map((action: any) => new FormGroup({
-          actionType: new FormControl(action.actionType),
-          args: new FormGroup({
-            frenchNotificationTemplate: new FormGroup({
-              smsTemplate: new FormControl(action.args.frenchNotificationTemplate.smsTemplate),
-              emailTemplate: new FormControl(action.args.frenchNotificationTemplate.emailTemplate),
-              notificationTitle: new FormControl(action.args.frenchNotificationTemplate.notificationTitle)
-            }),
-            englishNotificationTemplate: new FormGroup({
-              smsTemplate: new FormControl(action.args.englishNotificationTemplate.smsTemplate),
-              emailTemplate: new FormControl(action.args.englishNotificationTemplate.emailTemplate),
-              notificationTitle: new FormControl(action.args.englishNotificationTemplate.notificationTitle)
-            }),
-            kinyarwandaNotificationTemplate: new FormGroup({
-              smsTemplate: new FormControl(action.args.kinyarwandaNotificationTemplate.smsTemplate),
-              emailTemplate: new FormControl(action.args.kinyarwandaNotificationTemplate.emailTemplate),
-              notificationTitle: new FormControl(action.args.kinyarwandaNotificationTemplate.notificationTitle)
-            })
-          })
-        })))
+        nonBreakingActionList: new FormArray(dev.endStateOne.nonBreakingActionList.map((action: any) => this.createNonBreakingActionGroup(action)))
+      })
+    });
+  }
+
+  createNonBreakingActionGroup(action: any): FormGroup {
+    return this.fb.group({
+      actionType: action.actionType,
+      args: this.fb.group({
+        frenchNotificationTemplate: this.fb.group({
+          smsTemplate: action.args.frenchNotificationTemplate.smsTemplate,
+          emailTemplate: action.args.frenchNotificationTemplate.emailTemplate,
+          notificationTitle: action.args.frenchNotificationTemplate.notificationTitle
+        }),
+        englishNotificationTemplate: this.fb.group({
+          smsTemplate: action.args.englishNotificationTemplate.smsTemplate,
+          emailTemplate: action.args.englishNotificationTemplate.emailTemplate,
+          notificationTitle: action.args.englishNotificationTemplate.notificationTitle
+        }),
+        kinyarwandaNotificationTemplate: this.fb.group({
+          smsTemplate: action.args.kinyarwandaNotificationTemplate.smsTemplate,
+          emailTemplate: action.args.kinyarwandaNotificationTemplate.emailTemplate,
+          notificationTitle: action.args.kinyarwandaNotificationTemplate.notificationTitle
+        })
       })
     });
   }
