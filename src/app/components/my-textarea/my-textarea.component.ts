@@ -42,7 +42,10 @@ export class MyTextareaComponent implements OnInit {
           actionType: ''
         }),
         nonBreakingActionList: this.fb.array([])
-      })
+      }),
+      endStateTwo: null,
+      breakingAction: '',
+      nonBreakingAction: ''
     });
     this.devListArray().push(devGroup);
   }
@@ -126,7 +129,10 @@ export class MyTextareaComponent implements OnInit {
           actionType: dev.endStateOne.breakingAction.actionType
         }),
         nonBreakingActionList: new FormArray(dev.endStateOne.nonBreakingActionList.map((action: any) => this.createNonBreakingActionGroup(action)))
-      })
+      }),
+      endStateTwo: dev.endStateTwo,
+      breakingAction: dev.breakingAction,
+      nonBreakingAction: dev.nonBreakingAction
     });
   }
 
