@@ -117,7 +117,7 @@ export class MyTextareaComponent implements OnInit {
     event.preventDefault();
     this.saveFormData();
     this.devForm.reset();
-    this.devForm.setControl('iremboWorkflow', this.fb.array([]));
+    this.devForm.setControl('devList', this.fb.array([]));
     this.addDev();
   }
 
@@ -145,7 +145,7 @@ export class MyTextareaComponent implements OnInit {
       const savedData: Developer[] = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
       if (savedData && savedData.length > 0) {
         const devList = new FormArray(savedData.map((dev: Developer) => this.createDevGroup(dev)));
-        this.devForm.setControl('iremboWorkflow', devList);
+        this.devForm.setControl('devList', devList);
       }
       this.idCounter = parseInt(localStorage.getItem('idCounter') || '0', 10);
     } catch (error) {
