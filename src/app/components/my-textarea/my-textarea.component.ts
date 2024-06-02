@@ -49,7 +49,6 @@ export class MyTextareaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadFormData();
     if (this.devListArray().length === 0) {
       this.addDev();
     }
@@ -138,25 +137,12 @@ export class MyTextareaComponent implements OnInit {
       console.error('Error saving form data:', error);
     }
   }
-  
-  
-  loadFormData() {
-    try {
-      const savedData: Developer[] = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
-      if (savedData && savedData.length > 0) {
-        const devList = new FormArray(savedData.map((dev: Developer) => this.createDevGroup(dev)));
-        this.devForm.setControl('devList', devList);
-      }
-      this.idCounter = parseInt(localStorage.getItem('idCounter') || '0', 10);
-    } catch (error) {
-      console.error('Error loading form data:', error);
-    }
-  }
 
   getNextId(): number {
     this.idCounter += 1;
     return this.idCounter;
   }
+
   createDevGroup(dev: Developer): FormGroup {
     return this.fb.group({
       id: dev.id,
@@ -174,7 +160,6 @@ export class MyTextareaComponent implements OnInit {
       })
     });
   }
-  
 
   createNonBreakingActionGroup(action: any): FormGroup {
     return this.fb.group({
