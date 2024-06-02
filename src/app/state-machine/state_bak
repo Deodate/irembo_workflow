@@ -49,202 +49,165 @@
               }
             }
 
-            {"devList":
+
             [
               {
-                "startState":"as",
-                "event":"sa",
-                "stateCode":"sa",
+                "id":1,
+                "startState":"NEW",
+                "event":"CREATE",
+                "state":"PAYMENT_PENDING",
                 "endStateOne":
                 {
-                  "stateName":"sa",
-                  "stateCode":"sa",
+                  "stateName":"Payment_Pending",
+                  "stateCode":"PAYMENT_PENDING",
                   "breakingAction":
                   {
-                    "actionType":"sa",
-                    "args":"s"
+                    "actionType":"BILL_ID_GENERATION",
+                    "args":null
                     },
                     "nonBreakingActionList":
                     [
-                      {"actionType":"sa",
-                      "args":"sa"
-                      },
                       {
-                        "actionType":"fdf",
-                        "args":"df"
-                        }
-                        ]
-                        }
-                        }
-                        ]
-                        }
-
-
+                        "actionType":"NOTIFICATION",
+                        "args":
                         {
-                          "devList":
-                          [
+                          "frenchNotificationTemplate":
+                          {
+                            "smsTemplate":"Cher ${APPLICANT_LAST_NAME}, Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
+                            "emailTemplate":"Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
+                            "notificationTitle":"Demande soumise"
+                            },
+                            "englishNotificationTemplate":
                             {
-                              "startState":"WB",
-                              "event":"WB",
-                              "stateCode":"WB",
-                              "endStateOne":
+                              "smsTemplate":"Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
+                              "emailTemplate":"Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
+                              "notificationTitle":"Application submitted"},
+                              "kinyarwandaNotificationTemplate":
                               {
-                              "stateName":"WB",
-                              "stateCode":"WH",
-                              "breakingAction":
-                              {
-                                "actionType":"E",
-                                "args":"HE"
+                                "smsTemplate":"Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
+                                "emailTemplate":"Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
+                                "notificationTitle":"Dosiye yoherejwe"
+                                }
+                                }
+                                }
+                                ]
                                 },
-                                "nonBreakingActionList":
-                                [
+                                "endStateTwo":null,
+                                "breakingAction":"",
+                                "nonBreakingAction":""
+                                }
+                                ]
+
+                              [
+                                {
+                                  "id":1,
+                                  "startState":"ssd",
+                                  "event":"ds",
+                                  "endStateOne":
                                   {
-                                    "actionType":"NOTIFICATION",
-                                  "args":
-                                  {
-                                    "frenchNotificationTemplate":
-                                    {
-                                    "smsTemplate":"\"Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099\",",
-                                    "emailTemplate":"\"Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099\",",
-                                    "notificationTitle":"\"Demande soumise\""
-                                    },
-                                    "englishNotificationTemplate":
-                                    {
-                                      "smsTemplate":"\"Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099\",",
-                                      "emailTemplate":"\"Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099\",",
-                                      "notificationTitle":"\"Application submitted\""
-                                      },
-                                      "kinyarwandaNotificationTemplate":
+                                    "stateName":"ds",
+                                    "stateCode":"ds",
+                                    "breakingAction":null,
+                                    "nonBreakingActionList":
+                                    [
                                       {
-                                        "smsTemplate":"\"Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099\",",
-                                        "emailTemplate":"\"Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099\",",
-                                        "notificationTitle":"\"Dosiye yoherejwe\""
-                                        }
-                                        }
-                                        }
-                                        ]
-                                        }
-                                        }
-                                        ]
-                                        }
-
-
+                                        "actionType":"NOTIFICATION",
+                                        "args":
                                         {
-                                          "devList":
-                                          [
+                                          "frenchNotificationTemplate":
+                                          {
+                                            "smsTemplate":"sd",
+                                            "emailTemplate":"ds",
+                                            "notificationTitle":"ds"
+                                            },
+                                            "englishNotificationTemplate":
                                             {
-                                              "startState":"NEW",
-                                              "event":"CREATE",
-                                              "stateCode":"PAYMENT_PENDING",
-                                              "endStateOne":
+                                              "smsTemplate":"dsd",
+                                              "emailTemplate":"ds","notificationTitle":"ds"},"kinyarwandaNotificationTemplate":{"smsTemplate":"ds","emailTemplate":"ds","notificationTitle":"ds"}}}]}}]
+
+                                             [
                                               {
-                                                "stateName":"Payment Pending",
-                                                "stateCode":"df",
-                                                "breakingAction":
+                                                "id":1,
+                                                "startState":"NEW",
+                                                "event":"CREATE",
+                                                "state":"PAYMENT_PENDING",
+                                                "endStateOne":
                                                 {
-                                                  "actionType":"BILL_ID_GENERATIO",
-                                                  "args":"fdf"
-                                                  },
-                                                  "nonBreakingActionList":
-                                                  [
-                                                    {
-                                                  "actionType":"NOTIFICATION",
-                                                  "args":
+                                                  "stateName":"Payment_Pending",
+                                                  "stateCode":"PAYMENT_PENDING",
+                                                  "breakingAction":
                                                   {
-                                                    "frenchNotificationTemplate":
+                                                    "actionType":"BILL_ID_GENERATION",
+                                                    "args":null
+                                                    },
+                                                    "nonBreakingActionList":[{"actionType":"NOTIFICATION","args":{"frenchNotificationTemplate":{"smsTemplate":"Cher ${APPLICANT_LAST_NAME}, Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099","emailTemplate":"Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099","notificationTitle":"Demande soumise"},"englishNotificationTemplate":{"smsTemplate":"Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099","emailTemplate":"Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099","notificationTitle":"Application submitted"},"kinyarwandaNotificationTemplate":{"smsTemplate":"Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099","emailTemplate":"Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099","notificationTitle":"Dosiye yoherejwe"}}}]},"endStateTwo":null,"breakingAction":"","nonBreakingAction":""}]
+
+
+                                                   [
                                                     {
-                                                      "smsTemplate":"Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
-                                                      "emailTemplate":"Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
-                                                      "notificationTitle":"Demande soumise"
-                                                      },
-                                                      "englishNotificationTemplate":
+                                                      "id":1,
+                                                      "startState":"ds",
+                                                      "event":"ds",
+                                                      "state":"ds",
+                                                      "endStateOne":
                                                       {
-                                                        "smsTemplate":"Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
-                                                        "emailTemplate":"Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
-                                                        "notificationTitle":"Application submitted"
-                                                        },
-                                                        "kinyarwandaNotificationTemplate":
+                                                        "stateName":"ds",
+                                                        "stateCode":"ds",
+                                                        "breakingAction":
                                                         {
-                                                        "smsTemplate":"Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
-                                                        "emailTemplate":"Kuri ${APPLICANT_LAST_NAME},Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
-                                                        "notificationTitle":"Dosiye yoherejwe"
-                                                        }
-                                                        }
-                                                        }
-                                                        ]
-                                                        }
-                                                        }
-                                                        ]
-                                                        }
-
-
-
-                                                        [
-                                                          {
-                                                            "id":1,
-                                                            "startState":"START",
-                                                            "event":"CREATE",
-                                                            "state":"PAYMENT_PENDING",
-                                                            "endStateOne":
+                                                          "actionType":"ds"
+                                                          },
+                                                          "nonBreakingActionList":
+                                                          [
                                                             {
-                                                              "stateName":"Payment_Pending",
-                                                              "stateCode":"PAYMENT_PENDING",
-                                                              "breakingAction":
+                                                              "actionType":"NOTIFICATION",
+                                                              "args":
                                                               {
-                                                                "actionType":"BILL_ID_GENERATION",
-                                                                "args":null
-                                                                },
-                                                                "nonBreakingActionList":
-                                                                [
+                                                                "frenchNotificationTemplate":
+                                                                {
+                                                                  "smsTemplate":"dsd",
+                                                                  "emailTemplate":"ds",
+                                                                  "notificationTitle":"ds"
+                                                                  },
+                                                                  "englishNotificationTemplate":
                                                                   {
-                                                                    "actionType":"NOTIFICATION",
-                                                                    "args":
+                                                                    "smsTemplate":"s",
+                                                                    "emailTemplate":"dsd",
+                                                                    "notificationTitle":"d"
+                                                                    },
+                                                                    "kinyarwandaNotificationTemplate":
                                                                     {
-                                                                      "frenchNotificationTemplate":
+                                                                      "smsTemplate":"ds",
+                                                                      "emailTemplate":"ds",
+                                                                      "notificationTitle":"sd"
+                                                                      }
+                                                                      }
+                                                                      },
                                                                       {
-                                                                        "smsTemplate":"Cher ${APPLICANT_LAST_NAME}, Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
-                                                                        "emailTemplate":"Cher ${APPLICANT_LAST_NAME},Votre demande de: Nationalité rwandaise par acquisition pour cause d'adoption avec le numéro de facturation ${billId} a été soumise avec succès! Frais à payer: 10,000 FRW, Payez avant: ${paymentExpiryDate} For support, call 9099",
-                                                                        "notificationTitle":"Demande soumise"
-                                                                        },
-                                                                        "englishNotificationTemplate":
+                                                                        "actionType":"NOTIFICATION",
+                                                                        "args":
                                                                         {
-                                                                        "smsTemplate":"Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
-                                                                        "emailTemplate":"Dear ${APPLICANT_LAST_NAME}, Your application for: Rwandan nationality by acquisition - adoption with billing number ${billId} was successfully submitted! Fees to be paid: 10,000 RWF, Pay Before: ${paymentExpiryDate}. For support, call 9099",
-                                                                        "notificationTitle":"Application submitted"
-                                                                        },
-                                                                        "kinyarwandaNotificationTemplate":
-                                                                        {
-                                                                          "smsTemplate":"Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
-                                                                          "emailTemplate":"Kuri ${APPLICANT_LAST_NAME}, Dosiye yawe isaba: Ubwenegihugu bw'u Rwanda binyuze mu kurera ifite kode yo kwishyura ${billId} yoherejwe neza! Amafaranga yishyurwa: 10,000 FRW Ishyura mbere ya: ${paymentExpiryDate}. Mukeneye ubundi bufasha, mwahamagara 9099",
-                                                                          "notificationTitle":"Dosiye yoherejwe"
-                                                                          }
-                                                                          }
-                                                                          }
-                                                                          ]
-                                                                          },
-                                                                          "endStateTwo":null,
-                                                                          "breakingAction":"",
-                                                                          "nonBreakingAction":""
-                                                                          }
-                                                                          ]
-
-
-                                                                                      
-                                                                    
-                                                                                                      
-
-                                                                                                                 [
-                                                                                                                  {
-                                                                                                                    "id":3,
-                                                                                                                    "startState":"cxxc",
-                                                                                                                    "event":"cxc",
-                                                                                                                    "stateCode":"code1",
-                                                                                                                    "endStateOne":
-                                                                                                                    {
-                                                                                                                      "stateName":"xxc",
-                                                                                                                      "stateCode":"code2",
-                                                                                                                      "breakingAction":
-                                                                                                                      {
-                                                                                                                        "actionType":"cxcxcfd"
-                                                                                                                        },
-                                                                                                                        "nonBreakingActionList":[{"actionType":"NOTIFICATION","args":{"frenchNotificationTemplate":{"smsTemplate":"fdff","emailTemplate":"df","notificationTitle":"fd"},"englishNotificationTemplate":{"smsTemplate":"z","emailTemplate":"sw","notificationTitle":"fd"},"kinyarwandaNotificationTemplate":{"smsTemplate":"  dfdffd","emailTemplate":"fds","notificationTitle":"fd"}}}]},"endStateTwo":null,"breakingAction":"","nonBreakingAction":""}]
+                                                                          "frenchNotificationTemplate":
+                                                                          {
+                                                                            "smsTemplate":"ds",
+                                                                            "emailTemplate":"ds",
+                                                                            "notificationTitle":"ds"
+                                                                            },
+                                                                            "englishNotificationTemplate":
+                                                                            {
+                                                                              "smsTemplate":"d",
+                                                                              "emailTemplate":"ds",
+                                                                              "notificationTitle":"ds"
+                                                                              },
+                                                                              "kinyarwandaNotificationTemplate":
+                                                                              {
+                                                                                "smsTemplate":"ds",
+                                                                                "emailTemplate":"ds",
+                                                                                "notificationTitle":"sd"
+                                                                                }
+                                                                                }
+                                                                                }
+                                                                                ]
+                                                                                }
+                                                                                }
+                                                                                ]

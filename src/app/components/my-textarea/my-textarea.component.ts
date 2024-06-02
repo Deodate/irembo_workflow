@@ -1,13 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+interface NotificationTemplate {
+  smsTemplate: string;
+  emailTemplate: string;
+  notificationTitle: string;
+}
+
+interface Action {
+  actionType: string;
+  args: {
+    frenchNotificationTemplate: NotificationTemplate;
+    englishNotificationTemplate: NotificationTemplate;
+    kinyarwandaNotificationTemplate: NotificationTemplate;
+  };
+}
+
+interface Developer {
+  state: string;
+  id: number;
+  startState: string;
+  event: string;
+  endStateOne: {
+    stateName: string;
+    stateCode: string;
+    breakingAction?: {
+      actionType: string;
+      args: any;
+    };
+    nonBreakingActionList: Action[];
+  };
+}
+
 @Component({
   selector: 'app-my-textarea',
   templateUrl: './my-textarea.component.html',
   styleUrls: ['./my-textarea.component.css']
 })
 export class MyTextareaComponent implements OnInit {
-
   devForm: FormGroup;
   private idCounter: number;
 
@@ -34,7 +64,7 @@ export class MyTextareaComponent implements OnInit {
       id: this.getNextId(),
       startState: '',
       event: '',
-      stateCode: '',
+      state: '',
       endStateOne: this.fb.group({
         stateName: '',
         stateCode: '',
@@ -42,10 +72,7 @@ export class MyTextareaComponent implements OnInit {
           actionType: ''
         }),
         nonBreakingActionList: this.fb.array([])
-      }),
-      endStateTwo: null,
-      breakingAction: '',
-      nonBreakingAction: ''
+      })
     });
     this.devListArray().push(devGroup);
   }
@@ -90,51 +117,64 @@ export class MyTextareaComponent implements OnInit {
     event.preventDefault();
     this.saveFormData();
     this.devForm.reset();
-    this.devForm.setControl('devList', this.fb.array([]));
+    this.devForm.setControl('iremboWorkflow', this.fb.array([]));
     this.addDev();
   }
 
   saveFormData() {
-    const formValue = this.devForm.value;
-    const existingData = JSON.parse(localStorage.getItem('devForm') || '[]');
-    const newData = [...existingData, ...formValue.devList];
-    localStorage.setItem('devForm', JSON.stringify(newData));
-    localStorage.setItem('idCounter', this.idCounter.toString());
-  }
-
-  loadFormData() {
-    const savedData = JSON.parse(localStorage.getItem('devForm') || '[]');
-    if (savedData && savedData.length > 0) {
-      const devList = new FormArray(savedData.map((dev: any) => this.createDevGroup(dev)));
-      this.devForm.setControl('devList', devList);
+    try {
+      const formValue = this.devForm.value;
+      const existingData: Developer[] = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
+      const newData: Developer[] = [...existingData, ...formValue.devList.map((dev: any) => {
+        // Ensure breakingAction is included even if it's null or empty
+        if (!dev.endStateOne.breakingAction || !dev.endStateOne.breakingAction.actionType.trim()) {
+          dev.endStateOne.breakingAction = null;
+        }
+        return dev;
+      })];
+      localStorage.setItem('iremboWorkflow', JSON.stringify(newData));
+      localStorage.setItem('idCounter', this.idCounter.toString());
+    } catch (error) {
+      console.error('Error saving form data:', error);
     }
-    this.idCounter = parseInt(localStorage.getItem('idCounter') || '0', 10);
+  }
+  
+  
+  loadFormData() {
+    try {
+      const savedData: Developer[] = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
+      if (savedData && savedData.length > 0) {
+        const devList = new FormArray(savedData.map((dev: Developer) => this.createDevGroup(dev)));
+        this.devForm.setControl('iremboWorkflow', devList);
+      }
+      this.idCounter = parseInt(localStorage.getItem('idCounter') || '0', 10);
+    } catch (error) {
+      console.error('Error loading form data:', error);
+    }
   }
 
   getNextId(): number {
     this.idCounter += 1;
     return this.idCounter;
   }
-
-  createDevGroup(dev: any): FormGroup {
+  createDevGroup(dev: Developer): FormGroup {
     return this.fb.group({
       id: dev.id,
       startState: dev.startState,
       event: dev.event,
-      stateCode: dev.stateCode,
+      state: dev.state || '', // Add this line to handle the state property
       endStateOne: this.fb.group({
         stateName: dev.endStateOne.stateName,
         stateCode: dev.endStateOne.stateCode,
-        breakingAction: this.fb.group({
-          actionType: dev.endStateOne.breakingAction.actionType
-        }),
-        nonBreakingActionList: new FormArray(dev.endStateOne.nonBreakingActionList.map((action: any) => this.createNonBreakingActionGroup(action)))
-      }),
-      endStateTwo: dev.endStateTwo,
-      breakingAction: dev.breakingAction,
-      nonBreakingAction: dev.nonBreakingAction
+        breakingAction: dev.endStateOne.breakingAction && dev.endStateOne.breakingAction.actionType.trim() !== '' ?
+          this.fb.group({
+            actionType: dev.endStateOne.breakingAction.actionType
+          }) : null,
+        nonBreakingActionList: new FormArray(dev.endStateOne.nonBreakingActionList.map((action: Action) => this.createNonBreakingActionGroup(action)))
+      })
     });
   }
+  
 
   createNonBreakingActionGroup(action: any): FormGroup {
     return this.fb.group({

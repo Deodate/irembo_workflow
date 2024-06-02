@@ -3,17 +3,19 @@
     <div formArrayName="devList">
       <div *ngFor="let developer of devListArray().controls; let i = index;" class="border border-dark my-2 p-5">
         <div [formGroupName]="i">
+          <input type="hidden" formControlName="id" />
+
           <input type="text" formControlName="startState" placeholder="* Start State" />
           <input type="text" formControlName="event" placeholder="* Event" />
-          <input type="text" formControlName="stateCode" placeholder="* State Code" />
-          <input type="hidden" formControlName="id" />
+          <input type="text" formControlName="state" placeholder="* State" />
 
           <div formGroupName="endStateOne">
             <input type="text" formControlName="stateName" placeholder="* State Name" />
-            <input type="text" formControlName="stateCode" placeholder="* End State Code" />
+            <input type="text" formControlName="stateCode" placeholder="* State Code" />
 
             <div formGroupName="breakingAction">
               <input type="text" formControlName="actionType" placeholder="* Breaking Action Type" />
+              <!-- Removed the args input field -->
             </div>
 
             <div formArrayName="nonBreakingActionList">
@@ -24,6 +26,7 @@
                       <mat-panel-title>Non-breaking Action {{ j + 1 }}</mat-panel-title>
                     </mat-expansion-panel-header>
                     <input type="text" formControlName="actionType" placeholder="* Non-breaking Action Type" />
+
                     <div formGroupName="args">
                       <div formGroupName="frenchNotificationTemplate">
                         <textarea formControlName="smsTemplate" placeholder="French SMS Template"></textarea>
