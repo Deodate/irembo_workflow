@@ -65,36 +65,6 @@ export interface createNewTransitions {
 }
 
 
-// export interface createNewTransitions {
-//     id: number;
-//     event: string;
-//     startState: string;
-//     endStateOne: {
-//       stateName: string;
-//       stateCode: string;
-//       breakingAction: {
-//         actionType: string;
-//         args: null;
-//       } | null;
-//       nonBreakingActionList: { actionType: string; args: any; }[];
-//       frenchNotificationTemplate?: {
-//         smsTemplate: string;
-//         emailTemplate: string;
-//         notificationTitle: string;
-//       };
-//       englishNotificationTemplate?: {
-//         smsTemplate: string;
-//         emailTemplate: string;
-//         notificationTitle: string;
-//       };
-//       kinyarwandaNotificationTemplate?: {
-//         smsTemplate: string;
-//         emailTemplate: string;
-//         notificationTitle: string;
-//       };
-//     };
-//     endStateTwo: null | any;
-//   }
   
 export interface point {
     x: number,
@@ -109,6 +79,37 @@ export interface Workflow {
     states: Map<string, stateConfig>,
     transitions: transitionConfig[],
 }
+
+interface NotificationTemplate {
+    smsTemplate: string;
+    emailTemplate: string;
+    notificationTitle: string;
+  }
+  
+  interface Action {
+    actionType: string;
+    args: {
+      frenchNotificationTemplate: NotificationTemplate;
+      englishNotificationTemplate: NotificationTemplate;
+      kinyarwandaNotificationTemplate: NotificationTemplate;
+    };
+  }
+  
+  interface Developer {
+    state: string;
+    id: number;
+    startState: string;
+    event: string;
+    endStateOne: {
+      stateName: string;
+      stateCode: string;
+      breakingAction?: {
+        actionType: string;
+        args: any;
+      };
+      nonBreakingActionList: Action[];
+    };
+  }
 
 
 export interface IremboTransition {

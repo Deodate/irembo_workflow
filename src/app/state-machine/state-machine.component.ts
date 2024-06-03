@@ -20,8 +20,8 @@ declare var LeaderLine: any;
 
 export class StateMachineComponent implements OnInit, AfterViewInit {
 
-@ViewChild(MyTextareaComponent) myTextareaComponent!: MyTextareaComponent;
-devForm!: FormGroup;
+  @ViewChild(MyTextareaComponent) myTextareaComponent!: MyTextareaComponent;
+  devForm!: FormGroup;
 
   i: number = 0;
   updateForm!: FormGroup;
@@ -224,7 +224,7 @@ devForm!: FormGroup;
   onUpdated(transition: createNewTransitions) {
     // Handle the updated transition here
   }
-  
+
 
 
   createNew() {
