@@ -105,7 +105,10 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                     <ng-container>
                        
                         <div class="d-flex justify-content-center">
-                            <form [formGroup]="devForm" class="border border-info p-5 mt-5 w-35" (ngSubmit)="onSubmit($event)">
+                          
+                            <form [formGroup]="devForm" class="border border-primary p-5 mt-10 w-70" (ngSubmit)="onSubmit($event)">
+                                <div><b class="new_transition">New Transition</b></div>
+                                <mat-divider></mat-divider><br>
                               <div formArrayName="devList">
                                 <div *ngFor="let developer of devListArray().controls; let i = index;" class="border border-dark my-2 p-5">
                                   <div [formGroupName]="i">
