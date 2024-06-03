@@ -103,19 +103,69 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                 </div>
                 <div class="modal-body">
                     <ng-container>
-                        <app-my-textarea></app-my-textarea>
+                       
                         <div class="d-flex justify-content-center">
-                      <!-- <form [formGroup]="devForm" class="border border-info p-5 mt-5 w-35" (ngSubmit)="onSubmit($event)"> -->
-                        <form class="border border-primary p-9 mt-10 w-75">
-                            <div><b class="new_transition">New Transition</b></div>
-                            <mat-divider></mat-divider><br>
-                        <div>
-                            <div>
-                           
-                            </div>
-                        </div>
-                      </form>
-                    </div>
+                            <form [formGroup]="devForm" class="border border-info p-5 mt-5 w-35" (ngSubmit)="onSubmit($event)">
+                              <div formArrayName="devList">
+                                <div *ngFor="let developer of devListArray().controls; let i = index;" class="border border-dark my-2 p-5">
+                                  <div [formGroupName]="i">
+                                    <input type="hidden" formControlName="id" />
+                          
+                                    <input type="text" formControlName="startState" placeholder="* Start State" />
+                                    <input type="text" formControlName="event" placeholder="* Event" />
+                                    <input type="text" formControlName="state" placeholder="* State" />
+                          
+                                    <div formGroupName="endStateOne">
+                                      <input type="text" formControlName="stateName" placeholder="* State Name" />
+                                      <input type="text" formControlName="stateCode" placeholder="* State Code" />
+                          
+                                      <div formGroupName="breakingAction">
+                                        <input type="text" formControlName="actionType" placeholder="* Breaking Action Type" />
+                                        <!-- Removed the args input field -->
+                                      </div>
+                          
+                                      <div formArrayName="nonBreakingActionList">
+                                        <div *ngFor="let action of nonBreakingActionss(i).controls; let j = index;">
+                                          <div [formGroupName]="j">
+                                            <mat-expansion-panel hideToggle>
+                                              <mat-expansion-panel-header>
+                                                <mat-panel-title>Non-breaking Action {{ j + 1 }}</mat-panel-title>
+                                              </mat-expansion-panel-header>
+                                              <input type="text" formControlName="actionType" placeholder="* Non-breaking Action Type" />
+                          
+                                              <div formGroupName="args">
+                                                <div formGroupName="frenchNotificationTemplate">
+                                                  <textarea formControlName="smsTemplate" placeholder="French SMS Template"></textarea>
+                                                  <textarea formControlName="emailTemplate" placeholder="French Email Template"></textarea>
+                                                  <input type="text" formControlName="notificationTitle" placeholder="French Notification Title" />
+                                                </div>
+                                                <div formGroupName="englishNotificationTemplate">
+                                                  <textarea formControlName="smsTemplate" placeholder="English SMS Template"></textarea>
+                                                  <textarea formControlName="emailTemplate" placeholder="English Email Template"></textarea>
+                                                  <input type="text" formControlName="notificationTitle" placeholder="English Notification Title" />
+                                                </div>
+                                                <div formGroupName="kinyarwandaNotificationTemplate">
+                                                  <textarea formControlName="smsTemplate" placeholder="Kinyarwanda SMS Template"></textarea>
+                                                  <textarea formControlName="emailTemplate" placeholder="Kinyarwanda Email Template"></textarea>
+                                                  <input type="text" formControlName="notificationTitle" placeholder="Kinyarwanda Notification Title" />
+                                                </div>
+                                              </div>
+                                              <button type="button" *ngIf="nonBreakingActionss(i).length > 1" class="btn btn-sm btn-danger ms-1" (click)="removeNonBreakingActions(i, j)">Remove</button>
+                                            </mat-expansion-panel>
+                                          </div>
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-warning" (click)="addNonBreakingActionss(i)">+</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <button type="button" class="btn btn-sm btn-primary mt-4 mb-5" (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First Developer</button>
+                              <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
+                              <button type="button" class="btn btn-sm btn-info mt-4 mb-5" (click)="saveFormData()">Save</button>
+                            </form>
+                          </div>
+
                         <form class="create_transition" [formGroup]="creationForm" (ngSubmit)="createNew()">
                             <div><b class="new_transition">New Transition</b></div>
                             <mat-divider></mat-divider><br>

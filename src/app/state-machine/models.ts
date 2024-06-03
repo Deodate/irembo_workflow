@@ -86,7 +86,7 @@ interface NotificationTemplate {
     notificationTitle: string;
   }
   
-  interface Action {
+  export interface Action {
     actionType: string;
     args: {
       frenchNotificationTemplate: NotificationTemplate;
@@ -95,7 +95,7 @@ interface NotificationTemplate {
     };
   }
   
-  interface Developer {
+  export interface Developer {
     state: string;
     id: number;
     startState: string;

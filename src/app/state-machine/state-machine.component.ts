@@ -3,7 +3,7 @@ import { StateComponent } from './state/state.component';
 import { TransitionNewComponent } from './transition/transition.component';
 import { CdkDragDrop, CdkDragMove } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api.service';
-import { IremboTransition, Workflow, irembo, stateConfig, transitionConfig } from './models';
+import { IremboTransition, Workflow, irembo, stateConfig, transitionConfig, Developer,  Action} from './models';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { WorflowSample } from '../sample-workflowy';
 import { MyTextareaComponent } from '../components/my-textarea/my-textarea.component';
@@ -557,9 +557,11 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     transitions: JSON.stringify(WorflowSample.sample1),
   });
 
+
   workflowData: any;
   WorflowSample: any;
   JSON: any;
+  private idCounter: number;
 
   constructor(
     private apiService: ApiService,
@@ -569,6 +571,11 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   ) {
     this.workflowData = WorflowSample.sample2;
+
+    this.devForm = this.fb.group({
+      devList: this.fb.array([])
+    });
+    this.idCounter = 0;
   }
   formData: any = {};
 
@@ -606,6 +613,10 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       this.newTransitionsObj.event = event;
     }
 
+    if (this.devListArray().length === 0) {
+      this.addDev();
+    }
+
     ENG: this.fb.group({
       notificationTitle: ['', Validators.required],
       smsTemplate: ['', Validators.required],
@@ -623,6 +634,138 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
     this.initialiseCreationFormGroup();
 
+  }
+
+  devListArray(): FormArray {
+    return this.devForm.get('devList') as FormArray;
+  }
+
+  addDev() {
+    const devGroup = this.fb.group({
+      id: this.getNextId(),
+      startState: '',
+      event: '',
+      state: '',
+      endStateOne: this.fb.group({
+        stateName: '',
+        stateCode: '',
+        breakingAction: this.fb.group({
+          actionType: ''
+        }),
+        nonBreakingActionList: this.fb.array([])
+      })
+    });
+    this.devListArray().push(devGroup);
+  }
+
+  nonBreakingActionss(i: number): FormArray {
+    return (this.devListArray().at(i).get('endStateOne') as FormGroup).get('nonBreakingActionList') as FormArray;
+  }
+
+  addNonBreakingActionss(i: number) {
+    const actionGroup = this.fb.group({
+      actionType: 'NOTIFICATION',
+      args: this.fb.group({
+        frenchNotificationTemplate: this.fb.group({
+          smsTemplate: '',
+          emailTemplate: '',
+          notificationTitle: ''
+        }),
+        englishNotificationTemplate: this.fb.group({
+          smsTemplate: '',
+          emailTemplate: '',
+          notificationTitle: ''
+        }),
+        kinyarwandaNotificationTemplate: this.fb.group({
+          smsTemplate: '',
+          emailTemplate: '',
+          notificationTitle: ''
+        })
+      })
+    });
+    this.nonBreakingActionss(i).push(actionGroup);
+  }
+
+  removeNonBreakingActions(i: number, j: number) {
+    this.nonBreakingActionss(i).removeAt(j);
+  }
+
+  addNonBreakingActionToFirst() {
+    this.addNonBreakingActionss(0);
+  }
+
+  onSubmit(event: Event) {
+    event.preventDefault();
+    this.saveFormData();
+    this.devForm.reset();
+    this.devForm.setControl('devList', this.fb.array([]));
+    this.addDev();
+    console.log('transitions', this.stateMachineForm.value);
+  }
+
+  saveFormData() {
+    try {
+      const formValue = this.devForm.value;
+      const existingData: Developer[] = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
+      const newData: Developer[] = [...existingData, ...formValue.devList.map((dev: any) => {
+        // Ensure breakingAction is included even if it's null or empty
+        if (!dev.endStateOne.breakingAction || !dev.endStateOne.breakingAction.actionType.trim()) {
+          dev.endStateOne.breakingAction = null;
+        }
+        return dev;
+      })];
+      localStorage.setItem('iremboWorkflow', JSON.stringify(newData));
+      localStorage.setItem('idCounter', this.idCounter.toString());
+    } catch (error) {
+      console.error('Error saving form data:', error);
+    }
+  }
+
+
+  getNextId(): number {
+    this.idCounter += 1;
+    return this.idCounter;
+  }
+
+  createDevGroup(dev: Developer): FormGroup {
+    return this.fb.group({
+      id: dev.id,
+      startState: dev.startState,
+      event: dev.event,
+      state: dev.state || '', // Add this line to handle the state property
+      endStateOne: this.fb.group({
+        stateName: dev.endStateOne.stateName,
+        stateCode: dev.endStateOne.stateCode,
+        breakingAction: dev.endStateOne.breakingAction && dev.endStateOne.breakingAction.actionType.trim() !== '' ?
+          this.fb.group({
+            actionType: dev.endStateOne.breakingAction.actionType
+          }) : null,
+        nonBreakingActionList: new FormArray(dev.endStateOne.nonBreakingActionList.map((action: Action) => this.createNonBreakingActionGroup(action)))
+      })
+    });
+  }
+
+  createNonBreakingActionGroup(action: any): FormGroup {
+    return this.fb.group({
+      actionType: action.actionType,
+      args: this.fb.group({
+        frenchNotificationTemplate: this.fb.group({
+          smsTemplate: action.args.frenchNotificationTemplate.smsTemplate,
+          emailTemplate: action.args.frenchNotificationTemplate.emailTemplate,
+          notificationTitle: action.args.frenchNotificationTemplate.notificationTitle
+        }),
+        englishNotificationTemplate: this.fb.group({
+          smsTemplate: action.args.englishNotificationTemplate.smsTemplate,
+          emailTemplate: action.args.englishNotificationTemplate.emailTemplate,
+          notificationTitle: action.args.englishNotificationTemplate.notificationTitle
+        }),
+        kinyarwandaNotificationTemplate: this.fb.group({
+          smsTemplate: action.args.kinyarwandaNotificationTemplate.smsTemplate,
+          emailTemplate: action.args.kinyarwandaNotificationTemplate.emailTemplate,
+          notificationTitle: action.args.kinyarwandaNotificationTemplate.notificationTitle
+        })
+      })
+    });
   }
 
   RWtitle: string = '';
@@ -714,10 +857,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     console.log("onDragMove workflow", this.workflow);
   }
 
-  onSubmit() {
-    console.log('transitions', this.stateMachineForm.value);
-
-  }
+ 
 
   createTra() {
     const isLocalPresent = localStorage.getItem("server");
