@@ -216,7 +216,7 @@
 .new_transition1 {
     border: 1px solid #7591c9;
     width: 400px;
-    margin-left: 23px;
+    margin-left: 13px;
     margin-top: -10px;
     box-shadow: 0px 2px 2px #ebe5e5;
     border-radius: 5px;
@@ -634,3 +634,36 @@ option {
         width: 0;
     }
  }
+
+ /* Table Style  */
+
+ .styled-table {
+    margin-bottom: 20px;  /* Adjust as needed */
+    margin-left: 10px;    /* Adjust as needed */
+    margin-top: 20px;     /* Adjust as needed */
+    font-family: 'Times New Roman';
+  }
+  
+  .styled-table .label-cell {
+    padding-right: 10px;  /* Space between label and input */
+  }
+  
+  .input-field {
+    width: 230px;         /* Increase width of the input fields */
+    margin-left: 8px;    /* Margin left for input fields */
+    border: 1px solid #0060d3;
+    padding: 5px;  
+    border-radius: 4px;
+  }
+  
+  /* Optional: To make the table cells more visually appealing */
+  .styled-table td {
+    padding: 5px;         /* Padding inside table cells */
+  }
+  
+  /* Optional: Styling the table border */
+  .styled-table {
+    border-collapse: collapse;  /* Ensures borders collapse into a single border */
+  }
+  
+  

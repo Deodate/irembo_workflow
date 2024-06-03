@@ -106,32 +106,27 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
 
                         <div class="d-flex justify-content-center">
 
-                            <form [formGroup]="devForm" class="border border-primary p-5 mt-10 w-70"
-                                (ngSubmit)="onSubmit($event)">
+                            <form [formGroup]="devForm" class=" p-5 mt-10" (ngSubmit)="onSubmit($event)">
                                 <div class="transition-container">
-                                    <b class="new_transition mt-10 w-70">New Transition</b>
+                                    <b class="new_transition mt-10">New Transition</b>
                                 </div>
                                 <mat-divider></mat-divider><br>
                                 <div formArrayName="devList">
                                     <div *ngFor="let developer of devListArray().controls; let i = index;">
                                         <div [formGroupName]="i">
 
-                                            <div class="new_transition1">
-                                                <div class="input_field">
-                                                    <label>Start State </label>
-                                                    :&nbsp;
-                                                    <div class="transition_select">
-                
-                                                        <select formControlName="startState" (change)="onStartStateSelected($event)">
-                                                            <option value="">-----------Select-----------</option>
-                                                            <option
-                                                                *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
-                                                                [value]="startState">
-                                                                {{ startState }}
-                
-                                                            </option>
-                                                        </select>
-                                                    </div>
+                                            <div class="input_field">
+                                                <div class="new_transition1">
+                                                    <table class="styled-table">
+                                                        <tr>
+                                                          <td class="label-cell">Start State:</td>
+                                                          <td><input type="text" class="input-field"></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td class="label-cell">Event:</td>
+                                                          <td><input type="text" class="input-field"></td>
+                                                        </tr>
+                                                      </table>                                                      
                                                 </div>
                                                 <div class="input_field">
                                                     <label>Event </label>
@@ -139,13 +134,14 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     <div class="transition_select">
                                                         <select formControlName="event">
                                                             <option>-----------Select------------</option>
-                                                            <option *ngFor="let event of getUniqueEvents()" [value]="event">
+                                                            <option *ngFor="let event of getUniqueEvents()"
+                                                                [value]="event">
                                                                 {{ event }}
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <input type="hidden" formControlName="id" />
 
                                             <input type="text" formControlName="startState"
