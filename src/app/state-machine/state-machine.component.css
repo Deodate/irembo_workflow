@@ -648,7 +648,7 @@ option {
     padding-right: 10px;  /* Space between label and input */
   }
   
-  .input-field {
+  table .select-field  {
     width: 230px;         /* Increase width of the input fields */
     margin-left: 8px;    /* Margin left for input fields */
     border: 1px solid #0060d3;
@@ -666,4 +666,20 @@ option {
     border-collapse: collapse;  /* Ensures borders collapse into a single border */
   }
   
+
+.styled-table .label-cell {
+    padding-right: 10px;   /* Space between label and colon */
+  }
+  
+  .styled-table td {
+    padding: 5px;          /* Padding inside table cells */
+  /* Adds border to table cells */
+  }
+
+  
+  .styled-table .input-cell {
+    display: flex;
+    justify-content: center;    /* Centers content horizontally */
+    align-items: center;        /* Centers content vertically */
+  }
   
