@@ -19,8 +19,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatExpansionPanel } from '@angular/material/expansion';
 
-
-
 declare var LeaderLine: any;
 
 @Component({
