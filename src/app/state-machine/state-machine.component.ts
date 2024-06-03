@@ -6,17 +6,8 @@ import { ApiService } from '../api.service';
 import { IremboTransition, Workflow, irembo, stateConfig, transitionConfig } from './models';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { WorflowSample } from '../sample-workflowy';
+import { MyTextareaComponent } from '../components/my-textarea/my-textarea.component';
 import { ChangeDetectorRef } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { MatIconModule } from '@angular/material/icon';
-import { AsyncPipe } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatExpansionPanel } from '@angular/material/expansion';
 
 declare var LeaderLine: any;
@@ -28,6 +19,9 @@ declare var LeaderLine: any;
 })
 
 export class StateMachineComponent implements OnInit, AfterViewInit {
+
+@ViewChild(MyTextareaComponent) myTextareaComponent!: MyTextareaComponent;
+devForm!: FormGroup;
 
   i: number = 0;
   updateForm!: FormGroup;
@@ -230,6 +224,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   onUpdated(transition: createNewTransitions) {
     // Handle the updated transition here
   }
+  
 
 
   createNew() {

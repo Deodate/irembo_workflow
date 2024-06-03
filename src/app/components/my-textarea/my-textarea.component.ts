@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Form, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 interface NotificationTemplate {
   smsTemplate: string;
@@ -38,6 +38,15 @@ interface Developer {
   styleUrls: ['./my-textarea.component.css']
 })
 export class MyTextareaComponent implements OnInit {
+getStateMachineComponentUniqueStartStates(): any {
+throw new Error('Method not implemented.');
+}
+onStartStateSelected($event: Event) {
+throw new Error('Method not implemented.');
+}
+
+  @Output() formInitialized = new EventEmitter<FormGroup>();
+
   devForm: FormGroup;
   private idCounter: number;
 
