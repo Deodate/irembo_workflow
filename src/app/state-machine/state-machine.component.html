@@ -114,47 +114,85 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 <div formArrayName="devList">
                                     <div *ngFor="let developer of devListArray().controls; let i = index;">
                                         <div [formGroupName]="i">
+                                            <table class="styled-table" style=" margin-top: -12px;">
+                                                <tr>
+                                                    <td class="label-cell">Start State</td>
+                                                    <td>:</td>
+                                                    <td>
+                                                        <select class="select-field">
+                                                            <option value="state1">State 1</option>
+                                                            <option value="state2">State 2</option>
+                                                            <option value="state3">State 3</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="label-cell">Event</td>
+                                                    <td>:</td>
+                                                    <td>
+                                                        <select class="select-field">
+                                                            <option value="state1">State 1</option>
+                                                            <option value="state2">State 2</option>
+                                                            <option value="state3">State 3</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            <label class="styled-label">End State 1:</label>
+                                            <div class="new_transition1">
+                                                <table class="styled-table">
+                                                    <tr>
+                                                        <td class="label-cell">State</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <select class="select-field">
+                                                                <option value="state1">State 1</option>
+                                                                <option value="state2">State 2</option>
+                                                                <option value="state3">State 3</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="label-cell">Breaking Action</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <select class="select-field">
+                                                                <option value="state1">State 1</option>
+                                                                <option value="state2">State 2</option>
+                                                                <option value="state3">State 3</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="new_transition1">
+                                                <table class="styled-table">
+                                                    <tr>
+                                                        <td class="label-cell">Non-Breaking Actions</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <input type="text" class="select-fields"
+                                                                value="NOTIFICATION" readonly>
+                                                        </td>
+                                                        <td><button type="button" class="btn btn-sm btn-warning"
+                                                                (click)="addNonBreakingActionss(i)">Add</button></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
 
                                             <div class="input_field">
-                                                <div class="new_transition1">
-                                                    <table class="styled-table">
-                                                        <tr>
-                                                          <td class="label-cell">Start State</td>
-                                                          <td>:</td>
-                                                          <td>
-                                                            <select class="select-field">
-                                                                <option value="state1">State 1</option>
-                                                                <option value="state2">State 2</option>
-                                                                <option value="state3">State 3</option>
-                                                              </select>
-                                                        </td>
-                                                        </tr>
-                                                        <tr>
-                                                          <td class="label-cell">Event</td>
-                                                          <td>:</td>
-                                                          <td>
-                                                            <select class="select-field">
-                                                                <option value="state1">State 1</option>
-                                                                <option value="state2">State 2</option>
-                                                                <option value="state3">State 3</option>
-                                                              </select>
-                                                        </td>
-                                                        </tr>
-                                                      </table>                                                      
-                                                </div>
-                                                <div class="input_field">
-                                                    <label>Event </label>
-                                                    :&nbsp;
-                                                    <div class="transition_select">
-                                                        <select formControlName="event">
-                                                            <option>-----------Select------------</option>
-                                                            <option *ngFor="let event of getUniqueEvents()"
-                                                                [value]="event">
-                                                                {{ event }}
-                                                        </select>
-                                                    </div>
+                                                <label>Non-Breaking Actions </label>
+                                                :&nbsp;
+                                                <div class="transition_select">
+                                                    <select formControlName="event">
+                                                        <option>-----------Select------------</option>
+                                                        <option *ngFor="let event of getUniqueEvents()" [value]="event">
+                                                            {{ event }}
+                                                    </select>
                                                 </div>
                                             </div>
+
 
                                             <input type="hidden" formControlName="id" />
 

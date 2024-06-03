@@ -682,4 +682,33 @@ option {
     justify-content: center;    /* Centers content horizontally */
     align-items: center;        /* Centers content vertically */
   }
+
+  .styled-label {
+    margin-left: 10px;    /* Adjust as needed */
+    margin-bottom: 20px;  /* Adjust as needed */
+    display: inline-block; /* Ensures the margin-bottom has an effect */
+    font-family: 'Times New Roman';
+  }
+
+  .select-field {
+    width: 50px;          /* Increase width of the input fields */
+    border: 1px solid  #0060d3; /* Blue border for input fields */
+    padding: 5px;          /* Padding inside the input fields */
+    border-radius: 4px;    /* Optional: Rounded corners */
+    background-color: #f0f0f0; /* Light gray background to indicate it's readonly */
+    color: #333;           /* Text color */
+    text-align: center; 
+  }
+
+  .select-fields {
+    width: 140px; /* Adjust the width as needed */
+    border: 1px solid  #0060d3; /* Blue border for input field */
+    padding: 5px; /* Padding inside the input field */
+    border-radius: 4px; /* Optional: Rounded corners */
+    background-color: #f0f0f0; /* Light gray background to indicate it's readonly */
+    color: #333; /* Text color */
+    text-align: center; /* Centers the text inside the input field */
+}
+  
+  
   
