@@ -211,3 +211,53 @@
                                                                                 }
                                                                                 }
                                                                                 ]
+
+
+
+
+                                                                                <div class="modal-footer d-flex justify-content-end">
+                                    <button type="button" class="btn btn-sm btn-success me-2" data-bs-dismiss="modal" (click)="saveFormData()">Create</button>
+                                    <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">EXIT</div>
+                                    <!-- <button type="button" class="btn btn-sm btn-info" (click)="saveFormData()">Save</button> -->
+                                </div>
+
+                                saveFormData() {
+    try {
+      const formValue = this.devForm.value;
+      const existingData: Developer[] = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
+      const newData: Developer[] = [...existingData, ...formValue.devList.map((dev: any) => {
+        // Ensure breakingAction is included even if it's null or empty
+        if (!dev.endStateOne.breakingAction || !dev.endStateOne.breakingAction.actionType.trim()) {
+          dev.endStateOne.breakingAction = null;
+        }
+        return dev;
+      })];
+      localStorage.setItem('iremboWorkflow', JSON.stringify(newData));
+      localStorage.setItem('idCounter', this.idCounter.toString());
+  
+      // Automatically reload the page after 10 seconds
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    } catch (error) {
+      console.error('Error saving form data:', error);
+    }
+  }
+
+    saveFormData() {
+    try {
+      const formValue = this.devForm.value;
+      const existingData: Developer[] = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
+      const newData: Developer[] = [...existingData, ...formValue.devList.map((dev: any) => {
+        // Ensure breakingAction is included even if it's null or empty
+        if (!dev.endStateOne.breakingAction || !dev.endStateOne.breakingAction.actionType.trim()) {
+          dev.endStateOne.breakingAction = null;
+        }
+        return dev;
+      })];
+      localStorage.setItem('iremboWorkflow', JSON.stringify(newData));
+      localStorage.setItem('idCounter', this.idCounter.toString());
+    } catch (error) {
+      console.error('Error saving form data:', error);
+    }
+  }

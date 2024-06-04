@@ -720,6 +720,18 @@ option {
     text-align: center; /* Centers the text inside the input field */
 }
 
+.select-fieldss {
+    width: 70%; /* Adjust the width as needed */
+    border: 1px solid  #148412; /* Blue border for input field */
+    padding: 5px; /* Padding inside the input field */
+    margin: 5px;
+    border-radius: 4px; /* Optional: Rounded corners */
+    background-color: #f0f0f0; /* Light gray background to indicate it's readonly */
+    color: #333; /* Text color */
+    text-align: center; /* Centers the text inside the input field */
+}
+
+
 .textAreas{
     display: block;
     width: 90%;

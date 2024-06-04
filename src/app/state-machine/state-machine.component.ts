@@ -716,10 +716,16 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       })];
       localStorage.setItem('iremboWorkflow', JSON.stringify(newData));
       localStorage.setItem('idCounter', this.idCounter.toString());
+  
+      // Automatically reload the page after 10 seconds
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } catch (error) {
       console.error('Error saving form data:', error);
     }
   }
+
 
 
   getNextId(): number {
