@@ -222,6 +222,16 @@
     border-radius: 5px;
 }
 
+.new_transition12 {
+    border: 1px solid #7591c9;
+    width: 420px;
+    height: auto;
+    margin-left: 13px;
+    margin-top: -10px;
+    box-shadow: 0px 2px 2px #ebe5e5;
+    border-radius: 5px;
+}
+
 .new_transition2 {
     border: 1px solid #7591c9;
     width: 93%;
