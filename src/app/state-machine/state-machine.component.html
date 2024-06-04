@@ -120,10 +120,13 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     <td class="label-cell">Start State</td>
                                                     <td>:</td>
                                                     <td>
-                                                        <select class="select-field">
-                                                            <option value="state1">State 1</option>
-                                                            <option value="state2">State 2</option>
-                                                            <option value="state3">State 3</option>
+                                                        <select class="select-field" formControlName="startState">
+                                                            <option value="">-----------Select-----------</option>
+                                                            <option
+                                                                *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
+                                                                [value]="startState">
+                                                                {{ startState }}
+                                                            </option>
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -131,10 +134,11 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     <td class="label-cell">Event</td>
                                                     <td>:</td>
                                                     <td>
-                                                        <select class="select-field">
-                                                            <option value="state1">State 1</option>
-                                                            <option value="state2">State 2</option>
-                                                            <option value="state3">State 3</option>
+                                                        <select  class="select-field"  formControlName="event">
+                                                            <option>-----------Select------------</option>
+                                                            <option *ngFor="let event of getUniqueEvents()"
+                                                                [value]="event">
+                                                                {{ event }}
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -158,7 +162,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         <td class="label-cell">Breaking Action</td>
                                                         <td>:</td>
                                                         <td>
-                                                            <select class="select-field">
+                                                            <select class="select-field" formControlName="startState">
                                                                 <option value="state1">State 1</option>
                                                                 <option value="state2">State 2</option>
                                                                 <option value="state3">State 3</option>
@@ -212,9 +216,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                                 class="btn btn-sm btn-primary mt-4 mb-5"
                                                                                 (click)="addNonBreakingActionToFirst()">Add
                                                                                 Non-breaking Action
-                                                                            </button>
-                                                                            {{ j + 1
-                                                                            }}</mat-panel-title>
+                                                                                {{ j + 1
+                                                                                }} </button></mat-panel-title>
                                                                     </mat-expansion-panel-header>
                                                                     <input type="text" formControlName="actionType"
                                                                         placeholder="* Non-breaking Action Type" />
@@ -265,9 +268,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"
-                                    (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First
-                                    Developer</button>
                                 <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
                                 <button type="button" class="btn btn-sm btn-info mt-4 mb-5"
                                     (click)="saveFormData()">Save</button>
