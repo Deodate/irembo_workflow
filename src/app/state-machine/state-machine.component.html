@@ -103,9 +103,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                 </div>
                 <div class="modal-body">
                     <ng-container>
-
+                          <div class="new_transition1">
                         <div class="d-flex justify-content-center">
-
                             <form [formGroup]="devForm" class=" p-5 mt-10" (ngSubmit)="onSubmit($event)">
                                 <div class="transition-container">
                                     <b class="new_transition mt-10">New Transition</b>
@@ -115,94 +114,20 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     <div *ngFor="let developer of devListArray().controls; let i = index;">
                                         <div [formGroupName]="i">
                                             <input type="hidden" formControlName="id" />
-                                            <table class="styled-table" style=" margin-top: -12px;">
-                                                <tr>
-                                                    <td class="label-cell">Start State</td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <select class="select-field" formControlName="startState">
-                                                            <option value="">-----------Select-----------</option>
-                                                            <option
-                                                                *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
-                                                                [value]="startState">
-                                                                {{ startState }}
-                                                            </option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="label-cell">Event</td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <select class="select-field" formControlName="event">
-                                                            <option>-----------Select------------</option>
-                                                            <option *ngFor="let event of getUniqueEvents()"
-                                                                [value]="event">
-                                                                {{ event }}
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            </table>
-
-                                            <label class="styled-label">End State 1:</label>
-                                            <div class="new_transition1">
-                                                <table class="styled-table">
-                                                    <tr>
-                                                        <td class="label-cell">State</td>
-                                                        <td>:</td>
-                                                        <td>
-                                                            <select class="select-field" formControlName="stateCode">
-                                                                <option value="">------------Select---------</option>
-                                                                <option *ngFor="let stateCode of getUniqueStateCodes()"
-                                                                    [value]="stateCode">
-                                                                    {{ stateCode }}
-                                                                </option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="label-cell">Breaking Action</td>
-                                                        <td>:</td>
-                                                        <td>
-                                                            <select class="select-field">
-                                                                <option value="">------------Select---------</option>
-                                                                <option *ngFor="let breakingAction of getBreakingActions()"
-                                                                    [value]="breakingAction">
-                                                                    {{ breakingAction }}
-                                                                </option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="new_transition1">
-                                                <table class="styled-table">
-                                                    <tr>
-                                                        <td class="label-cell">Non-Breaking Actions</td>
-                                                        <td>:</td>
-                                                        <td>
-                                                            <input type="text" class="select-fields"
-                                                                value="NOTIFICATION" readonly>
-                                                        </td>
-                                                        <td><button type="button" class="btn btn-sm btn-warning"
-                                                                (click)="addNonBreakingActionss(i)">Add</button></td>
-                                                    </tr>
-                                                </table>
-
-
+                                        
                                                 <input type="hidden" formControlName="id" />
                                                 <table class="styled-table">
                                                     <tr>
-                                                        <td class="label-cell">Start State</td>
+                                                        <td class="label-cell">Start StateXY</td>
                                                         <td>:</td>
                                                         <td>
                                                             <select class="select-field" formControlName="startState">
                                                                 <option value="">------------Select---------</option>
                                                                 <option
-                                                                *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
-                                                                [value]="startState">
-                                                                {{ startState }}
-                                                            </option>
+                                                                    *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
+                                                                    [value]="startState">
+                                                                    {{ startState }}
+                                                                </option>
                                                             </select>
                                                         </td>
                                                     </tr>
@@ -212,37 +137,62 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         <td>
                                                             <select class="select-field" formControlName="event">
                                                                 <option value="">------------Select---------</option>
-                                                               <option *ngFor="let event of getUniqueEvents()"
-                                                                [value]="event">
-                                                                {{ event }}
-                                                        </select>
+                                                                <option *ngFor="let event of getUniqueEvents()"
+                                                                    [value]="event">
+                                                                    {{ event }}
+                                                            </select>
                                                         </td>
                                                     </tr>
                                                 </table>
-
-                                               
-
+                                                <label class="styled-label">End State 1:</label>
+                                                <div class="new_transition1">
                                                 <div formGroupName="endStateOne">
-
-                                                        <select formControlName="stateCode">
-                                                            <option value="">------------Select---------</option>
-                                                            <option *ngFor="let stateCode of getUniqueStateCodes()" [value]="stateCode">
-                                                                {{ stateCode }}
-                                                            </option>
-                                                        </select>
-                                    
-
+                                                   <table class="styled-table">
+                                                    <tr>
+                                                        <td class="label-cell">State</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                    <select  class="select-field" formControlName="stateCode">
+                                                        <option value="">------------Select---------</option>
+                                                        <option *ngFor="let stateCode of getUniqueStateCodes()"
+                                                            [value]="stateCode">
+                                                            {{ stateCode }}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                </tr>
+                                                </table>
                                                     <div formGroupName="breakingAction">
-                                                       
-                                                            <select formControlName="actionType">
-                                                                <option *ngFor="let breakingAction of getBreakingActions()"
-                                                                [value]="breakingAction">
-                                                                {{ breakingAction }}
-                                                            </option>
-
-                                                            </select>
+                                                        <table class="styled-table">
+                                                            <tr>
+                                                                <td class="label-cell">Breaking Action</td>
+                                                                <td>:</td>
+                                                                <td>
+                                                                    <select class="select-field" formControlName="actionType">
+                                                                        <option *ngFor="let breakingAction of getBreakingActions()"
+                                                                            [value]="breakingAction">
+                                                                            {{ breakingAction }}
+                                                                        </option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
                                                         <!-- Removed the args input field -->
                                                     </div>
+                                                </div>
+                                                    <table class="styled-table">
+                                                        <tr>
+                                                            <td class="label-cell">Non-Breaking Actions</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                <input type="text" class="select-fields"
+                                                                    value="NOTIFICATION" readonly>
+                                                            </td>
+                                                            <td><button type="button" class="btn btn-sm btn-warning"
+                                                                    (click)="addNonBreakingActionss(i)">Add</button></td>
+                                                        </tr>
+                                                    </table>
+    
 
                                                     <div formArrayName="nonBreakingActionList">
                                                         <div
@@ -303,7 +253,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                             (click)="addNonBreakingActionss(i)">+</button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -312,6 +262,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     (click)="saveFormData()">Save</button>
                             </form>
                         </div>
+                    </div>
 
                         <form class="create_transition" [formGroup]="creationForm" (ngSubmit)="createNew()">
                             <div><b class="new_transition">New Transition</b></div>
