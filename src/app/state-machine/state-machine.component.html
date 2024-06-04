@@ -166,8 +166,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         <td>
                                                             <select class="select-field">
                                                                 <option value="">------------Select---------</option>
-                                                                <option
-                                                                    *ngFor="let breakingAction of getBreakingActions()"
+                                                                <option *ngFor="let breakingAction of getBreakingActions()"
                                                                     [value]="breakingAction">
                                                                     {{ breakingAction }}
                                                                 </option>
@@ -200,10 +199,10 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                             <select class="select-field" formControlName="startState">
                                                                 <option value="">------------Select---------</option>
                                                                 <option
-                                                                    *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
-                                                                    [value]="startState">
-                                                                    {{ startState }}
-                                                                </option>
+                                                                *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
+                                                                [value]="startState">
+                                                                {{ startState }}
+                                                            </option>
                                                             </select>
                                                         </td>
                                                     </tr>
@@ -213,34 +212,35 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         <td>
                                                             <select class="select-field" formControlName="event">
                                                                 <option value="">------------Select---------</option>
-                                                                <option *ngFor="let event of getUniqueEvents()"
-                                                                    [value]="event">
-                                                                    {{ event }}
-                                                            </select>
+                                                               <option *ngFor="let event of getUniqueEvents()"
+                                                                [value]="event">
+                                                                {{ event }}
+                                                        </select>
                                                         </td>
                                                     </tr>
                                                 </table>
 
-
+                                               
 
                                                 <div formGroupName="endStateOne">
 
-                                                    <select class="select-field" formControlName="stateName">
-                                                        <option value="">------------Select---------</option>
-                                                        <option *ngFor="let stateCode of getUniqueStateCodes()"
-                                                            [value]="stateCode">
-                                                            {{ stateCode }}
-                                                        </option>
-                                                    </select>
+                                                        <select formControlName="stateCode">
+                                                            <option value="">------------Select---------</option>
+                                                            <option *ngFor="let stateCode of getUniqueStateCodes()" [value]="stateCode">
+                                                                {{ stateCode }}
+                                                            </option>
+                                                        </select>
+                                    
 
                                                     <div formGroupName="breakingAction">
-
-                                                        <select class="select-field" formControlName="actionType">
-                                                            <option *ngFor="let breakingAction of getBreakingActions()"
+                                                       
+                                                            <select formControlName="actionType">
+                                                                <option *ngFor="let breakingAction of getBreakingActions()"
                                                                 [value]="breakingAction">
                                                                 {{ breakingAction }}
                                                             </option>
-                                                        </select>
+
+                                                            </select>
                                                         <!-- Removed the args input field -->
                                                     </div>
 
