@@ -726,8 +726,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     }
   }
 
-
-
   getNextId(): number {
     this.idCounter += 1;
     return this.idCounter;
