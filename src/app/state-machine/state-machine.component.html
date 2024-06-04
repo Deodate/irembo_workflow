@@ -118,7 +118,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 <input type="hidden" formControlName="id" />
                                                 <table class="styled-table">
                                                     <tr>
-                                                        <td class="label-cell">Start StateXY</td>
+                                                        <td class="label-cell">Start State</td>
                                                         <td>:</td>
                                                         <td>
                                                             <select class="select-field" formControlName="startState">
@@ -169,6 +169,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                 <td>:</td>
                                                                 <td>
                                                                     <select class="select-field" formControlName="actionType">
+                                                                        <option value="">------------Select---------</option>
                                                                         <option *ngFor="let breakingAction of getBreakingActions()"
                                                                             [value]="breakingAction">
                                                                             {{ breakingAction }}
@@ -208,36 +209,36 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                                 {{ j + 1
                                                                                 }} </button></mat-panel-title>
                                                                     </mat-expansion-panel-header>
-                                                                    <input type="text" formControlName="actionType"
-                                                                        placeholder="* Non-breaking Action Type" />
+                                                                    <input type="text"  class="select-fields" formControlName="actionType"
+                                                                    value="NOTIFICATION" readonly/>
 
                                                                     <div formGroupName="args">
                                                                         <div formGroupName="frenchNotificationTemplate">
-                                                                            <textarea formControlName="smsTemplate"
+                                                                            <textarea class="textAreas" formControlName="smsTemplate"
                                                                                 placeholder="French SMS Template"></textarea>
-                                                                            <textarea formControlName="emailTemplate"
+                                                                            <textarea formControlName="emailTemplate" class="textAreas"
                                                                                 placeholder="French Email Template"></textarea>
-                                                                            <input type="text"
+                                                                            <input type="text" class="select-fields"
                                                                                 formControlName="notificationTitle"
                                                                                 placeholder="French Notification Title" />
                                                                         </div>
                                                                         <div
                                                                             formGroupName="englishNotificationTemplate">
-                                                                            <textarea formControlName="smsTemplate"
+                                                                            <textarea formControlName="smsTemplate" class="textAreass"
                                                                                 placeholder="English SMS Template"></textarea>
-                                                                            <textarea formControlName="emailTemplate"
+                                                                            <textarea formControlName="emailTemplate" class="textAreass"
                                                                                 placeholder="English Email Template"></textarea>
-                                                                            <input type="text"
+                                                                            <input type="text"  class="select-fields"
                                                                                 formControlName="notificationTitle"
                                                                                 placeholder="English Notification Title" />
                                                                         </div>
                                                                         <div
                                                                             formGroupName="kinyarwandaNotificationTemplate">
-                                                                            <textarea formControlName="smsTemplate"
+                                                                            <textarea formControlName="smsTemplate" class="textAreasss"
                                                                                 placeholder="Kinyarwanda SMS Template"></textarea>
-                                                                            <textarea formControlName="emailTemplate"
+                                                                            <textarea formControlName="emailTemplate" class="textAreasss"
                                                                                 placeholder="Kinyarwanda Email Template"></textarea>
-                                                                            <input type="text"
+                                                                            <input type="text" class="select-fields"
                                                                                 formControlName="notificationTitle"
                                                                                 placeholder="Kinyarwanda Notification Title" />
                                                                         </div>
@@ -249,17 +250,17 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                 </mat-expansion-panel>
                                                             </div>
                                                         </div>
-                                                        <button type="button" class="btn btn-sm btn-warning"
-                                                            (click)="addNonBreakingActionss(i)">+</button>
+                                                        <!-- <button type="button" class="btn btn-sm btn-warning"
+                                                            (click)="addNonBreakingActionss(i)">+</button> -->
                                                     </div>
                                                 </div>
-                                            
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
-                                <button type="button" class="btn btn-sm btn-info mt-4 mb-5"
-                                    (click)="saveFormData()">Save</button>
+                                <div class="modal-footer d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-sm btn-success me-2">Submit</button>
+                                    <button type="button" class="btn btn-sm btn-info" (click)="saveFormData()">Save</button>
+                                </div>
                             </form>
                         </div>
                     </div>

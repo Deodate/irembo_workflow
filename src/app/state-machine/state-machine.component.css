@@ -216,7 +216,7 @@
 .new_transition1 {
     border: 1px solid #7591c9;
     width: 400px;
-    margin-left: 13px;
+    margin-left: 5px;
     margin-top: -10px;
     box-shadow: 0px 2px 2px #ebe5e5;
     border-radius: 5px;
@@ -718,6 +718,42 @@ option {
     background-color: #f0f0f0; /* Light gray background to indicate it's readonly */
     color: #333; /* Text color */
     text-align: center; /* Centers the text inside the input field */
+}
+
+.textAreas{
+    display: block;
+    width: 90%;
+    resize: none;
+    padding: 10px;
+    background-color: #c5d7ea;
+    margin: 5px;
+    color: #202020;
+    border: 1px solid #0060d3; 
+    border-radius: 5px;
+}
+
+.textAreass{
+    display: block;
+    width: 90%;
+    resize: none;
+    padding: 10px;
+    background-color: #f5dda5;
+    margin: 5px;
+    color: #202020;
+    border: 1px solid #0060d3; 
+    border-radius: 5px;
+}
+
+.textAreasss{
+    display: block;
+    width: 90%;
+    resize: none;
+    padding: 10px;
+    background-color: #b4decb;
+    margin: 5px;
+    color: #202020;
+    border: 1px solid #0060d3; 
+    border-radius: 5px;
 }
   
   
