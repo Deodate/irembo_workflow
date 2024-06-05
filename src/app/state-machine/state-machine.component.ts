@@ -36,6 +36,9 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   activatedTab: number = 0;
   selectedActionType: string = '';
   wordCount!: number;
+  characterCount = 0;
+  maxCharacters = 500;
+  changeDetectorRef: any;
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
@@ -635,6 +638,14 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
     this.initialiseCreationFormGroup();
 
+  }
+
+  countCharacters() {
+    const smsTemplateValue = this.devForm.get('smsTemplate')?.value;
+    console.log('SMS Template Value:', smsTemplateValue);
+    this.characterCount = smsTemplateValue ? smsTemplateValue.length : 0;
+    console.log('Character Count:', this.characterCount);
+    this.changeDetectorRef.detectChanges();
   }
 
   devListArray(): FormArray {

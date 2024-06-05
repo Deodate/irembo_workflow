@@ -229,6 +229,9 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                             <textarea class="textAreas"
                                                                                 formControlName="smsTemplate"
                                                                                 placeholder="French SMS Template"></textarea>
+                                                                                <!-- <p>{{
+                                                                                    countWords(action.get('args.frenchNotificationTemplate.smsTemplate')?.value)
+                                                                                    }}/100</p> -->
                                                                             <textarea formControlName="emailTemplate"
                                                                                 class="textAreas"
                                                                                 placeholder="French Email Template"></textarea>
@@ -961,32 +964,45 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         </table>
                                         <label class="styled-label">End State 1:</label>
                                         <div formGroupName="endStateOne">
-                                        <div class="new_transition1">
-                                            <table class="styled-table">
-                                                <tr>
-                                                    <td>State</td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <select class="select-field">
-                                                            <option>{{transitionToEdit.endStateOne?.stateCode}}</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Breaking Action</td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <select class="select-field">
-                                                            <option>{{
-                                                                transitionToEdit.endStateOne?.breakingAction?.actionType
-                                                                }}</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                          
-                                    
+                                            <div class="new_transition1">
+                                                <table class="styled-table">
+                                                    <tr>
+                                                        <td>State</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <select class="select-field">
+                                                                <option>{{transitionToEdit.endStateOne?.stateCode}}
+                                                                </option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Breaking Action</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <select class="select-field">
+                                                                <option>{{
+                                                                    transitionToEdit.endStateOne?.breakingAction?.actionType
+                                                                    }}</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </table>
 
+                                                <table class="styled-table">
+                                                    <tr>
+                                                        <td class="label-cell">Non-Breaking Actions</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <input type="text" class="select-fields"
+                                                                value="NOTIFICATION" readonly>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-sm btn-warning"
+                                                                (click)="addNonBreakingActionss(i)">Add</button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                                 <div formArrayName="nonBreakingActionList">
                                                     <div
                                                         *ngFor="let action of nonBreakingActionss(i).controls; let j = index;">
@@ -1003,9 +1019,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                     <div formGroupName="frenchNotificationTemplate">
                                                                         <textarea formControlName="smsTemplate"
                                                                             placeholder="French SMS Template"></textarea>
-                                                                        <p>{{
-                                                                            countWords(action.get('args.frenchNotificationTemplate.smsTemplate')?.value)
-                                                                            }}/100</p>
+                                                                       
                                                                         <textarea formControlName="emailTemplate"
                                                                             placeholder="French Email Template"></textarea>
                                                                         <input type="text"
@@ -1039,17 +1053,16 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                             </mat-expansion-panel>
                                                         </div>
                                                     </div>
-                                                    <button type="button" class="btn btn-sm btn-warning"
-                                                        (click)="addNonBreakingActionss(i)">+</button>
+                                                    <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"
+                                                        (click)="addNonBreakingActionToFirst()">Add Non-Breaking Action
+                                                       </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"
-                                    (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First
-                                    Developer</button>
+
                                 <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
                                 <button type="button" class="btn btn-sm btn-info mt-4 mb-5"
                                     (click)="saveFormData()">Save</button>
