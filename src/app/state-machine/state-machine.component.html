@@ -178,7 +178,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                     <td class="label-cell">Breaking Action</td>
                                                                     <td>:</td>
                                                                     <td>
-                                                                        <select class="select-field" formControlName="actionType">
+                                                                        <select class="select-field"
+                                                                            formControlName="actionType">
                                                                             <option value="">------------Select---------
                                                                             </option>
                                                                             <option
@@ -208,7 +209,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                 </td>
                                                             </tr>
                                                         </table>
-                                                    </div>
 
                                                     <div formArrayName="nonBreakingActionList">
                                                         <div
@@ -253,6 +253,9 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                                 placeholder="Kinyarwanda Notification Title" />
                                                                         </div>
                                                                     </div>
+                                                                    <p></p>
+                                                                    <button type="button" class="btn btn-sm btn-primary"
+                                                            (click)="addNonBreakingActionss(i)">Add Non-Breaking Action</button>
                                                                     <button type="button"
                                                                         *ngIf="nonBreakingActionss(i).length > 1"
                                                                         class="btn btn-sm btn-danger ms-1"
@@ -260,16 +263,15 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                 </mat-expansion-panel>
                                                             </div>
                                                         </div>
-                                                        <button type="button" class="btn btn-sm btn-warning"
-                                                            (click)="addNonBreakingActionss(i)">+</button>
                                                     </div>
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"
+                                    <!-- <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"
                                         (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First
-                                        Developer</button>
+                                        Developer</button> -->
                                     <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
                                     <button type="button" class="btn btn-sm btn-info mt-4 mb-5"
                                         (click)="saveFormData()">Save</button>
