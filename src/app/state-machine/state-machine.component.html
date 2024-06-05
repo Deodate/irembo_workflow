@@ -178,8 +178,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                     <td class="label-cell">Breaking Action</td>
                                                                     <td>:</td>
                                                                     <td>
-                                                                        <select class="select-field"
-                                                                            formControlName="actionType">
+                                                                        <select class="select-field" formControlName="actionType">
                                                                             <option value="">------------Select---------
                                                                             </option>
                                                                             <option
@@ -192,6 +191,23 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                 </tr>
                                                             </table>
                                                         </div>
+                                                    </div>
+                                                    <p></p>
+                                                    <div class="new_transition1">
+                                                        <table class="styled-table">
+                                                            <tr>
+                                                                <td class="label-cell">Non-Breaking Actions</td>
+                                                                <td>:</td>
+                                                                <td>
+                                                                    <input type="text" class="select-fields"
+                                                                        value="NOTIFICATION" readonly>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-sm btn-warning"
+                                                                        (click)="addNonBreakingActionss(i)">Add</button>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
 
                                                     <div formArrayName="nonBreakingActionList">

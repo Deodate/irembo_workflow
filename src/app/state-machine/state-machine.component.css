@@ -695,9 +695,10 @@ option {
 
   .styled-label {
     margin-left: 10px;    /* Adjust as needed */
-    margin-bottom: 20px;  /* Adjust as needed */
+    margin-bottom: 10px;  /* Adjust as needed */
     display: inline-block; /* Ensures the margin-bottom has an effect */
     font-family: 'Times New Roman';
+    font-size: 14px;
   }
 
   .select-field {
