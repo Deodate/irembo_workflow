@@ -203,7 +203,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         </tr>
                                                     </table>
 
-
                                                     <div formArrayName="nonBreakingActionList">
                                                         <div
                                                             *ngFor="let action of nonBreakingActionss(i).controls; let j = index;">
@@ -212,12 +211,9 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                     <mat-expansion-panel-header>
                                                                         <mat-panel-title>
                                                                             <button type="button"
-                                                                                class="btn btn-sm btn-primary mt-4 mb-5"
-                                                                                (click)="addNonBreakingActionToFirst()">Add
-                                                                                Non-breaking Action
-                                                                                {{ j + 1
+                                                                                class="btn btn-sm btn-primary mt-4 mb-5">
+                                                                                Non-Breaking Actions {{ j + 1
                                                                                 }} </button>
-
                                                                         </mat-panel-title>
                                                                     </mat-expansion-panel-header>
                                                                     <input type="text" class="select-fieldss"
@@ -229,7 +225,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                             <textarea class="textAreas"
                                                                                 formControlName="smsTemplate"
                                                                                 placeholder="French SMS Template"></textarea>
-                                                                                <!-- <p>{{
+                                                                            <!-- <p>{{
                                                                                     countWords(action.get('args.frenchNotificationTemplate.smsTemplate')?.value)
                                                                                     }}/100</p> -->
                                                                             <textarea formControlName="emailTemplate"
@@ -989,6 +985,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     </tr>
                                                 </table>
 
+                                                
+
                                                 <table class="styled-table">
                                                     <tr>
                                                         <td class="label-cell">Non-Breaking Actions</td>
@@ -1007,10 +1005,14 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     <div
                                                         *ngFor="let action of nonBreakingActionss(i).controls; let j = index;">
                                                         <div [formGroupName]="j">
+                                        
                                                             <mat-expansion-panel hideToggle>
                                                                 <mat-expansion-panel-header>
-                                                                    <mat-panel-title>  <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"> Non-Breaking Actions {{ j + 1
-                                                                        }} </button> </mat-panel-title>
+                                                                    <mat-panel-title> <button type="button"
+                                                                            class="btn btn-sm btn-primary mt-4 mb-5">
+                                                                            Non-Breaking Actions {{ j + 1
+                                                                            }} </button> 
+                                                                            </mat-panel-title>
                                                                 </mat-expansion-panel-header>
                                                                 <input type="text" formControlName="actionType"
                                                                     placeholder="* Non-breaking Action Type" />
@@ -1018,17 +1020,17 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                 <div formGroupName="args">
                                                                     <div formGroupName="frenchNotificationTemplate">
                                                                         <textarea formControlName="smsTemplate"
-                                                                            placeholder="French SMS Template"></textarea>
-                                                                       
-                                                                        <textarea formControlName="emailTemplate"
-                                                                            placeholder="French Email Template"></textarea>
-                                                                        <input type="text"
-                                                                            formControlName="notificationTitle"
-                                                                            placeholder="French Notification Title" />
+                                                                            placeholder="Frenchss SMS Template"></textarea>
+
+                                                                            <textarea formControlName="smsTemplate">
+                                                                                {{ dev.get('endStateOne.nonBreakingActionList').at(j).get('args.frenchNotificationTemplate.smsTemplate').value }}
+                                                                            </textarea>
+
+                                                                            <input type="text" formControlName="notificationTitle" placeholder="French Notification Title" />
                                                                     </div>
                                                                     <div formGroupName="englishNotificationTemplate">
-                                                                        <textarea formControlName="smsTemplate"
-                                                                            placeholder="English SMS Template"></textarea>
+                                                                        <textarea formControlName="endStateOne.nonBreakingActionList.controls[i].args.englishNotificationTemplate.smsTemplate"
+                                                                        placeholder="English SMS Template"></textarea>
                                                                         <textarea formControlName="emailTemplate"
                                                                             placeholder="English Email Template"></textarea>
                                                                         <input type="text"
@@ -1037,7 +1039,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                     </div>
                                                                     <div
                                                                         formGroupName="kinyarwandaNotificationTemplate">
-                                                                        <textarea formControlName="smsTemplate"
+                                                                        <textarea formControlName="smsTemplate" class="textAreasss"
                                                                             placeholder="Kinyarwanda SMS Template"></textarea>
                                                                         <textarea formControlName="emailTemplate"
                                                                             placeholder="Kinyarwanda Email Template"></textarea>
@@ -1053,9 +1055,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                             </mat-expansion-panel>
                                                         </div>
                                                     </div>
-                                                    <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"
-                                                        (click)="addNonBreakingActionToFirst()">Add Non-Breaking Action
-                                                       </button>
                                                 </div>
                                             </div>
                                         </div>

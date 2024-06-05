@@ -4,7 +4,7 @@ import { TransitionNewComponent } from './transition/transition.component';
 import { CdkDragDrop, CdkDragMove } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api.service';
 import { IremboTransition, Workflow, irembo, stateConfig, transitionConfig, Developer, Action } from './models';
-import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { WorflowSample } from '../sample-workflowy';
 import { MyTextareaComponent } from '../components/my-textarea/my-textarea.component';
 import { ChangeDetectorRef } from '@angular/core';
@@ -39,6 +39,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   characterCount = 0;
   maxCharacters = 500;
   changeDetectorRef: any;
+dev: any;
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
@@ -640,6 +641,40 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   }
 
+  fetchNonBreakingAction(i: number, j: number): any {
+    const devGroup = this.devListArray().at(i);
+    if (!devGroup) return null;
+  
+    const endStateOne = devGroup.get('endStateOne');
+    if (!endStateOne) return null;
+  
+    const nonBreakingActionList = endStateOne.get('nonBreakingActionList') as FormArray;
+    if (!nonBreakingActionList) return null;
+  
+    const nonBreakingAction = nonBreakingActionList.at(j);
+    if (!nonBreakingAction) return null;
+  
+    const args = nonBreakingAction.get('args');
+    if (!args) return null;
+  
+    const frenchNotificationTemplate = args.get('frenchNotificationTemplate');
+    if (!frenchNotificationTemplate || !(frenchNotificationTemplate instanceof AbstractControl)) return null;
+  
+    const smsTemplateControl = frenchNotificationTemplate.get('smsTemplate');
+    const emailTemplateControl = frenchNotificationTemplate.get('emailTemplate');
+    const notificationTitleControl = frenchNotificationTemplate.get('notificationTitle');
+  
+    if (!smsTemplateControl || !emailTemplateControl || !notificationTitleControl) return null;
+  
+    return {
+      smsTemplate: smsTemplateControl.value || '',
+      emailTemplate: emailTemplateControl.value || '',
+      notificationTitle: notificationTitleControl.value || ''
+    };
+  }
+  
+  
+
   countCharacters() {
     const smsTemplateValue = this.devForm.get('smsTemplate')?.value;
     console.log('SMS Template Value:', smsTemplateValue);
@@ -737,6 +772,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       console.error('Error saving form data:', error);
     }
   }
+
 
   getNextId(): number {
     this.idCounter += 1;
