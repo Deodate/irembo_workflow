@@ -946,21 +946,44 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Start State</td>
+                                                <td>Event</td>
                                                 <td>:</td>
                                                 <td>
-                                                    <select class="select-field" (change)="onStartStateSelected($event)">
-                                                        <option>{{transitionToEdit.startState}}</option>
+                                                    <select class="select-field" (change)="onEventSelected($event)">
+                                                        <option>{{transitionToEdit.name}}</option>
+                                                        <ng-container *ngFor="let event of getUniqueEvents()">
+                                                            <option>{{event}}</option>
+                                                        </ng-container>
                                                     </select>
                                                 </td>
                                             </tr>
                                         </table>
+                                        <label class="styled-label">End State 1:</label>
                                         
-
-                                        <input type="text" formControlName="startState" placeholder="* Start State" />
-                                        <input type="text" formControlName="event" placeholder="* Event" />
-                                        <input type="text" formControlName="state" placeholder="* State" />
-
+                                        <div class="new_transition1">
+                                            <table class="styled-table">
+                                                <tr>
+                                                    <td>State</td>
+                                                    <td>:</td>
+                                                    <td>
+                                                        <select class="select-field" (change)="onStartStateSelected($event)">
+                                                            <option>{{transitionToEdit.startState}}</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Breaking Action</td>
+                                                    <td>:</td>
+                                                    <td>
+                                                        <select class="select-field" (change)="onEventSelected($event)">
+                                                            <option>{{transitionToEdit.name}}</option>
+                                                            <ng-container *ngFor="let event of getUniqueEvents()">
+                                                                <option>{{event}}</option>
+                                                            </ng-container>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         <div formGroupName="endStateOne">
                                             <input type="text" formControlName="stateName" placeholder="* State Name" />
                                             <input type="text" formControlName="stateCode" placeholder="* State Code" />
@@ -1029,13 +1052,16 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                     </div>
                                 </div>
                             </div>
+                       
                             <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"
                                 (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First
                                 Developer</button>
                             <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
                             <button type="button" class="btn btn-sm btn-info mt-4 mb-5"
                                 (click)="saveFormData()">Save</button>
+                            </div>
                         </form>
+                   
                     </div>
                 </div>
 
