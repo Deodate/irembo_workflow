@@ -105,17 +105,17 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                     <ng-container>
                         <div class="new_transition12">
                             <div class="d-flex justify-content-center">
-                                <form [formGroup]="devForm"
-                                    (ngSubmit)="onSubmit($event)">
+                                <form [formGroup]="devForm" (ngSubmit)="onSubmit($event)">
                                     <div formArrayName="devList">
                                         <div *ngFor="let developer of devListArray().controls; let i = index;">
-                                        
+
                                             <div [formGroupName]="i">
-                                                <input type="hidden" formControlName="id"/>
-                                               
+                                                <input type="hidden" formControlName="id" />
+
                                                 <table class="styled-table">
                                                     <tr>
                                                         <td class="label-cell">Start State</td>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         <td>:</td>
                                                         <td>
                                                             <select class="select-field" formControlName="startState">
@@ -130,6 +130,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                     </tr>
                                                     <tr>
                                                         <td class="label-cell">Event</td>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         <td>:</td>
                                                         <td>
                                                             <select class="select-field" formControlName="event">
@@ -141,32 +142,56 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <label class="styled-label">End State 1:</label>
-                                                <div class="new_transition1">
-                                                <table>
-                                                    <tr>&nbsp;&nbsp;
-                                                        <td class="label-cell">State</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <td>:</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <td>
-                                                            <select class="select-field">
-                                                            <option></option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                </div>
-                                 
-                                                <input type="text" formControlName="state" placeholder="* State" />
-
+                                                <label class="styled-label"><b>End State 1:</b></label>
                                                 <div formGroupName="endStateOne">
-                                                   
-                                                    <input type="text" formControlName="stateCode"
-                                                        placeholder="* State Code" />
+                                                    <div class="new_transition1">
+                                                        <table><br>
+                                                            <tr>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                <td class="label-cell">State</td>
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                <td>:</td>&nbsp;&nbsp;
+                                                                <td>
+                                                                    <select class="select-field"
+                                                                        formControlName="stateCode">
+                                                                        <option value="">------------Select---------
+                                                                        </option>
+                                                                        <option value="PAYMENT_PENDING">PAYMENT_PENDING
+                                                                        </option>
+                                                                        <option value="PAID">PAID</option>
+                                                                        <option value="SUBMITTED">SUBMITTED</option>
+                                                                        <option value="PENDING_APPROVAL">
+                                                                            PENDING_APPROVAL</option>
+                                                                        <option value="CLOSED_WITH_APPROVAL">
+                                                                            CLOSED_WITH_APPROVAL</option>
+                                                                        <option value="CLOSED_WITH_REJECTED">
+                                                                            CLOSED_WITH_REJECTED</option>
+                                                                        <option value="PENDING_RESUBMISSION_OTP">
+                                                                            PENDING_RESUBMISSION_OTP</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
 
-                                                    <div formGroupName="breakingAction">
-                                                        <input type="text" formControlName="actionType"
-                                                            placeholder="* Breaking Action Type" />
-                                                        <!-- Removed the args input field -->
+                                                        <div formGroupName="breakingAction">
+                                                            <table class="styled-table">
+                                                                <tr>
+                                                                    <td class="label-cell">Breaking Action</td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <select class="select-field"
+                                                                            formControlName="actionType">
+                                                                            <option value="">------------Select---------
+                                                                            </option>
+                                                                            <option
+                                                                                *ngFor="let breakingAction of getBreakingActions()"
+                                                                                [value]="breakingAction">
+                                                                                {{ breakingAction }}
+                                                                            </option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
                                                     </div>
 
                                                     <div formArrayName="nonBreakingActionList">
