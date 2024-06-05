@@ -105,103 +105,30 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                     <ng-container>
                         <div class="new_transition12">
                             <div class="d-flex justify-content-center">
-                                <form [formGroup]="devForm" class=" p-5 mt-10" (ngSubmit)="onSubmit($event)">
-                                    <div class="transition-container">
-                                        <b class="new_transition mt-10">New Transition</b>
-                                    </div>
-                                    <mat-divider></mat-divider><br>
+                                <form [formGroup]="devForm"
+                                    (ngSubmit)="onSubmit($event)">
                                     <div formArrayName="devList">
-                                        <div *ngFor="let developer of devListArray().controls; let i = index;">
+                                        <div *ngFor="let developer of devListArray().controls; let i = index;"
+                                            class="border border-dark my-2 p-5">
                                             <div [formGroupName]="i">
                                                 <input type="hidden" formControlName="id" />
 
-                                                <input type="hidden" formControlName="id" />
-                                                <table class="styled-table">
-                                                    <tr>
-                                                        <td class="label-cell">Start State</td>
-                                                        <td>:</td>
-                                                        <td>
-                                                            <select class="select-field" formControlName="startState">
-                                                                <option value="">------------Select---------</option>
-                                                                <option
-                                                                    *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
-                                                                    [value]="startState">
-                                                                    {{ startState }}
-                                                                </option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="label-cell">Event</td>
-                                                        <td>:</td>
-                                                        <td>
-                                                            <select class="select-field" formControlName="event">
-                                                                <option value="">------------Select---------</option>
-                                                                <option *ngFor="let event of getUniqueEvents()"
-                                                                    [value]="event">
-                                                                    {{ event }}
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <label class="styled-label">End State 1:</label>
-                                                <div class="new_transition1">
-                                                    <div formGroupName="endStateOne">
-                                                        <table class="styled-table">
-                                                            <tr>
-                                                                <td class="label-cell">State</td>
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <td>:</td>&nbsp;
-                                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                    <select class="select-field"
-                                                                        formControlName="stateCode">
-                                                                        <option value="">------------Select---------
-                                                                        </option>
-                                                                        <option
-                                                                            *ngFor="let stateCode of getUniqueStateCodes()"
-                                                                            [value]="stateCode">
-                                                                            {{ stateCode }}
-                                                                        </option>
-                                                                    </select>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                        <div formGroupName="breakingAction">
-                                                            <table class="styled-table">
-                                                                <tr>
-                                                                    <td class="label-cell">Breaking Action</td>
-                                                                    <td>:</td>
-                                                                    <td>
-                                                                        <select class="select-field"
-                                                                            formControlName="actionType">
-                                                                            <option value="">------------Select---------
-                                                                            </option>
-                                                                            <option
-                                                                                *ngFor="let breakingAction of getBreakingActions()"
-                                                                                [value]="breakingAction">
-                                                                                {{ breakingAction }}
-                                                                            </option>
-                                                                        </select>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                            <!-- Removed the args input field -->
-                                                        </div>
+                                                <input type="text" formControlName="startState"
+                                                    placeholder="* Start State" />
+                                                <input type="text" formControlName="event" placeholder="* Event" />
+                                                <input type="text" formControlName="state" placeholder="* State" />
+
+                                                <div formGroupName="endStateOne">
+                                                    <input type="text" formControlName="stateName"
+                                                        placeholder="* State Name" />
+                                                    <input type="text" formControlName="stateCode"
+                                                        placeholder="* State Code" />
+
+                                                    <div formGroupName="breakingAction">
+                                                        <input type="text" formControlName="actionType"
+                                                            placeholder="* Breaking Action Type" />
+                                                        <!-- Removed the args input field -->
                                                     </div>
-                                                    <table class="styled-table">
-                                                        <tr>
-                                                            <td class="label-cell">Non-Breaking Actions</td>
-                                                            <td>:</td>
-                                                            <td>
-                                                                <input type="text" class="select-fields"
-                                                                    value="NOTIFICATION" readonly>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-sm btn-warning"
-                                                                    (click)="addNonBreakingActionss(i)">Add</button>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
 
                                                     <div formArrayName="nonBreakingActionList">
                                                         <div
@@ -209,53 +136,39 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                             <div [formGroupName]="j">
                                                                 <mat-expansion-panel hideToggle>
                                                                     <mat-expansion-panel-header>
-                                                                        <mat-panel-title>
-                                                                            <button type="button"
-                                                                                class="btn btn-sm btn-primary mt-4 mb-5">
-                                                                                Non-Breaking Actions {{ j + 1
-                                                                                }} </button>
-                                                                        </mat-panel-title>
+                                                                        <mat-panel-title>Non-breaking Action {{ j + 1
+                                                                            }}</mat-panel-title>
                                                                     </mat-expansion-panel-header>
-                                                                    <input type="text" class="select-fieldss"
-                                                                        formControlName="actionType"
-                                                                        value="NOTIFICATION" readonly />
+                                                                    <input type="text" formControlName="actionType"
+                                                                        placeholder="* Non-breaking Action Type" />
 
                                                                     <div formGroupName="args">
                                                                         <div formGroupName="frenchNotificationTemplate">
-                                                                            <textarea class="textAreas"
-                                                                                formControlName="smsTemplate"
+                                                                            <textarea formControlName="smsTemplate"
                                                                                 placeholder="French SMS Template"></textarea>
-                                                                            <!-- <p>{{
-                                                                                    countWords(action.get('args.frenchNotificationTemplate.smsTemplate')?.value)
-                                                                                    }}/100</p> -->
                                                                             <textarea formControlName="emailTemplate"
-                                                                                class="textAreas"
                                                                                 placeholder="French Email Template"></textarea>
-                                                                            <input type="text" class="select-fieldss"
+                                                                            <input type="text"
                                                                                 formControlName="notificationTitle"
                                                                                 placeholder="French Notification Title" />
                                                                         </div>
                                                                         <div
                                                                             formGroupName="englishNotificationTemplate">
                                                                             <textarea formControlName="smsTemplate"
-                                                                                class="textAreass"
                                                                                 placeholder="English SMS Template"></textarea>
                                                                             <textarea formControlName="emailTemplate"
-                                                                                class="textAreass"
                                                                                 placeholder="English Email Template"></textarea>
-                                                                            <input type="text" class="select-fieldss"
+                                                                            <input type="text"
                                                                                 formControlName="notificationTitle"
                                                                                 placeholder="English Notification Title" />
                                                                         </div>
                                                                         <div
                                                                             formGroupName="kinyarwandaNotificationTemplate">
                                                                             <textarea formControlName="smsTemplate"
-                                                                                class="textAreasss"
                                                                                 placeholder="Kinyarwanda SMS Template"></textarea>
                                                                             <textarea formControlName="emailTemplate"
-                                                                                class="textAreasss"
                                                                                 placeholder="Kinyarwanda Email Template"></textarea>
-                                                                            <input type="text" class="select-fieldss"
+                                                                            <input type="text"
                                                                                 formControlName="notificationTitle"
                                                                                 placeholder="Kinyarwanda Notification Title" />
                                                                         </div>
@@ -267,21 +180,23 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                 </mat-expansion-panel>
                                                             </div>
                                                         </div>
-                                                        <!-- <button type="button" class="btn btn-sm btn-warning"
-                                                            (click)="addNonBreakingActionss(i)">+</button> -->
+                                                        <button type="button" class="btn btn-sm btn-warning"
+                                                            (click)="addNonBreakingActionss(i)">+</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer d-flex justify-content-end">
-                                        <button type="button" class="btn btn-sm btn-success me-2"
-                                            data-bs-dismiss="modal" (click)="saveFormData()">Create</button>
-                                        <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">EXIT</div>
-                                        <!-- <button type="button" class="btn btn-sm btn-info" (click)="saveFormData()">Save</button> -->
-                                    </div>
+                                    <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"
+                                        (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First
+                                        Developer</button>
+                                    <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
+                                    <button type="button" class="btn btn-sm btn-info mt-4 mb-5"
+                                        (click)="saveFormData()">Save</button>
                                 </form>
                             </div>
+
+
                         </div>
 
                         <!-- <form class="create_transition" [formGroup]="creationForm" (ngSubmit)="createNew()">
@@ -984,9 +899,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         </td>
                                                     </tr>
                                                 </table>
-
-                                                
-
                                                 <table class="styled-table">
                                                     <tr>
                                                         <td class="label-cell">Non-Breaking Actions</td>
@@ -1001,18 +913,15 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         </td>
                                                     </tr>
                                                 </table>
+
                                                 <div formArrayName="nonBreakingActionList">
                                                     <div
                                                         *ngFor="let action of nonBreakingActionss(i).controls; let j = index;">
                                                         <div [formGroupName]="j">
-                                        
                                                             <mat-expansion-panel hideToggle>
                                                                 <mat-expansion-panel-header>
-                                                                    <mat-panel-title> <button type="button"
-                                                                            class="btn btn-sm btn-primary mt-4 mb-5">
-                                                                            Non-Breaking Actions {{ j + 1
-                                                                            }} </button> 
-                                                                            </mat-panel-title>
+                                                                    <mat-panel-title>Non-breaking Action {{ j + 1
+                                                                        }}</mat-panel-title>
                                                                 </mat-expansion-panel-header>
                                                                 <input type="text" formControlName="actionType"
                                                                     placeholder="* Non-breaking Action Type" />
@@ -1020,17 +929,16 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                 <div formGroupName="args">
                                                                     <div formGroupName="frenchNotificationTemplate">
                                                                         <textarea formControlName="smsTemplate"
-                                                                            placeholder="Frenchss SMS Template"></textarea>
-
-                                                                            <textarea formControlName="smsTemplate">
-                                                                                {{ dev.get('endStateOne.nonBreakingActionList').at(j).get('args.frenchNotificationTemplate.smsTemplate').value }}
-                                                                            </textarea>
-
-                                                                            <input type="text" formControlName="notificationTitle" placeholder="French Notification Title" />
+                                                                            placeholder="French SMS Template"></textarea>
+                                                                        <textarea formControlName="emailTemplate"
+                                                                            placeholder="French Email Template"></textarea>
+                                                                        <input type="text"
+                                                                            formControlName="notificationTitle"
+                                                                            placeholder="French Notification Title" />
                                                                     </div>
                                                                     <div formGroupName="englishNotificationTemplate">
-                                                                        <textarea formControlName="endStateOne.nonBreakingActionList.controls[i].args.englishNotificationTemplate.smsTemplate"
-                                                                        placeholder="English SMS Template"></textarea>
+                                                                        <textarea formControlName="smsTemplate"
+                                                                            placeholder="English SMS Template"></textarea>
                                                                         <textarea formControlName="emailTemplate"
                                                                             placeholder="English Email Template"></textarea>
                                                                         <input type="text"
@@ -1039,7 +947,7 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                     </div>
                                                                     <div
                                                                         formGroupName="kinyarwandaNotificationTemplate">
-                                                                        <textarea formControlName="smsTemplate" class="textAreasss"
+                                                                        <textarea formControlName="smsTemplate"
                                                                             placeholder="Kinyarwanda SMS Template"></textarea>
                                                                         <textarea formControlName="emailTemplate"
                                                                             placeholder="Kinyarwanda Email Template"></textarea>
@@ -1055,6 +963,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                             </mat-expansion-panel>
                                                         </div>
                                                     </div>
+                                                    <button type="button" class="btn btn-sm btn-warning"
+                                                        (click)="addNonBreakingActionss(i)">+</button>
                                                 </div>
                                             </div>
                                         </div>

@@ -261,3 +261,208 @@
       console.error('Error saving form data:', error);
     }
   }
+
+   <div formArrayName="nonBreakingActionList">
+                                                    <div
+                                                        *ngFor="let action of nonBreakingActionss(i).controls; let j = index;">
+                                                        <div [formGroupName]="j">
+                                        
+                                                            <mat-expansion-panel hideToggle>
+                                                                <mat-expansion-panel-header>
+                                                                    <mat-panel-title> <button type="button"
+                                                                            class="btn btn-sm btn-primary mt-4 mb-5">
+                                                                            Non-Breaking Actions {{ j + 1
+                                                                            }} </button> 
+                                                                            </mat-panel-title>
+                                                                </mat-expansion-panel-header>
+                                                                <input type="text" formControlName="actionType"
+                                                                    placeholder="* Non-breaking Action Type" />
+
+                                                                <div formGroupName="args">
+                                                                    <div formGroupName="frenchNotificationTemplate">
+                                                                        <textarea formControlName="smsTemplate"
+                                                                            placeholder="Frenchss SMS Template"></textarea>
+
+                                                                            <textarea formControlName="smsTemplate">
+                                                                                {{ dev.get('endStateOne.nonBreakingActionList').at(j).get('args.frenchNotificationTemplate.smsTemplate').value }}
+                                                                            </textarea>
+
+                                                                            <input type="text" formControlName="notificationTitle" placeholder="French Notification Title" />
+                                                                    </div>
+                                                                    <div formGroupName="englishNotificationTemplate">
+                                                                        <textarea formControlName="endStateOne.nonBreakingActionList.controls[i].args.englishNotificationTemplate.smsTemplate"
+                                                                        placeholder="English SMS Template"></textarea>
+                                                                        <textarea formControlName="emailTemplate"
+                                                                            placeholder="English Email Template"></textarea>
+                                                                        <input type="text"
+                                                                            formControlName="notificationTitle"
+                                                                            placeholder="English Notification Title" />
+                                                                    </div>
+                                                                    <div
+                                                                        formGroupName="kinyarwandaNotificationTemplate">
+                                                                        <textarea formControlName="smsTemplate" class="textAreasss"
+                                                                            placeholder="Kinyarwanda SMS Template"></textarea>
+                                                                        <textarea formControlName="emailTemplate"
+                                                                            placeholder="Kinyarwanda Email Template"></textarea>
+                                                                        <input type="text"
+                                                                            formControlName="notificationTitle"
+                                                                            placeholder="Kinyarwanda Notification Title" />
+                                                                    </div>
+                                                                </div>
+                                                                <button type="button"
+                                                                    *ngIf="nonBreakingActionss(i).length > 1"
+                                                                    class="btn btn-sm btn-danger ms-1"
+                                                                    (click)="removeNonBreakingActions(i, j)">Remove</button>
+                                                            </mat-expansion-panel>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                                     <div class="d-flex justify-content-center">
+                                <form [formGroup]="devForm" class=" p-5 mt-10" (ngSubmit)="onSubmit($event)">
+                                    <div class="transition-container">
+                                        <b class="new_transition mt-10">New Transition</b>
+                                    </div>
+                                    <mat-divider></mat-divider><br>
+                                    <div formArrayName="devList">
+                                        <div *ngFor="let developer of devListArray().controls; let i = index;">
+                                            <div [formGroupName]="i">
+                                                <input type="hidden" formControlName="id" />
+
+                                                <input type="hidden" formControlName="id" />
+                                                <table class="styled-table">
+                                                    <tr>
+                                                        <td class="label-cell">Start State</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <select class="select-field" formControlName="startState">
+                                                                <option value="">------------Select---------</option>
+                                                                <option
+                                                                    *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
+                                                                    [value]="startState">
+                                                                    {{ startState }}
+                                                                </option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="label-cell">Event</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <select class="select-field" formControlName="event">
+                                                                <option value="">------------Select---------</option>
+                                                                <option *ngFor="let event of getUniqueEvents()"
+                                                                    [value]="event">
+                                                                    {{ event }}
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <label class="styled-label">End State 1:</label>
+                                                <div class="new_transition1">
+                                                    <div formGroupName="endStateOne">
+                                                        <table class="styled-table">
+                                                            <tr>
+                                                                <td class="label-cell">State</td>
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                <td>:</td>&nbsp;
+                                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    <select class="select-field"
+                                                                        formControlName="stateCode">
+                                                                        <option value="">------------Select---------
+                                                                        </option>
+                                                                        <option
+                                                                            *ngFor="let stateCode of getUniqueStateCodes()"
+                                                                            [value]="stateCode">
+                                                                            {{ stateCode }}
+                                                                        </option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <div formGroupName="breakingAction">
+                                                            <table class="styled-table">
+                                                                <tr>
+                                                                    <td class="label-cell">Breaking Action</td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <select class="select-field"
+                                                                            formControlName="actionType">
+                                                                            <option value="">------------Select---------
+                                                                            </option>
+                                                                            <option
+                                                                                *ngFor="let breakingAction of getBreakingActions()"
+                                                                                [value]="breakingAction">
+                                                                                {{ breakingAction }}
+                                                                            </option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            <!-- Removed the args input field -->
+                                                        </div>
+                                                    </div>
+                                                    <table class="styled-table">
+                                                        <tr>
+                                                            <td class="label-cell">Non-Breaking Actions</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                <input type="text" class="select-fields"
+                                                                    value="NOTIFICATION" readonly>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-sm btn-warning"
+                                                                    (click)="addNonBreakingActionss(i)">Add</button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    <div formArrayName="nonBreakingActionList">
+                                                        <div *ngFor="let action of nonBreakingActionss(i).controls; let j = index;">
+                                                          <div [formGroupName]="j">
+                                                            <mat-expansion-panel hideToggle>
+                                                              <mat-expansion-panel-header>
+                                                                <mat-panel-title>Non-breaking Action {{ j + 1 }}</mat-panel-title>
+                                                              </mat-expansion-panel-header>
+                                                              <input type="text" formControlName="actionType" placeholder="* Non-breaking Action Type" />
+                                          
+                                                              <div formGroupName="args">
+                                                                <div formGroupName="frenchNotificationTemplate">
+                                                                  <textarea formControlName="smsTemplate" placeholder="French SMS Template"></textarea>
+                                                                  <textarea formControlName="emailTemplate" placeholder="French Email Template"></textarea>
+                                                                  <input type="text" formControlName="notificationTitle" placeholder="French Notification Title" />
+                                                                </div>
+                                                                <div formGroupName="englishNotificationTemplate">
+                                                                  <textarea formControlName="smsTemplate" placeholder="English SMS Template"></textarea>
+                                                                  <textarea formControlName="emailTemplate" placeholder="English Email Template"></textarea>
+                                                                  <input type="text" formControlName="notificationTitle" placeholder="English Notification Title" />
+                                                                </div>
+                                                                <div formGroupName="kinyarwandaNotificationTemplate">
+                                                                  <textarea formControlName="smsTemplate" placeholder="Kinyarwanda SMS Template"></textarea>
+                                                                  <textarea formControlName="emailTemplate" placeholder="Kinyarwanda Email Template"></textarea>
+                                                                  <input type="text" formControlName="notificationTitle" placeholder="Kinyarwanda Notification Title" />
+                                                                </div>
+                                                              </div>
+                                                              <button type="button" *ngIf="nonBreakingActionss(i).length > 1" class="btn btn-sm btn-danger ms-1" (click)="removeNonBreakingActions(i, j)">Remove</button>
+                                                            </mat-expansion-panel>
+                                                          </div>
+                                                        </div>
+                                                        <button type="button" class="btn btn-sm btn-warning" (click)="addNonBreakingActionss(i)">+</button>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-end">
+                                        <button type="button" class="btn btn-sm btn-success me-2"
+                                            data-bs-dismiss="modal" (click)="saveFormData()">Create</button>
+                                        <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">EXIT</div>
+                                        <!-- <button type="button" class="btn btn-sm btn-info" (click)="saveFormData()">Save</button> -->
+                                    </div>
+                                </form>
+                            </div>
