@@ -1009,8 +1009,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                         <div [formGroupName]="j">
                                                             <mat-expansion-panel hideToggle>
                                                                 <mat-expansion-panel-header>
-                                                                    <mat-panel-title>Non-breaking Action {{ j + 1
-                                                                        }}</mat-panel-title>
+                                                                    <mat-panel-title>  <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"> Non-Breaking Actions {{ j + 1
+                                                                        }} </button> </mat-panel-title>
                                                                 </mat-expansion-panel-header>
                                                                 <input type="text" formControlName="actionType"
                                                                     placeholder="* Non-breaking Action Type" />
@@ -1061,8 +1061,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
                                 <button type="button" class="btn btn-sm btn-info mt-4 mb-5"
                                     (click)="saveFormData()">Save</button>
