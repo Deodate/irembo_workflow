@@ -108,19 +108,45 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                 <form [formGroup]="devForm"
                                     (ngSubmit)="onSubmit($event)">
                                     <div formArrayName="devList">
-                                        <div *ngFor="let developer of devListArray().controls; let i = index;"
-                                            class="border border-dark my-2 p-5">
+                                        <div *ngFor="let developer of devListArray().controls; let i = index;">
+                                        
                                             <div [formGroupName]="i">
-                                                <input type="hidden" formControlName="id" />
-
-                                                <input type="text" formControlName="startState"
-                                                    placeholder="* Start State" />
-                                                <input type="text" formControlName="event" placeholder="* Event" />
+                                                <input type="hidden" formControlName="id"/>
+                                               
+                                                <table class="styled-table">
+                                                    <tr>
+                                                        <td class="label-cell">Start State</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <select class="select-field" formControlName="startState">
+                                                                <option value="">------------Select---------</option>
+                                                                <option
+                                                                    *ngFor="let startState of getStateMachineComponentUniqueStartStates()"
+                                                                    [value]="startState">
+                                                                    {{ startState }}
+                                                                </option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="label-cell">Event</td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <select class="select-field" formControlName="event">
+                                                                <option value="">------------Select---------</option>
+                                                                <option *ngFor="let event of getUniqueEvents()"
+                                                                    [value]="event">
+                                                                    {{ event }}
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <label class="styled-label">End State 1:</label>
+                                 
                                                 <input type="text" formControlName="state" placeholder="* State" />
 
                                                 <div formGroupName="endStateOne">
-                                                    <input type="text" formControlName="stateName"
-                                                        placeholder="* State Name" />
+                                                   
                                                     <input type="text" formControlName="stateCode"
                                                         placeholder="* State Code" />
 
