@@ -710,6 +710,8 @@ option {
     text-align: center; 
   }
 
+ 
+
   .select-fields {
     width: 140px; /* Adjust the width as needed */
     border: 1px solid  #0060d3; /* Blue border for input field */

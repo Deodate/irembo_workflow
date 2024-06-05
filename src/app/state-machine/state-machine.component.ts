@@ -3,7 +3,7 @@ import { StateComponent } from './state/state.component';
 import { TransitionNewComponent } from './transition/transition.component';
 import { CdkDragDrop, CdkDragMove } from '@angular/cdk/drag-drop';
 import { ApiService } from '../api.service';
-import { IremboTransition, Workflow, irembo, stateConfig, transitionConfig, Developer,  Action} from './models';
+import { IremboTransition, Workflow, irembo, stateConfig, transitionConfig, Developer, Action } from './models';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { WorflowSample } from '../sample-workflowy';
 import { MyTextareaComponent } from '../components/my-textarea/my-textarea.component';
@@ -35,6 +35,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   @Output() onTabChange = new EventEmitter<number>();
   activatedTab: number = 0;
   selectedActionType: string = '';
+  wordCount!: number;
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
@@ -716,7 +717,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       })];
       localStorage.setItem('iremboWorkflow', JSON.stringify(newData));
       localStorage.setItem('idCounter', this.idCounter.toString());
-  
+
       // Automatically reload the page after 10 seconds
       setTimeout(() => {
         window.location.reload();
@@ -771,6 +772,21 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       })
     });
   }
+
+
+  // Method to count words
+  countWords(text: string): number {
+    if (!text) {
+      return 0;
+    }
+    return text.trim().split(/\s+/).length;
+  }
+
+  // Method to update word count
+  updateWordCount(text: string): void {
+    this.wordCount = this.countWords(text);
+  }
+
 
   RWtitle: string = '';
   ENGtitle: string = '';
@@ -861,7 +877,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     console.log("onDragMove workflow", this.workflow);
   }
 
- 
+
 
   createTra() {
     const isLocalPresent = localStorage.getItem("server");
