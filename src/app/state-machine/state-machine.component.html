@@ -210,71 +210,92 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                             </tr>
                                                         </table>
 
-                                                    <div formArrayName="nonBreakingActionList">
-                                                        <div
-                                                            *ngFor="let action of nonBreakingActionss(i).controls; let j = index;">
-                                                            <div [formGroupName]="j">
-                                                                <mat-expansion-panel hideToggle>
-                                                                    <mat-expansion-panel-header>
-                                                                        <mat-panel-title>Non-breaking Action {{ j + 1
-                                                                            }}</mat-panel-title>
-                                                                    </mat-expansion-panel-header>
-                                                                    <input type="text" formControlName="actionType"
-                                                                        placeholder="* Non-breaking Action Type" />
+                                                        <div formArrayName="nonBreakingActionList">
+                                                            <div
+                                                                *ngFor="let action of nonBreakingActionss(i).controls; let j = index;">
+                                                                <div [formGroupName]="j">
+                                                                    <mat-expansion-panel hideToggle>
+                                                                        <mat-expansion-panel-header>
+                                                                            <mat-panel-title>
+                                                                                <button type="button"
+                                                                                    class="btn btn-sm btn-primary mt-4 mb-5">
+                                                                                    Open & fill Form
+                                                                                    {{ j + 1 }}
+                                                                                </button>
+                                                                            </mat-panel-title>
+                                                                        </mat-expansion-panel-header>
+                                                                        <input type="text" formControlName="actionType"
+                                                                            class="select-fieldss"
+                                                                            placeholder="* Non-breaking Action Type"  />
 
-                                                                    <div formGroupName="args">
-                                                                        <div formGroupName="frenchNotificationTemplate">
-                                                                            <textarea formControlName="smsTemplate"
-                                                                                placeholder="French SMS Template"></textarea>
-                                                                            <textarea formControlName="emailTemplate"
-                                                                                placeholder="French Email Template"></textarea>
-                                                                            <input type="text"
-                                                                                formControlName="notificationTitle"
-                                                                                placeholder="French Notification Title" />
+                                                                        <div formGroupName="args">
+                                                                            <div
+                                                                                formGroupName="frenchNotificationTemplate">
+                                                                                <textarea formControlName="smsTemplate"
+                                                                                    class="textAreas"
+                                                                                    placeholder="French SMS Template"></textarea>
+                                                                                <textarea
+                                                                                    formControlName="emailTemplate"
+                                                                                    class="textAreas"
+                                                                                    placeholder="French Email Template"></textarea>
+                                                                                <input type="text"
+                                                                                    formControlName="notificationTitle"
+                                                                                    class="select-fieldss"
+                                                                                    placeholder="French Notification Title" />
+                                                                            </div>
+                                                                            <div
+                                                                                formGroupName="englishNotificationTemplate">
+                                                                                <textarea formControlName="smsTemplate"
+                                                                                    class="textAreass"
+                                                                                    placeholder="English SMS Template"></textarea>
+                                                                                <textarea
+                                                                                    formControlName="emailTemplate"
+                                                                                    class="textAreass"
+                                                                                    placeholder="English Email Template"></textarea>
+                                                                                <input type="text"
+                                                                                    formControlName="notificationTitle"
+                                                                                    class="select-fieldss"
+                                                                                    placeholder="English Notification Title" />
+                                                                            </div>
+                                                                            <div
+                                                                                formGroupName="kinyarwandaNotificationTemplate">
+                                                                                <textarea formControlName="smsTemplate"
+                                                                                    class="textAreasss"
+                                                                                    placeholder="Kinyarwanda SMS Template"></textarea>
+                                                                                <textarea
+                                                                                    formControlName="emailTemplate"
+                                                                                    class="textAreasss"
+                                                                                    placeholder="Kinyarwanda Email Template"></textarea>
+                                                                                <input type="text"
+                                                                                    formControlName="notificationTitle"
+                                                                                    class="select-fieldss"
+                                                                                    placeholder="Kinyarwanda Notification Title" />
+                                                                            </div>
                                                                         </div>
-                                                                        <div
-                                                                            formGroupName="englishNotificationTemplate">
-                                                                            <textarea formControlName="smsTemplate"
-                                                                                placeholder="English SMS Template"></textarea>
-                                                                            <textarea formControlName="emailTemplate"
-                                                                                placeholder="English Email Template"></textarea>
-                                                                            <input type="text"
-                                                                                formControlName="notificationTitle"
-                                                                                placeholder="English Notification Title" />
-                                                                        </div>
-                                                                        <div
-                                                                            formGroupName="kinyarwandaNotificationTemplate">
-                                                                            <textarea formControlName="smsTemplate"
-                                                                                placeholder="Kinyarwanda SMS Template"></textarea>
-                                                                            <textarea formControlName="emailTemplate"
-                                                                                placeholder="Kinyarwanda Email Template"></textarea>
-                                                                            <input type="text"
-                                                                                formControlName="notificationTitle"
-                                                                                placeholder="Kinyarwanda Notification Title" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <p></p>
-                                                                    <button type="button" class="btn btn-sm btn-primary"
-                                                            (click)="addNonBreakingActionss(i)">Add Non-Breaking Action</button>
-                                                                    <button type="button"
-                                                                        *ngIf="nonBreakingActionss(i).length > 1"
-                                                                        class="btn btn-sm btn-danger ms-1"
-                                                                        (click)="removeNonBreakingActions(i, j)">Remove</button>
-                                                                </mat-expansion-panel>
+                                                                        <p></p>
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-outline-primary"
+                                                                            (click)="addNonBreakingActionss(i)">Add
+                                                                            Non-Breaking Action</button>
+                                                                        <button type="button"
+                                                                            *ngIf="nonBreakingActionss(i).length > 1"
+                                                                            class="btn btn-sm btn-outline-danger ms-1"
+                                                                            (click)="removeNonBreakingActions(i, j)">Remove</button>
+                                                                    </mat-expansion-panel>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <button type="button" class="btn btn-sm btn-primary mt-4 mb-5"
-                                        (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First
-                                        Developer</button> -->
-                                    <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
-                                    <button type="button" class="btn btn-sm btn-info mt-4 mb-5"
-                                        (click)="saveFormData()">Save</button>
+                                    <div class="modal-footer d-flex justify-content-end">
+                                        <button type="button" class="btn btn-sm btn-success me-2"
+                                            data-bs-dismiss="modal" (click)="saveFormData()">Create</button>
+                                        <div class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">EXIT</div>
+                                        <!-- <button type="button" class="btn btn-sm btn-info" (click)="saveFormData()">Save</button> -->
+                                    </div>
                                 </form>
                             </div>
 
