@@ -50,6 +50,11 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     throw new Error('Method not implemented.');
   }
 
+  loadInitialData() {
+    const data = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
+    this.storedData = data;
+  }
+
   showSecondNonBreakingAction: boolean = false;
   showThirdNonBreakingAction: boolean = false;
   showOneNonBreakingAction: boolean = false;
@@ -586,13 +591,16 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       devList: this.fb.array([])
     });
     this.idCounter = 0;
+    
   }
+  
   formData: any = {};
 
   handleClick() {
     console.log('Show Data:', this.showData);
     this.showData = true;
   }
+  
 
   newTransForm !: FormGroup;
 
@@ -601,7 +609,10 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   }
 
+
   ngOnInit(): void {
+    this.loadInitialData();
+
     this.addForm = this.formBuilder.group({
       items: ['', Validators.required]
     });
@@ -712,6 +723,19 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   nonBreakingActionss(i: number): FormArray {
     return (this.devListArray().at(i).get('endStateOne') as FormGroup).get('nonBreakingActionList') as FormArray;
+  }
+
+  populateFormWithData(data: any) {
+    this.devForm.patchValue({
+      startState: data.startState,
+      event: data.event,
+      state: data.state,
+      // Populate other form fields similarly
+    });
+  }
+
+  onTransitionSelected(transitionData: transitionConfig) {
+    this.populateFormWithData(transitionData);
   }
 
   addNonBreakingActionss(i: number) {

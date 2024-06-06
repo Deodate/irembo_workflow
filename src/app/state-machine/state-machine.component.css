@@ -734,6 +734,14 @@ option {
     text-align: center; /* Centers the text inside the input field */
 }
 
+.custom-btn-small {
+    padding: 2px 4px;
+    font-size: 9px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+
 
 .textAreas{
     display: block;

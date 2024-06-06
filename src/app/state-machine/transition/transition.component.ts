@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class TransitionNewComponent implements OnInit {
   i: any;
   creationForm!: FormGroup;
+  devForm!: FormGroup;
   transitionToEdit: any = {};
 onUpdate(arg0: any,arg1: any) {
 throw new Error('Method not implemented.');
@@ -85,6 +86,7 @@ throw new Error('Method not implemented.');
     this.setFormData(this.config); // Set form data when clicking the card
     this.displayData.emit(this.config); // Emit the transitionConfig object
   }
+  
 
 
   // updateConfig(config: transitionConfig, index: number) {
@@ -160,6 +162,33 @@ setFormData(config: transitionConfig) {
       actionType: config.endStateOne?.nonBreakingActionList && config.endStateOne.nonBreakingActionList.length > 0 ? config.endStateOne.nonBreakingActionList[0]?.actionType : '' // Check if nonBreakingActionList is not empty
   });
 }
+
+selectTransition(config: transitionConfig) {
+  const newTransition: createNewTransitions = {
+    id: config.id,
+    event: config.event,
+    startState: config.startState,
+    endStateOne: {
+      stateName: config.endStateOne?.stateName || '',
+      stateCode: config.endStateOne?.stateCode || '',
+      breakingAction: config.endStateOne?.breakingAction || null,
+      nonBreakingActionList: config.endStateOne?.nonBreakingActionList || [],
+    },
+    endStateTwo: config.endStateTwo || null,
+    state: '',
+    breakingAction: '',
+    nonBreakingAction: '',
+    notificationTitle: undefined
+  };
+
+  this.selectedTransition.emit(newTransition);
+}
+
+
+displayTransitionData(config: transitionConfig) {
+  this.displayData.emit(config);
+}
+
 
   // handleCreate(event: any) {
   //   this.text = event;
