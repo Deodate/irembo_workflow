@@ -52,6 +52,16 @@ export class MyTextareaComponent implements OnInit {
   storedData: Developer[] = [];
   isEditing: boolean = false; // Add this line
   editIndex: number | null = null; // Add this line
+  filteredData: any[] = [];
+  searchText: string = '';
+
+
+  search() {
+    this.filteredData = this.storedData.filter(dev =>
+      dev.startState.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    console.log('Filtered Data:', this.filteredData); // Log the filtered data
+  }
 
   constructor(private fb: FormBuilder) {
     this.devForm = this.fb.group({
@@ -201,6 +211,7 @@ export class MyTextareaComponent implements OnInit {
   loadInitialData() {
     const data = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
     this.storedData = data;
+    this.filteredData = this.storedData;
   }
   // Add this method to edit developer data
   editDev(index: number) {

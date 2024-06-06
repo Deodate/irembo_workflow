@@ -62,6 +62,7 @@
 </div>
 
 <div class="container mt-5">
+  <input type="text" class="form-control mb-3" placeholder="Search by Start State" [(ngModel)]="searchText" (input)="search()">
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -77,7 +78,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dev of storedData; let index = index">
+      <tr *ngFor="let dev of filteredData; let index = index">
         <td>{{ dev.id }}</td>
         <td>{{ dev.startState }}</td>
         <td>{{ dev.event }}</td>

@@ -23,28 +23,28 @@
                 your working process.</span>
           
 
-            <div class="container mt-5" style=" margin-left: -20px; font-size: 7px">
-                <table class="table table-bordered">
-                  <thead>
+            <div class="container mt-5" style="margin-left: -20px; font-size: 7px; color:#000;">
+                <input type="text" class="form-control mb-3 search-input" placeholder="Search by Start State" [(ngModel)]="searchText" (input)="search()">
+                <table class="table table-bordered custom-table">
+                  <thead style=" background-color: blue;">
                     <tr>
                       <!-- <th>ID</th> -->
-                      <th>Start_State</th>
-                      <th>Event</th>
+                      <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';">Start_State</u></th>
+                      <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';">Event</u></th>
                       <!-- <th>State</th> -->
                       <!-- <th>End State Name</th>
                       <th>End State Code</th>
                       <th>Breaking Action Type</th>
                     -->
-                      <th>Edit</th>
-                      <th>Delete</th>
+                      <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';">Edit</u></th>
+                      <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';"> Delete</u></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let dev of storedData; let index = index">
+                    <tr *ngFor="let dev of filteredData; let index = index">
                       <!-- <td>{{ dev.id }}</td> -->
-                      <td>{{ dev.startState }}</td>
+                      <td style=" color: rgb(2, 2, 2); font-family: 'Times New Roman';">{{ dev.startState }}</td>
                       <td>{{ dev.event }}</td>
-                      <td></td>
                       <!-- <td>{{ dev.state }}</td> -->
                       <!-- <td>{{ dev.endStateOne.stateName }}</td>
                       <td>{{ dev.endStateOne.stateCode }}</td> -->
@@ -56,8 +56,11 @@
                           </li>
                         </ul>
                       </td> -->
+                      <td> <button type="button" class="btn btn-sm btn-info custom-btn-small">Edit</button></td>
                       <td>
-                        <button type="button" class="btn btn-sm btn-danger custom-btn-small">Delete</button>
+                        <button type="button" class="btn btn-sm btn-danger custom-btn-small" 
+                        (click)="deleteDev(index)" [disabled]="index !== storedData.length - 1">Delete</button>
+                    
                         <!-- (click)="editDev(index)" -->
                         <!-- <button type="button" class="btn btn-sm btn-danger" (click)="deleteDev(index)">Delete</button> -->
                       </td>
@@ -70,23 +73,6 @@
                 <div class="row">
                     <div class="col-md-3">
                         <form [formGroup]="addForm">
-                            <input matInput formControlName="items"
-                                style="border: 0px; padding-left: 9px; font-family: 'Times New Roman', Times, serif; font-size: 12px; height: 30px; background-color: rgb(181, 198, 224);">
-
-                            <button type="button" style="font-size: 10px; 
-          margin: 20px;
-          margin-left: 30px;
-          width: 60px;
-          height: 30px;
-          background-color: #0060d3;
-          cursor: pointer;
-          position: fixed;
-          border: none;
-          color: #d9dedb;
-          border-radius: 20px;
-          box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
-         5px 2px 12px -1px rgba(255, 255, 255, 0.70);
-          " (click)="addData()" [disabled]="addForm.invalid" *ngIf="!isEditEnabled">Add</button>
 
                             <button type="button" style="font-size: 10px; 
 margin: 20px;

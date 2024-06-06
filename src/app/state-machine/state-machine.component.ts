@@ -29,7 +29,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   uniqueStateCodes: string[] = [];
   selectedNonBreakingActions: string[] = [];
   nonBreakingActionList: any;
-  searchText: any;
   panelOpenState = false;
   @Input() tabsArray: string[] = [];
   @Output() onTabChange = new EventEmitter<number>();
@@ -41,9 +40,20 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   changeDetectorRef: any;
   dev: any;
   storedData: Developer[] = [];
-  isEditing: boolean = false; // Add this line
-  editIndex: number | null = null; // Add this line
- 
+  isEditing: boolean = false; 
+  editIndex: number | null = null; 
+  filteredData: any[] = [];
+  searchText: string = ''
+
+
+  search() {
+    this.filteredData = this.storedData.filter(dev =>
+      dev.startState.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    console.log('Filtered Data:', this.filteredData); // Log the filtered data
+  }
+
+
 
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
@@ -53,6 +63,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   loadInitialData() {
     const data = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
     this.storedData = data;
+    this.filteredData = this.storedData;
   }
 
   showSecondNonBreakingAction: boolean = false;
@@ -591,16 +602,16 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       devList: this.fb.array([])
     });
     this.idCounter = 0;
-    
+
   }
-  
+
   formData: any = {};
 
   handleClick() {
     console.log('Show Data:', this.showData);
     this.showData = true;
   }
-  
+
 
   newTransForm !: FormGroup;
 
@@ -660,36 +671,36 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   fetchNonBreakingAction(i: number, j: number): any {
     const devGroup = this.devListArray().at(i);
     if (!devGroup) return null;
-  
+
     const endStateOne = devGroup.get('endStateOne');
     if (!endStateOne) return null;
-  
+
     const nonBreakingActionList = endStateOne.get('nonBreakingActionList') as FormArray;
     if (!nonBreakingActionList) return null;
-  
+
     const nonBreakingAction = nonBreakingActionList.at(j);
     if (!nonBreakingAction) return null;
-  
+
     const args = nonBreakingAction.get('args');
     if (!args) return null;
-  
+
     const frenchNotificationTemplate = args.get('frenchNotificationTemplate');
     if (!frenchNotificationTemplate || !(frenchNotificationTemplate instanceof AbstractControl)) return null;
-  
+
     const smsTemplateControl = frenchNotificationTemplate.get('smsTemplate');
     const emailTemplateControl = frenchNotificationTemplate.get('emailTemplate');
     const notificationTitleControl = frenchNotificationTemplate.get('notificationTitle');
-  
+
     if (!smsTemplateControl || !emailTemplateControl || !notificationTitleControl) return null;
-  
+
     return {
       smsTemplate: smsTemplateControl.value || '',
       emailTemplate: emailTemplateControl.value || '',
       notificationTitle: notificationTitleControl.value || ''
     };
   }
-  
-  
+
+
 
   countCharacters() {
     const smsTemplateValue = this.devForm.get('smsTemplate')?.value;
@@ -732,6 +743,16 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       state: data.state,
       // Populate other form fields similarly
     });
+  }
+
+  deleteDev(index: number) {
+    this.storedData.splice(index, 1); // Remove the developer
+    localStorage.setItem('iremboWorkflow', JSON.stringify(this.storedData)); // Update local storage
+    this.loadInitialData(); // Reload data
+
+    setTimeout(() => {
+      location.reload(); // Reload the page after 10 seconds
+    }, 100); // 10000 milliseconds = 10 seconds
   }
 
   onTransitionSelected(transitionData: transitionConfig) {
