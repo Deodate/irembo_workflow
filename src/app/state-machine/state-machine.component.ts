@@ -39,7 +39,12 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   characterCount = 0;
   maxCharacters = 500;
   changeDetectorRef: any;
-dev: any;
+  dev: any;
+  storedData: Developer[] = [];
+  isEditing: boolean = false; // Add this line
+  editIndex: number | null = null; // Add this line
+ 
+
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
@@ -770,6 +775,19 @@ dev: any;
       }, 100);
     } catch (error) {
       console.error('Error saving form data:', error);
+    }
+  }
+
+  updateDev() {
+    if (this.editIndex !== null) {
+      const formValue = this.devForm.value;
+      this.storedData[this.editIndex] = formValue.devList[0]; // Update the stored data
+      localStorage.setItem('iremboWorkflow', JSON.stringify(this.storedData)); // Save updated data to local storage
+      this.isEditing = false; // Reset editing state
+      this.editIndex = null; // Reset edit index
+      this.devForm.reset(); // Clear the form
+      this.devForm.setControl('devList', this.fb.array([])); // Clear the form array
+      this.addDev(); // Add a new blank entry
     }
   }
 
