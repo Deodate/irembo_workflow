@@ -208,7 +208,13 @@ export class MyTextareaComponent implements OnInit {
     this.editIndex = index; // Add this line
     const dev = this.storedData[index];
     this.devForm.setControl('devList', this.fb.array([this.createDevGroup(dev)]));
+    // Open mat-expansion-panel
+    const panel = document.getElementById('expansionPanel' + index);
+    if (panel) {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
+
 
   updateDev() {
     if (this.editIndex !== null) {
