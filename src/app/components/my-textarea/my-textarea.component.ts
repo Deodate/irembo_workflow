@@ -38,17 +38,18 @@ interface Developer {
   styleUrls: ['./my-textarea.component.css']
 })
 export class MyTextareaComponent implements OnInit {
-getStateMachineComponentUniqueStartStates(): any {
-throw new Error('Method not implemented.');
-}
-onStartStateSelected($event: Event) {
-throw new Error('Method not implemented.');
-}
+  getStateMachineComponentUniqueStartStates(): any {
+    throw new Error('Method not implemented.');
+  }
+  onStartStateSelected($event: Event) {
+    throw new Error('Method not implemented.');
+  }
 
   @Output() formInitialized = new EventEmitter<FormGroup>();
 
   devForm: FormGroup;
   private idCounter: number;
+  storedData: Developer[] = [];
 
   constructor(private fb: FormBuilder) {
     this.devForm = this.fb.group({
@@ -58,6 +59,7 @@ throw new Error('Method not implemented.');
   }
 
   ngOnInit(): void {
+    this.loadInitialData();
     if (this.devListArray().length === 0) {
       this.addDev();
     }
@@ -191,5 +193,22 @@ throw new Error('Method not implemented.');
         })
       })
     });
+  }
+
+  // Add this method to load initial data from local storage
+  loadInitialData() {
+    const data = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
+    this.storedData = data;
+  }
+  // Add this method to edit developer data
+  editDev(index: number) {
+    const dev = this.storedData[index];
+    this.devForm.setControl('devList', this.fb.array([this.createDevGroup(dev)]));
+  }
+  // Add this method to delete developer data
+  deleteDev(index: number) {
+    this.storedData.splice(index, 1);
+    localStorage.setItem('iremboWorkflow', JSON.stringify(this.storedData));
+    this.loadInitialData();
   }
 }
