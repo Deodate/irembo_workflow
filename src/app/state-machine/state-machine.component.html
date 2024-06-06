@@ -18,11 +18,13 @@
     </div>
     <div id="sidebar">
         <div class="contents"><br><br>
-            <span style="color: #000;">State</span><br>
-            <span style="font-size: 9px; font-family: 'Times New Roman', Times, serif;">Statuses capture the stages of
-                your working process.</span>
-          
+            <span style="color: #000;">States Machine</span><br>
 
+                <div class="alert alert-primary" role="alert" style="font-family: 'Times New Roman'; height: 20%; width: 120%; left: -8px; align-items: center; justify-content: center;  flex-direction: column;"> -------------------------------------
+                    </div>
+          
+             <div class="alert alert-success" role="alert" style="font-size: 10px; font-family: 'Times New Roman'; height: 20%; width: 120%; left: -8px; align-items: center; justify-content: center;  flex-direction: column;">Statuses capture the stages of
+                your working..</div>
             <div class="container mt-5" style="margin-left: -20px; font-size: 7px; color:#000;">
                 <input type="text" class="form-control mb-3 search-input" placeholder="Search by Start State" [(ngModel)]="searchText" (input)="search()">
                 <table class="table table-bordered custom-table">
@@ -43,7 +45,7 @@
                   <tbody>
                     <tr *ngFor="let dev of filteredData; let index = index">
                       <!-- <td>{{ dev.id }}</td> -->
-                      <td style=" color: rgb(2, 2, 2); font-family: 'Times New Roman';">{{ dev.startState }}</td>
+                      <td class="alert alert-primary" role="alert">{{ dev.startState }}</td>
                       <td>{{ dev.event }}</td>
                       <!-- <td>{{ dev.state }}</td> -->
                       <!-- <td>{{ dev.endStateOne.stateName }}</td>
@@ -770,7 +772,6 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                     <button style="background-color: #5794de; height: 1px; width: 1px;" type="button" class="btn-close"
                         data-bs-dismiss="modal"></button>
                 </div>
-
 
                 <div class="modal-body form-container">
                     <div class="modal-body">
