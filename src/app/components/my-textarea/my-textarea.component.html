@@ -57,10 +57,12 @@
     <button type="button" class="btn btn-sm btn-primary mt-4 mb-5" (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First Developer</button>
     <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
     <button type="button" class="btn btn-sm btn-info mt-4 mb-5" (click)="saveFormData()">Save</button>
+    <button *ngIf="isEditing" type="button" class="btn btn-sm btn-warning mt-4 mb-5" (click)="updateDev()">Update</button>
   </form>
 </div>
-<div class="d-flex justify-content-center mt-5">
-  <table class="table table-bordered w-75">
+
+<div class="container mt-5">
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th>ID</th>
@@ -69,20 +71,20 @@
         <th>State</th>
         <th>End State Name</th>
         <th>End State Code</th>
-        <th>Breaking Action</th>
+        <th>Breaking Action Type</th>
         <th>Non-breaking Actions</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dev of storedData; let i = index;">
+      <tr *ngFor="let dev of storedData; let index = index">
         <td>{{ dev.id }}</td>
         <td>{{ dev.startState }}</td>
         <td>{{ dev.event }}</td>
         <td>{{ dev.state }}</td>
         <td>{{ dev.endStateOne.stateName }}</td>
         <td>{{ dev.endStateOne.stateCode }}</td>
-        <td>{{ dev.endStateOne.breakingAction?.actionType || 'None' }}</td>
+        <td>{{ dev.endStateOne.breakingAction?.actionType }}</td>
         <td>
           <ul>
             <li *ngFor="let action of dev.endStateOne.nonBreakingActionList">
@@ -91,8 +93,8 @@
           </ul>
         </td>
         <td>
-          <button class="btn btn-sm btn-primary" (click)="editDev(i)">Edit</button>
-          <button class="btn btn-sm btn-danger" (click)="deleteDev(i)">Delete</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="editDev(index)">Edit</button>
+          <button type="button" class="btn btn-sm btn-danger" (click)="deleteDev(index)">Delete</button>
         </td>
       </tr>
     </tbody>

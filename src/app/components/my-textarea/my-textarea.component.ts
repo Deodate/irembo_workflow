@@ -50,6 +50,8 @@ export class MyTextareaComponent implements OnInit {
   devForm: FormGroup;
   private idCounter: number;
   storedData: Developer[] = [];
+  isEditing: boolean = false; // Add this line
+  editIndex: number | null = null; // Add this line
 
   constructor(private fb: FormBuilder) {
     this.devForm = this.fb.group({
@@ -202,13 +204,29 @@ export class MyTextareaComponent implements OnInit {
   }
   // Add this method to edit developer data
   editDev(index: number) {
+    this.isEditing = true; // Add this line
+    this.editIndex = index; // Add this line
     const dev = this.storedData[index];
     this.devForm.setControl('devList', this.fb.array([this.createDevGroup(dev)]));
   }
+
+  updateDev() {
+    if (this.editIndex !== null) {
+      const formValue = this.devForm.value;
+      this.storedData[this.editIndex] = formValue.devList[0]; // Update the stored data
+      localStorage.setItem('iremboWorkflow', JSON.stringify(this.storedData)); // Save updated data to local storage
+      this.isEditing = false; // Reset editing state
+      this.editIndex = null; // Reset edit index
+      this.devForm.reset(); // Clear the form
+      this.devForm.setControl('devList', this.fb.array([])); // Clear the form array
+      this.addDev(); // Add a new blank entry
+    }
+  }
+
   // Add this method to delete developer data
   deleteDev(index: number) {
-    this.storedData.splice(index, 1);
-    localStorage.setItem('iremboWorkflow', JSON.stringify(this.storedData));
-    this.loadInitialData();
+    this.storedData.splice(index, 1); // Remove the developer
+    localStorage.setItem('iremboWorkflow', JSON.stringify(this.storedData)); // Update local storage
+    this.loadInitialData(); // Reload data
   }
 }
