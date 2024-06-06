@@ -21,7 +21,7 @@
             <div formArrayName="nonBreakingActionList">
               <div *ngFor="let action of nonBreakingActions(i).controls; let j = index;">
                 <div [formGroupName]="j">
-                  <mat-expansion-panel hideToggle>
+                  <mat-expansion-panel [expanded]="isEditing">
                     <mat-expansion-panel-header>
                       <mat-panel-title>Non-breaking Action {{ j + 1 }}</mat-panel-title>
                     </mat-expansion-panel-header>
