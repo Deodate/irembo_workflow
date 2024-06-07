@@ -7,10 +7,10 @@
 
           <input type="text" formControlName="startState" placeholder="* Start State" />
           <input type="text" formControlName="event" placeholder="* Event" />
-          <input type="text" formControlName="state" placeholder="* State" />
+          <!-- <input type="text" formControlName="state" placeholder="* State" /> -->
 
           <div formGroupName="endStateOne">
-            <input type="text" formControlName="stateName" placeholder="* State Name" />
+            <!-- <input type="text" formControlName="stateName" placeholder="* State Name" /> -->
             <input type="text" formControlName="stateCode" placeholder="* State Code" />
 
             <div formGroupName="breakingAction">
@@ -54,44 +54,42 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-sm btn-primary mt-4 mb-5" (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First Developer</button>
-    <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button>
-    <button type="button" class="btn btn-sm btn-info mt-4 mb-5" (click)="saveFormData()">Save</button>
-    <button *ngIf="isEditing" type="button" class="btn btn-sm btn-warning mt-4 mb-5" (click)="updateDev()">Update</button>
+    <!-- <button type="button" class="btn btn-sm btn-primary mt-4 mb-5" (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First Developer</button> -->
+    <!-- <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button> -->
+    <!-- <button type="button" class="btn btn-sm btn-info mt-4 mb-5" (click)="saveFormData()">Save</button> -->
+    <button *ngIf="isEditing" type="button" class="btn btn-sm btn-warning mt-4 mb-5" data-bs-dismiss="modal" (click)="updateDev()">Update</button>
   </form>
 </div>
 
-<div class="container mt-5">
-  <input type="text" class="form-control mb-3" placeholder="Search by Start State" [(ngModel)]="searchText" (input)="search()">
+<div class="container mt-5"  style="margin-left: -20px; font-size: 10px; color:#000;">
+  <!-- <input type="text" class="form-control mb-3" placeholder="Search by Start State" [(ngModel)]="searchText" (input)="search()"> -->
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Start State</th>
         <th>Event</th>
         <th>End State Code</th>
-        <th>Breaking Action Type</th>
-        <th>Non-breaking Actions</th>
+        <!-- <th>Breaking Action Type</th> -->
+        <!-- <th>Non-breaking Actions</th> -->
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let dev of filteredData; let index = index">
-        <td>{{ dev.id }}</td>
         <td>{{ dev.startState }}</td>
         <td>{{ dev.event }}</td>
         <td>{{ dev.endStateOne.stateCode }}</td>
-        <td>{{ dev.endStateOne.breakingAction?.actionType }}</td>
-        <td>
+        <!-- <td>{{ dev.endStateOne.breakingAction?.actionType }}</td> -->
+        <!-- <td>
           <ul>
             <li *ngFor="let action of dev.endStateOne.nonBreakingActionList">
               {{ action.actionType }}
             </li>
           </ul>
-        </td>
+        </td> -->
         <td>
           <button type="button" class="btn btn-sm btn-primary" (click)="editDev(index)">Edit</button>
-          <button type="button" class="btn btn-sm btn-danger" (click)="deleteDev(index)">Delete</button>
+          <!-- <button type="button" class="btn btn-sm btn-danger" (click)="deleteDev(index)">Delete</button> -->
         </td>
       </tr>
     </tbody>
