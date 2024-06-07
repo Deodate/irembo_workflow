@@ -49,10 +49,7 @@ throw new Error('Method not implemented.');
 
   @Output() selectedTransition: EventEmitter<createNewTransitions> = new EventEmitter<createNewTransitions>();
   @Output() displayData: EventEmitter<transitionConfig> = new EventEmitter<transitionConfig>();
-  // selectedCreateEvent: any;
-  // @Output() selectedTransition: EventEmitter<createNewTransitions> = new EventEmitter<createNewTransitions>();
 
-  // @Output() onUpdated: EventEmitter<{ item: stateConfig, index: number }> = new EventEmitter<{ item: stateConfig, index: number }>();
   @Output() onUpdated: EventEmitter<transitionConfig> = new EventEmitter<transitionConfig>();
 
   @Input() config!: transitionConfig;
@@ -153,8 +150,8 @@ setFormData(config: transitionConfig) {
   this.creationForm.patchValue({
       startState: config.startState,
       event: config.event,
-      stateCode: config.endStateOne?.stateCode || '', // Use empty string as default value if stateCode is undefined
-      breakingAction: config.endStateOne?.breakingAction?.actionType || '', // Use empty string as default value if breakingAction is undefined
+      stateCode: config.endStateOne?.stateCode || '', 
+      breakingAction: config.endStateOne?.breakingAction?.actionType || '', 
       actionType: config.endStateOne?.nonBreakingActionList && config.endStateOne.nonBreakingActionList.length > 0 ? config.endStateOne.nonBreakingActionList[0]?.actionType : '' // Check if nonBreakingActionList is not empty
   });
 }
