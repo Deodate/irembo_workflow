@@ -612,7 +612,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.showData = true;
   }
 
-
   newTransForm !: FormGroup;
 
   logTransitions() {
@@ -620,7 +619,25 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   }
 
+  // Add this method to edit developer data
+  editDev(index: number) {
+    this.isEditing = true; // Add this line
+    this.editIndex = index; // Add this line
+    const dev = this.storedData[index];
+    this.devForm.setControl('devList', this.fb.array([this.createDevGroup(dev)]));
+    // Open mat-expansion-panel
+    const panel = document.getElementById('expansionPanel' + index);
+    if (panel) {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 
+  openModal() {
+  
+  }
+
+
+ 
   ngOnInit(): void {
     this.loadInitialData();
 
