@@ -916,7 +916,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     this.wordCount = this.countWords(text);
   }
 
-
   RWtitle: string = '';
   ENGtitle: string = '';
   FRtitle: string = '';
