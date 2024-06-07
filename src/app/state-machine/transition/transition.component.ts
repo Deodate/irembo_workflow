@@ -119,10 +119,6 @@ throw new Error('Method not implemented.');
     this.showModal.emit();
   }
 
-  // onEdit(item: createNewTransitions){
-  //   this.newTransitionsObj = item;
-  // }
-
   handleClick() {
     console.log("Config data:", this.config);
 
@@ -189,11 +185,6 @@ displayTransitionData(config: transitionConfig) {
   this.displayData.emit(config);
 }
 
-
-  // handleCreate(event: any) {
-  //   this.text = event;
-  //   console.log("handle create")
-  // }
 
 }
 
