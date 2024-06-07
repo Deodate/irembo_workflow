@@ -208,7 +208,7 @@ export class MyTextareaComponent implements OnInit {
     });
   }
 
-  // Add this method to load initial data from local storage
+  // Add this method to load initial data from local storage 
   loadInitialData() {
     const data = JSON.parse(localStorage.getItem('iremboWorkflow') || '[]');
     this.storedData = data;
