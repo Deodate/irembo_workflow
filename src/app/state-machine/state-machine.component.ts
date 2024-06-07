@@ -43,7 +43,8 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   isEditing: boolean = false; 
   editIndex: number | null = null; 
   filteredData: any[] = [];
-  searchText: string = ''
+  searchText: string = '';
+  isFormVisible: boolean = false
 
 
   search() {
@@ -621,6 +622,7 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
 
   // Add this method to edit developer data
   editDev(index: number) {
+    this.isFormVisible = !this.isFormVisible;
     this.isEditing = true; // Add this line
     this.editIndex = index; // Add this line
     const dev = this.storedData[index];

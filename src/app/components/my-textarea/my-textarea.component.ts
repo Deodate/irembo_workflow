@@ -54,6 +54,7 @@ export class MyTextareaComponent implements OnInit {
   editIndex: number | null = null; // Add this line
   filteredData: any[] = [];
   searchText: string = '';
+  isFormVisible: boolean = false; // Controls the visibility of the form
 
 
   search() {
@@ -215,6 +216,7 @@ export class MyTextareaComponent implements OnInit {
   }
   // Add this method to edit developer data
   editDev(index: number) {
+    this.isFormVisible = !this.isFormVisible; // Toggle form visibility
     this.isEditing = true; // Add this line
     this.editIndex = index; // Add this line
     const dev = this.storedData[index];
