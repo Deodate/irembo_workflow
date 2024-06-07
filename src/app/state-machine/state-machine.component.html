@@ -8,8 +8,8 @@
             #irembo
         </div>
         <div id="menu">
-            <a href="#" [ngClass]="{'prime-button': true}" style="color: white;" data-bs-toggle="modal"
-            data-bs-target="#exampleModes">To-Do</a>
+            <a href="#" style="color: rgb(0, 0, 0);" data-bs-toggle="modal"
+                data-bs-target="#exampleModes">To-Do</a>
             <a href="#">Transition</a>
             <a href="#">Status</a>
             <a href="#" [ngClass]="{'prime-button': true}" style="color: white;" data-bs-toggle="modal"
@@ -21,56 +21,65 @@
         <div class="contents"><br><br>
             <span style="color: #000;">States Machine</span><br>
 
-                <div class="alert alert-primary" role="alert" style="font-family: 'Times New Roman'; height: 20%; width: 120%; left: -8px; align-items: center; justify-content: center;  flex-direction: column;"> -------------------------------------
-                    </div>
-          
-             <div class="alert alert-success" role="alert" style="font-size: 10px; font-family: 'Times New Roman'; height: 20%; width: 120%; left: -8px; align-items: center; justify-content: center;  flex-direction: column;">Statuses capture the stages of
+            <div class="alert alert-primary" role="alert"
+                style="font-family: 'Times New Roman'; height: 20%; width: 120%; left: -8px; align-items: center; justify-content: center;  flex-direction: column;">
+                -------------------------------------
+            </div>
+
+            <div class="alert alert-success" role="alert"
+                style="font-size: 10px; font-family: 'Times New Roman'; height: 20%; width: 120%; left: -8px; align-items: center; justify-content: center;  flex-direction: column;">
+                Statuses capture the stages of
                 your working..</div>
             <div class="container mt-5" style="margin-left: -20px; font-size: 7px; color:#000;">
-                <input type="text" class="form-control mb-3 search-input" placeholder="Search by Start State" [(ngModel)]="searchText" (input)="search()">
+                <input type="text" class="form-control mb-3 search-input" placeholder="Search by Start State"
+                    [(ngModel)]="searchText" (input)="search()">
                 <table class="table table-bordered custom-table">
-                  <thead style=" background-color: blue;">
-                    <tr>
-                      <!-- <th>ID</th> -->
-                      <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';">Start_State</u></th>
-                      <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';">Event</u></th>
-                      <!-- <th>State</th> -->
-                      <!-- <th>End State Name</th>
+                    <thead style=" background-color: blue;">
+                        <tr>
+                            <!-- <th>ID</th> -->
+                            <th><u
+                                    style=" color: blue; font-size: 10px; font-family: 'Times New Roman';">Start_State</u>
+                            </th>
+                            <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';">Event</u></th>
+                            <!-- <th>State</th> -->
+                            <!-- <th>End State Name</th>
                       <th>End State Code</th>
                       <th>Breaking Action Type</th>
                     -->
-                      <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';">Edit</u></th>
-                      <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';"> Delete</u></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let dev of filteredData; let index = index">
-                      <!-- <td>{{ dev.id }}</td> -->
-                      <td class="alert alert-primary" role="alert">{{ dev.startState }}</td>
-                      <td>{{ dev.event }}</td>
-                      <!-- <td>{{ dev.state }}</td> -->
-                      <!-- <td>{{ dev.endStateOne.stateName }}</td>
+                            <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';">Edit</u></th>
+                            <th><u style=" color: blue; font-size: 10px; font-family: 'Times New Roman';"> Delete</u>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let dev of filteredData; let index = index">
+                            <!-- <td>{{ dev.id }}</td> -->
+                            <td class="alert alert-primary" role="alert">{{ dev.startState }}</td>
+                            <td>{{ dev.event }}</td>
+                            <!-- <td>{{ dev.state }}</td> -->
+                            <!-- <td>{{ dev.endStateOne.stateName }}</td>
                       <td>{{ dev.endStateOne.stateCode }}</td> -->
-                   
-                      <!-- <td>
+
+                            <!-- <td>
                         <ul>
                           <li *ngFor="let action of dev.endStateOne.nonBreakingActionList">
                             {{ action.actionType }}
                           </li>
                         </ul>
                       </td> -->
-                      <td> <button type="button" class="btn btn-sm btn-info custom-btn-small">Edit</button></td>
-                      <td>
-                        <button type="button" class="btn btn-sm btn-danger custom-btn-small" 
-                        (click)="deleteDev(index)" [disabled]="index !== storedData.length - 1">Delete</button>
-                    
-                        <!-- (click)="editDev(index)" -->
-                        <!-- <button type="button" class="btn btn-sm btn-danger" (click)="deleteDev(index)">Delete</button> -->
-                      </td>
-                    </tr>
-                  </tbody>
+                            <td> <button type="button" class="btn btn-sm btn-info custom-btn-small">Edit</button></td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-danger custom-btn-small"
+                                    (click)="deleteDev(index)"
+                                    [disabled]="index !== storedData.length - 1">Delete</button>
+
+                                <!-- (click)="editDev(index)" -->
+                                <!-- <button type="button" class="btn btn-sm btn-danger" (click)="deleteDev(index)">Delete</button> -->
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
-              </div>
+            </div>
 
             <div class="container-fluid">
                 <div class="row">
@@ -336,23 +345,25 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                 </div>
 
 
-                <div class="modal fade" id="exampleModes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModes" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Modal title</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Modal body text goes here.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                          <p>Modal body text goes here.</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                      </div>
                     </div>
-                  </div>
+                </div>
 
                 <!-- <form class="create_transition" [formGroup]="creationForm" (ngSubmit)="createNew()">
                             <div><b class="new_transition">New Transition</b></div>
@@ -791,16 +802,42 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                     <h5 class="modal-title fs-8" id="exampleModalLabel"><b>#irembo update transition</b></h5>
                     <button style="background-color: #5794de; height: 1px; width: 1px;" type="button" class="btn-close"
                         data-bs-dismiss="modal"></button>
-                </div>
+                </div>        
+                <a href="#">Edit</a>
+
+                <!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Developer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="editForm" (ngSubmit)="onSubmitEdit()">
+                    <div class="mb-3">
+                        <label for="startState" class="form-label">Start State</label>
+                        <input type="text" id="startState" class="form-control" formControlName="startState">
+                    </div>
+                    <div class="mb-3">
+                        <label for="event" class="form-label">Event</label>
+                        <input type="text" id="event" class="form-control" formControlName="event">
+                    </div>
+                    <!-- Add other form fields as needed -->
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
                 <div class="modal-body form-container">
                     <div class="modal-body">
-
                         <div class="modal-body">
                             <ng-container>
                                 <div class="new_transition12">
                                     <div class="d-flex justify-content-center">
-                                        
+
                                         <form [formGroup]="devForm" (ngSubmit)="onSubmit($event)">
                                             <div formArrayName="devList">
                                                 <div *ngFor="let developer of devListArray().controls; let i = index;">
@@ -814,7 +851,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 <td>:</td>
                                                                 <td>
-                                                                    <select  class="select-field" (change)="onStartStateSelected($event)"
+                                                                    <select class="select-field"
+                                                                        (change)="onStartStateSelected($event)"
                                                                         formControlName="startState">
                                                                         <option>{{transitionToEdit.startState}}</option>
                                                                     </select>
@@ -825,7 +863,9 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 <td>:</td>
                                                                 <td>
-                                                                    <select class="select-field" (change)="onEventSelected($event)" formControlName="event">
+                                                                    <select class="select-field"
+                                                                        (change)="onEventSelected($event)"
+                                                                        formControlName="event">
                                                                         <option>{{transitionToEdit.event}}</option>
                                                                     </select>
                                                                 </td>
@@ -842,7 +882,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                         <td>
                                                                             <select class="select-field"
                                                                                 formControlName="stateCode">
-                                                                                <option>{{transitionToEdit.endStateOne?.stateCode}}
+                                                                                <option>
+                                                                                    {{transitionToEdit.endStateOne?.stateCode}}
                                                                             </select>
                                                                         </td>
                                                                     </tr>
@@ -928,8 +969,8 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                                                                                             formControlName="emailTemplate"
                                                                                             class="textAreass"
                                                                                             placeholder="English Email Template"></textarea>
-                                                                                            <!-- <input type="text" class="inputs" formControlName="notificationTitle" -->
-                                                                                            <!-- [(ngModel)]="transitionToEdit.endStateOne.nonBreakingActionList?.[0].args?.frenchNotificationTemplate.notificationTitle" /> -->
+                                                                                        <!-- <input type="text" class="inputs" formControlName="notificationTitle" -->
+                                                                                        <!-- [(ngModel)]="transitionToEdit.endStateOne.nonBreakingActionList?.[0].args?.frenchNotificationTemplate.notificationTitle" /> -->
                                                                                     </div>
                                                                                     <div
                                                                                         formGroupName="kinyarwandaNotificationTemplate">
