@@ -85,11 +85,6 @@ throw new Error('Method not implemented.');
   }
   
 
-
-  // updateConfig(config: transitionConfig, index: number) {
-  //   this.onUpdated.emit({ config: config, index: index });
-  // }
-
   SlotTypeEnum = SlotType;
 
   @ViewChildren(SlotComponent) slots!: QueryList<SlotComponent>;
