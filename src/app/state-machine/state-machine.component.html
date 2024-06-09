@@ -806,7 +806,11 @@ box-shadow: 10px 10px -1px rgba(10, 99, 169, 0.16),
                           <div [formGroupName]="i">
                             <input type="hidden" formControlName="id" />
                   
-                            <input type="text" formControlName="startState" placeholder="* Start State" />
+                            <select class="select-field"
+                            (change)="onStartStateSelected($event)"
+                            formControlName="startState">
+                            <option>{{transitionToEdit.startState}}</option>
+                        </select>
                             <input type="text" formControlName="event" placeholder="* Event" />
                             <!-- <input type="text" formControlName="state" placeholder="* State" /> -->
                   

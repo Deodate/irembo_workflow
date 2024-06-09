@@ -1,10 +1,10 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { IremboTransition, SlotType, stateConfig, transitionConfig } from '../models';
+import { SlotType, stateConfig, transitionConfig } from '../models';
 import { SlotComponent } from '../slot/slot.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormComponent } from 'src/app/form/form.component';
 import { createNewTransitions } from '../state-machine.component';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-transition-new',
@@ -21,14 +21,12 @@ throw new Error('Method not implemented.');
 }
 
   @Input() newTransitionsList: createNewTransitions[] = [];
-  @Input() transitions: IremboTransition[] = [];
   @Input() workflows: stateConfig[] | undefined;
   @Input() data: transitionConfig | undefined;
-  @Output() showModal: EventEmitter<any> = new EventEmitter<any>();
   
   
   @Input() item: any;
-  // showModal: any;
+  showModal: any;
   transition: any;
   showData: boolean | undefined;   
   transitionConfigs: any;
@@ -39,26 +37,15 @@ throw new Error('Method not implemented.');
 
   selectedBreakingAction: string | null = null;
 
-  // constructor(private dialogRef: MatDialog, public el: ElementRef, private fb: FormBuilder) {
-  //   this.creationForm = this.fb.group({
-  //     startState: [''],
-  //     event: [''],
-  //     stateCode: [''],
-  //     breakingAction: [''],
-  //     actionType: ['']
-  //   });
-  // } 
-
   constructor(private dialogRef: MatDialog, public el: ElementRef, private fb: FormBuilder) {
-    this.devForm = this.fb.group({
+    this.creationForm = this.fb.group({
       startState: [''],
       event: [''],
       stateCode: [''],
       breakingAction: [''],
       actionType: ['']
     });
-  }
-  
+  } 
 
   @Output() selectedTransition: EventEmitter<createNewTransitions> = new EventEmitter<createNewTransitions>();
   @Output() displayData: EventEmitter<transitionConfig> = new EventEmitter<transitionConfig>();
@@ -126,91 +113,43 @@ throw new Error('Method not implemented.');
 
   handleClick() {
     console.log("Config data:", this.config);
-    // console.log("Transition card clicked!"); 
 
     if (this.config) {
-      const nonBreakingActionList = this.config.endStateOne?.nonBreakingActionList?.map(action => action.actionType) || [];
-      const nonBreakingActionString = nonBreakingActionList.join(', ');
+        const nonBreakingActionList = this.config.endStateOne?.nonBreakingActionList?.map(action => action.actionType) || [];
+        const nonBreakingActionString = nonBreakingActionList.join(', ');
 
-      const newTransition: createNewTransitions = {
-        id: this.config.id || 0,
-        event: this.config.event || '',
-        startState: this.config.startState || '',
-        endStateOne: {
-          stateName: this.config.endStateOne?.stateName || '',
-          stateCode: this.config.endStateOne?.stateCode || '',
-          breakingAction: this.config.endStateOne?.breakingAction || null,
-          nonBreakingActionList: this.config.endStateOne?.nonBreakingActionList || [],
-        },
-        endStateTwo: this.config.endStateTwo || null,
-        state: '',
-        breakingAction: '',
-        nonBreakingAction: nonBreakingActionString,
-        notificationTitle: undefined
-      };
+        const newTransition: createNewTransitions = {
+          id: this.config.id || 0,
+          event: this.config.event || '',
+          startState: this.config.startState || '',
+          endStateOne: {
+            stateName: this.config.endStateOne?.stateName || '',
+            stateCode: this.config.endStateOne?.stateCode || '',
+            breakingAction: this.config.endStateOne?.breakingAction || null,
+            nonBreakingActionList: this.config.endStateOne?.nonBreakingActionList || [],
+          },
+          endStateTwo: this.config.endStateTwo || null,
+          state: '',
+          breakingAction: '',
+          nonBreakingAction: nonBreakingActionString,
+          notificationTitle: undefined
+        };
 
-      this.selectedTransition.emit(newTransition);
-      this.setFormData(this.config); // Set form data when clicking the card
-      this.displayData.emit(this.config); // Emit the transitionConfig object
-
-      // Open the modal
-      this.openModal();
+        this.selectedTransition.emit(newTransition);
+        this.setFormData(this.config); // Set form data when clicking the card
+        this.displayData.emit(this.config); // Emit the transitionConfig object
     }
-  }
+}
 
-  setFormData(config: transitionConfig) {
-    if (config) {
-      this.devForm.patchValue({
-        startState: config.startState ?? '',
-        event: config.event ?? '',
-        stateCode: config.endStateOne?.stateCode ?? '',
-        breakingAction: config.endStateOne?.breakingAction?.actionType ?? '',
-        actionType: config.endStateOne?.nonBreakingActionList && config.endStateOne.nonBreakingActionList.length > 0 ? config.endStateOne.nonBreakingActionList[0]?.actionType : ''
-      });
-    }
-  }
-  
-
-  // handleClick() {
-  //   console.log("Config data:", this.config);
-
-  //   if (this.config) {
-  //       const nonBreakingActionList = this.config.endStateOne?.nonBreakingActionList?.map(action => action.actionType) || [];
-  //       const nonBreakingActionString = nonBreakingActionList.join(', ');
-
-  //       const newTransition: createNewTransitions = {
-  //         id: this.config.id || 0,
-  //         event: this.config.event || '',
-  //         startState: this.config.startState || '',
-  //         endStateOne: {
-  //           stateName: this.config.endStateOne?.stateName || '',
-  //           stateCode: this.config.endStateOne?.stateCode || '',
-  //           breakingAction: this.config.endStateOne?.breakingAction || null,
-  //           nonBreakingActionList: this.config.endStateOne?.nonBreakingActionList || [],
-  //         },
-  //         endStateTwo: this.config.endStateTwo || null,
-  //         state: '',
-  //         breakingAction: '',
-  //         nonBreakingAction: nonBreakingActionString,
-  //         notificationTitle: undefined
-  //       };
-
-  //       this.selectedTransition.emit(newTransition);
-        // this.setFormData(this.config); // Set form data when clicking the card
-        // this.displayData.emit(this.config); // Emit the transitionConfig object
-    // }
-// }
-
-// setFormData(config: transitionConfig) {
-  // this.creationForm.patchValue({
-//   this.devForm.patchValue({
-//       startState: config.startState,
-//       event: config.event,
-//       stateCode: config.endStateOne?.stateCode || '', 
-//       breakingAction: config.endStateOne?.breakingAction?.actionType || '', 
-//       actionType: config.endStateOne?.nonBreakingActionList && config.endStateOne.nonBreakingActionList.length > 0 ? config.endStateOne.nonBreakingActionList[0]?.actionType : '' // Check if nonBreakingActionList is not empty
-//   });
-// }
+setFormData(config: transitionConfig) {
+  this.creationForm.patchValue({
+      startState: config.startState,
+      event: config.event,
+      stateCode: config.endStateOne?.stateCode || '', 
+      breakingAction: config.endStateOne?.breakingAction?.actionType || '', 
+      actionType: config.endStateOne?.nonBreakingActionList && config.endStateOne.nonBreakingActionList.length > 0 ? config.endStateOne.nonBreakingActionList[0]?.actionType : '' // Check if nonBreakingActionList is not empty
+  });
+}
 
 selectTransition(config: transitionConfig) {
   const newTransition: createNewTransitions = {
@@ -237,7 +176,6 @@ selectTransition(config: transitionConfig) {
 displayTransitionData(config: transitionConfig) {
   this.displayData.emit(config);
 }
-
 
 }
 
