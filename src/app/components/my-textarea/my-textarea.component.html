@@ -1,55 +1,100 @@
-<div class="d-flex justify-content-center" *ngIf="isFormVisible">
-  <form [formGroup]="devForm"  (ngSubmit)="onSubmit($event)">
+<div class="justify-content-center" style="width: 106%;" *ngIf="isFormVisible">
+  <form [formGroup]="devForm" (ngSubmit)="onSubmit($event)">
     <div formArrayName="devList">
       <div *ngFor="let developer of devListArray().controls; let i = index;" class="border border-dark my-2 p-5">
         <div [formGroupName]="i">
           <input type="hidden" formControlName="id" />
 
-          <input type="text" formControlName="startState" placeholder="* Start State" />
-          <input type="text" formControlName="event" placeholder="* Event" />
+          <table class="styled-table">
+            <tr>
+              <td class="label-cell">Start State</td>
+              <td>:</td>
+              <td>
+                <input type="text" class="select-fields" formControlName="startState">
+              </td>
+            </tr>
+            <p></p>
+            <tr>
+              <td class="label-cell">Event</td>
+              <td>:</td>
+              <td>
+                <input type="text" class="select-fields" formControlName="event">
+              </td>
+            </tr>
+          </table>
+
           <!-- <input type="text" formControlName="state" placeholder="* State" /> -->
 
           <div formGroupName="endStateOne">
             <!-- <input type="text" formControlName="stateName" placeholder="* State Name" /> -->
-            <input type="text" formControlName="stateCode" placeholder="* State Code" />
+            <div class="new_transition1">
 
-            <div formGroupName="breakingAction">
-              <input type="text" formControlName="actionType" placeholder="* Breaking Action Type" />
-              <!-- Removed the args input field -->
+              <table class="styled-table">
+                <tr>
+                  <td class="label-cell">State</td>
+                  <td>:</td>
+                  <td>
+                    <input type="text" class="select-fields" formControlName="stateCode">
+                  </td>
+                </tr>
+                <p></p>
+                <tr>
+                  <td class="label-cell">Breaking Action</td>
+                  <td>:</td>
+                  <td formGroupName="breakingAction">
+                    <input type="text" class="select-fields" formControlName="actionType">
+                  </td>
+                </tr>
+              </table>
+
             </div>
+            <p></p>
 
             <div formArrayName="nonBreakingActionList">
               <div *ngFor="let action of nonBreakingActions(i).controls; let j = index;">
                 <div [formGroupName]="j">
                   <mat-expansion-panel [expanded]="isEditing">
                     <mat-expansion-panel-header>
-                      <mat-panel-title>Non-breaking Action {{ j + 1 }}</mat-panel-title>
+                      <mat-panel-title>
+                        <button type="button"   class="btn btn-sm btn-success">                                            
+                        Non-Breaking Action No. {{ j + 1 }} </button></mat-panel-title>  
+                      
                     </mat-expansion-panel-header>
-                    <input type="text" formControlName="actionType" placeholder="* Non-breaking Action Type" />
+                    <p></p>
+                    <input type="text" formControlName="actionType" class="select-fieldss" />
 
                     <div formGroupName="args">
                       <div formGroupName="frenchNotificationTemplate">
-                        <textarea formControlName="smsTemplate" placeholder="French SMS Template"></textarea>
-                        <textarea formControlName="emailTemplate" placeholder="French Email Template"></textarea>
-                        <input type="text" formControlName="notificationTitle" placeholder="French Notification Title" />
+                        <textarea formControlName="smsTemplate"   placeholder="French SMS Template" style="width: 90%;  border: 1px solid  #148412;  padding: 5px;  margin: 5px;  border-radius: 4px;  background-color: #f0f0f0; color: #333;  text-align: center;"></textarea>
+                        <textarea formControlName="emailTemplate"  placeholder="French Email Template" style="width: 90%;  border: 1px solid  #0060d3;  padding: 5px;  margin: 5px;  border-radius: 4px;   background-color: #f0f0f0; color: #333;  text-align: center;"></textarea>
+                        <input type="text" formControlName="notificationTitle"
+                        class="select-fieldss"  placeholder="French Notification Title" />
                       </div>
                       <div formGroupName="englishNotificationTemplate">
-                        <textarea formControlName="smsTemplate" placeholder="English SMS Template"></textarea>
-                        <textarea formControlName="emailTemplate" placeholder="English Email Template"></textarea>
-                        <input type="text" formControlName="notificationTitle" placeholder="English Notification Title" />
+                        <textarea formControlName="smsTemplate" formControlName="emailTemplate"  placeholder="English SMS Template"  style="width: 90%;  border: 1px solid  #148412;  padding: 5px;  margin: 5px;  border-radius: 4px;  background-color: #f0f0f0; color: #333;  text-align: center;"></textarea>
+                        <textarea formControlName="emailTemplate"  placeholder="English Email Template"  style="width: 90%;  border: 1px solid  #0060d3;  padding: 5px;  margin: 5px;  border-radius: 4px;  background-color: #f0f0f0; color: #333;  text-align: center;"></textarea>
+                        <input type="text"   placeholder="English Notification Title" formControlName="notificationTitle"
+                        class="select-fieldss" />
                       </div>
                       <div formGroupName="kinyarwandaNotificationTemplate">
-                        <textarea formControlName="smsTemplate" placeholder="Kinyarwanda SMS Template"></textarea>
-                        <textarea formControlName="emailTemplate" placeholder="Kinyarwanda Email Template"></textarea>
-                        <input type="text" formControlName="notificationTitle" placeholder="Kinyarwanda Notification Title" />
+                        <textarea formControlName="smsTemplate" placeholder="Kinyarwanda SMS Template"  style="width: 90%;  border: 1px solid  #148412;  padding: 5px;  margin: 5px;  border-radius: 4px;  background-color: #f0f0f0; color: #333;  text-align: center;"></textarea>
+                        <textarea formControlName="emailTemplate"  placeholder="Kinyarwanda Email Template"  style="width: 90%;  border: 1px solid  #0060d3;  padding: 5px;  margin: 5px;  border-radius: 4px;  background-color: #f0f0f0; color: #333;  text-align: center;"></textarea>
+                        <input type="text" formControlName="notificationTitle"
+                        class="select-fieldss"   placeholder="Kinyarwanda Notification Title" />
                       </div>
                     </div>
                     <p></p>
-                    <button type="button" *ngIf="nonBreakingActions(i).length > 1" class="btn btn-sm btn-danger ms-1" (click)="removeNonBreakingAction(i, j)">Remove</button>
+                    <div class="button-container">
+                      <button type="button" *ngIf="nonBreakingActions(i).length > 1" class="btn btn-sm btn-danger ms-1"
+                        (click)="removeNonBreakingAction(i, j)">Remove</button>
+                    </div>
                   </mat-expansion-panel>
                 </div>
               </div>
-              <button type="button" class="btn btn-sm btn-warning" (click)="addNonBreakingAction(i)">+</button>
+              <div class="button-containers">
+                <button type="button" class="btn btn-sm btn-primary" (click)="addNonBreakingAction(i)">Add
+                  Non-Breaking Action</button>
+              </div>
             </div>
           </div>
         </div>
@@ -58,18 +103,19 @@
     <!-- <button type="button" class="btn btn-sm btn-primary mt-4 mb-5" (click)="addNonBreakingActionToFirst()">Add Non-breaking Action to First Developer</button> -->
     <!-- <button type="submit" class="btn btn-sm btn-success mt-4 mb-5">Submit</button> -->
     <!-- <button type="button" class="btn btn-sm btn-info mt-4 mb-5" (click)="saveFormData()">Save</button> -->
-    <button *ngIf="isEditing" type="button" class="btn btn-sm btn-warning mt-4 mb-5" data-bs-dismiss="modal" (click)="updateDev()">Update</button>
+    <button *ngIf="isEditing" type="button" class="btn btn-sm btn-warning mt-4 mb-5" data-bs-dismiss="modal"
+      (click)="updateDev()">Update</button>
   </form>
 </div>
 
-<div class="container mt-5"  style="margin-left: -20px; font-size: 10px; color:#000;">
+<div class="container mt-5" style="margin-left: -20px; font-size: 10px; color:#000;">
   <!-- <input type="text" class="form-control mb-3" placeholder="Search by Start State" [(ngModel)]="searchText" (input)="search()"> -->
   <table class="table table-bordered">
     <thead>
       <tr>
         <th>Start State</th>
         <th>Event</th>
-        <th>End State Code</th>
+        <th>Non-Breking Action</th>
         <!-- <th>Breaking Action Type</th> -->
         <!-- <th>Non-breaking Actions</th> -->
         <th>Actions</th>
@@ -79,7 +125,7 @@
       <tr *ngFor="let dev of filteredData; let index = index">
         <td>{{ dev.startState }}</td>
         <td>{{ dev.event }}</td>
-        <td>{{ dev.endStateOne.stateCode }}</td>
+        <td> <button type="button" class="btn btn-warning btn-sm me-1" (click)="editDev(index)">Add</button></td>
         <!-- <td>{{ dev.endStateOne.breakingAction?.actionType }}</td> -->
         <!-- <td>
           <ul>
@@ -89,6 +135,7 @@
           </ul>
         </td> -->
         <td>
+
           <button type="button" class="btn btn-outline-primary btn-sm me-1" (click)="editDev(index)">Update</button>
           <!-- <button type="button" class="btn btn-sm btn-danger" (click)="deleteDev(index)">Delete</button> -->
         </td>
