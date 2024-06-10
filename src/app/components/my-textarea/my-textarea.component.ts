@@ -240,6 +240,10 @@ export class MyTextareaComponent implements OnInit {
       this.devForm.setControl('devList', this.fb.array([])); // Clear the form array
       this.addDev(); // Add a new blank entry
     }
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   }
 
   // Add this method to delete developer data

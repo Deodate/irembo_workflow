@@ -44,7 +44,14 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   editIndex: number | null = null; 
   filteredData: any[] = [];
   searchText: string = '';
-  isFormVisible: boolean = false
+  isFormVisible: boolean = false;
+  showUpdateForm: boolean = true
+
+
+
+  toggleUpdateFormVisibility() {
+    this.showUpdateForm = !this.showUpdateForm;
+  }
 
 
   search() {
@@ -53,9 +60,6 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
     );
     console.log('Filtered Data:', this.filteredData); // Log the filtered data
   }
-
-
-
 
   drop($event: CdkDragDrop<Workflow, any, any>) {
     throw new Error('Method not implemented.');
@@ -643,6 +647,10 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
       devList: this.fb.array([])
     });
     this.idCounter = 0;
+
+    this.updateForm = this.fb.group({
+      // Define your form controls here
+    });
 
   }
 
