@@ -115,24 +115,43 @@ throw new Error('Method not implemented.');
     console.log("Config data:", this.config);
 
     if (this.config) {
-        const nonBreakingActionList = this.config.endStateOne?.nonBreakingActionList?.map(action => action.actionType) || [];
-        const nonBreakingActionString = nonBreakingActionList.join(', ');
+        const nonBreakingActionList = this.config.endStateOne?.nonBreakingActionList?.map(action => ({
+            actionType: action.actionType,
+            args: {
+                frenchNotificationTemplate: {
+                    smsTemplate: action.args.frenchNotificationTemplate.smsTemplate,
+                    emailTemplate: action.args.frenchNotificationTemplate.emailTemplate,
+                    notificationTitle: action.args.frenchNotificationTemplate.notificationTitle
+                },
+                englishNotificationTemplate: {
+                    smsTemplate: action.args.englishNotificationTemplate.smsTemplate,
+                    emailTemplate: action.args.englishNotificationTemplate.emailTemplate,
+                    notificationTitle: action.args.englishNotificationTemplate.notificationTitle
+                },
+                kinyarwandaNotificationTemplate: {
+                    smsTemplate: action.args.kinyarwandaNotificationTemplate.smsTemplate,
+                    emailTemplate: action.args.kinyarwandaNotificationTemplate.emailTemplate,
+                    notificationTitle: action.args.kinyarwandaNotificationTemplate.notificationTitle
+                }
+            }
+        })) || [];
+        const nonBreakingActionString = nonBreakingActionList.map(action => action.actionType).join(', ');
 
         const newTransition: createNewTransitions = {
-          id: this.config.id || 0,
-          event: this.config.event || '',
-          startState: this.config.startState || '',
-          endStateOne: {
-            stateName: this.config.endStateOne?.stateName || '',
-            stateCode: this.config.endStateOne?.stateCode || '',
-            breakingAction: this.config.endStateOne?.breakingAction || null,
-            nonBreakingActionList: this.config.endStateOne?.nonBreakingActionList || [],
-          },
-          endStateTwo: this.config.endStateTwo || null,
-          state: '',
-          breakingAction: '',
-          nonBreakingAction: nonBreakingActionString,
-          notificationTitle: undefined
+            id: this.config.id || 0,
+            event: this.config.event || '',
+            startState: this.config.startState || '',
+            endStateOne: {
+                stateName: this.config.endStateOne?.stateName || '',
+                stateCode: this.config.endStateOne?.stateCode || '',
+                breakingAction: this.config.endStateOne?.breakingAction || null,
+                nonBreakingActionList: nonBreakingActionList,
+            },
+            endStateTwo: this.config.endStateTwo || null,
+            state: '',
+            breakingAction: '',
+            nonBreakingAction: nonBreakingActionString,
+            notificationTitle: undefined
         };
 
         this.selectedTransition.emit(newTransition);
@@ -140,6 +159,37 @@ throw new Error('Method not implemented.');
         this.displayData.emit(this.config); // Emit the transitionConfig object
     }
 }
+
+
+//   handleClick() {
+//     console.log("Config data:", this.config);
+
+//     if (this.config) {
+//         const nonBreakingActionList = this.config.endStateOne?.nonBreakingActionList?.map(action => action.actionType) || [];
+//         const nonBreakingActionString = nonBreakingActionList.join(', ');
+
+//         const newTransition: createNewTransitions = {
+//           id: this.config.id || 0,
+//           event: this.config.event || '',
+//           startState: this.config.startState || '',
+//           endStateOne: {
+//             stateName: this.config.endStateOne?.stateName || '',
+//             stateCode: this.config.endStateOne?.stateCode || '',
+//             breakingAction: this.config.endStateOne?.breakingAction || null,
+//             nonBreakingActionList: this.config.endStateOne?.nonBreakingActionList || [],
+//           },
+//           endStateTwo: this.config.endStateTwo || null,
+//           state: '',
+//           breakingAction: '',
+//           nonBreakingAction: nonBreakingActionString,
+//           notificationTitle: undefined
+//         };
+
+//         this.selectedTransition.emit(newTransition);
+//         this.setFormData(this.config); // Set form data when clicking the card
+//         this.displayData.emit(this.config); // Emit the transitionConfig object
+//     }
+// }
 
 setFormData(config: transitionConfig) {
   this.creationForm.patchValue({
@@ -151,6 +201,27 @@ setFormData(config: transitionConfig) {
   });
 }
 
+// selectTransition(config: transitionConfig) {
+//   const newTransition: createNewTransitions = {
+//     id: config.id,
+//     event: config.event,
+//     startState: config.startState,
+//     endStateOne: {
+//       stateName: config.endStateOne?.stateName || '',
+//       stateCode: config.endStateOne?.stateCode || '',
+//       breakingAction: config.endStateOne?.breakingAction || null,
+//       nonBreakingActionList: config.endStateOne?.nonBreakingActionList || [],
+//     },
+//     endStateTwo: config.endStateTwo || null,
+//     state: '',
+//     breakingAction: '',
+//     nonBreakingAction: '',
+//     notificationTitle: undefined
+//   };
+
+//   this.selectedTransition.emit(newTransition);
+// }
+
 selectTransition(config: transitionConfig) {
   const newTransition: createNewTransitions = {
     id: config.id,
@@ -160,7 +231,26 @@ selectTransition(config: transitionConfig) {
       stateName: config.endStateOne?.stateName || '',
       stateCode: config.endStateOne?.stateCode || '',
       breakingAction: config.endStateOne?.breakingAction || null,
-      nonBreakingActionList: config.endStateOne?.nonBreakingActionList || [],
+      nonBreakingActionList: config.endStateOne?.nonBreakingActionList?.map(action => ({
+        actionType: action.actionType,
+        args: {
+          frenchNotificationTemplate: {
+            smsTemplate: action.args.frenchNotificationTemplate.smsTemplate,
+            emailTemplate: action.args.frenchNotificationTemplate.emailTemplate,
+            notificationTitle: action.args.frenchNotificationTemplate.notificationTitle
+          },
+          englishNotificationTemplate: {
+            smsTemplate: action.args.englishNotificationTemplate.smsTemplate,
+            emailTemplate: action.args.englishNotificationTemplate.emailTemplate,
+            notificationTitle: action.args.englishNotificationTemplate.notificationTitle
+          },
+          kinyarwandaNotificationTemplate: {
+            smsTemplate: action.args.kinyarwandaNotificationTemplate.smsTemplate,
+            emailTemplate: action.args.kinyarwandaNotificationTemplate.emailTemplate,
+            notificationTitle: action.args.kinyarwandaNotificationTemplate.notificationTitle
+          }
+        }
+      })) || [],
     },
     endStateTwo: config.endStateTwo || null,
     state: '',
@@ -171,6 +261,7 @@ selectTransition(config: transitionConfig) {
 
   this.selectedTransition.emit(newTransition);
 }
+
 
 
 displayTransitionData(config: transitionConfig) {

@@ -472,10 +472,50 @@ export class StateMachineComponent implements OnInit, AfterViewInit {
   selectedBreakingAction: string = '';
   selectedNonBreakingAction: string = '';
   selectedTransitions: any[] = [];
+  // transitionToEdit: transitionConfig = {
+  //   description: '', names: '', name: '', startState: '', event: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, emailTemplate: '', notificationTitle: '', smsTemplate: '', position: { x: 0, y: 0 },
+  //   id: 0
+  // };
+
   transitionToEdit: transitionConfig = {
-    description: '', names: '', name: '', startState: '', event: '', endStateOne: undefined, breakingAction: undefined, endStateTwo: undefined, emailTemplate: '', notificationTitle: '', smsTemplate: '', position: { x: 0, y: 0 },
-    id: 0
+    id: 0,
+    event: '',
+    description: '',
+    name: '',
+    names: '',
+    startState: '',
+    emailTemplate: '',
+    smsTemplate: '',
+    notificationTitle: '',
+    position: { x: 0, y: 0 },
+    endStateOne: {
+      stateCode: '',
+      stateName: '',
+      breakingAction: {
+        actionType: '',
+        args: {
+          frenchNotificationTemplate: { smsTemplate: '', emailTemplate: '', notificationTitle: '' },
+          englishNotificationTemplate: { smsTemplate: '', emailTemplate: '', notificationTitle: '' },
+          kinyarwandaNotificationTemplate: { smsTemplate: '', emailTemplate: '', notificationTitle: '' }
+        }
+      },
+      nonBreakingActionList: [
+        {
+          actionType: '',
+          args: {
+            frenchNotificationTemplate: { smsTemplate: '', emailTemplate: '', notificationTitle: '' },
+            englishNotificationTemplate: { smsTemplate: '', emailTemplate: '', notificationTitle: '' },
+            kinyarwandaNotificationTemplate: { smsTemplate: '', emailTemplate: '', notificationTitle: '' }
+          }
+        }
+      ]
+    },
+    endStateTwo: undefined,
+    breakingAction: undefined,
+    nonBreakingActionList: []
   };
+  
+  
 
   onStartStateSelected(event: any): void {
     const value = event.target?.value;
