@@ -9,7 +9,7 @@
                         <mat-form-field appearance="outline">
                             <input formControlName="item" matInput placeholder="Create New Task *">
                             <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-                            <mat-hint>Create New Transition</mat-hint>
+                            <mat-hint>Create New Transition.</mat-hint>
                         </mat-form-field>
                         <div style="display: flex; justify-content: center; margin: 25px;">
                             <button *ngIf="!isEditEnabled" (click)="addTask()" [disabled]="todoForm.invalid"
